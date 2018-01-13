@@ -1,14 +1,52 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+
+<ion-content padding [ngClass]="'home__Content'">
+
+	<ion-header>
+		<ion-title [ngClass]="'is__Header'">
+			<h1>RADAR DOG</h1>
+			<div [ngClass]="'is__Subcontent'">
+				<small>Primera aplicación en tiempo real</small>
+			</div>
+		</ion-title>
+	</ion-header>
+
+	<div [ngClass]="'is__Map'">
+
+		<div [ngClass]="'is__Show'">
+			<div [ngClass]="'is__Bg'">
+				<img src="http://www.pngmart.com/files/1/Dog-PNG-Image.png" alt="">
+			</div>
+		</div>
+
+		<div [ngClass]="'is__Options'">
+			<header [ngClass]="'is__SubHeader'">
+				<h2>Accede para continuar</h2>
+			</header>
+			<ul [ngClass]="'is__Socials'">
+
+				<li [ngClass]="'list'">
+					<a  [ngClass]="'link'">
+						Ingresar con facebook
+					</a>
+				</li>
+				
+				<li [ngClass]="'list'">
+					<a  [ngClass]="'link'">
+						Ingresar con google
+					</a>
+				</li>
+
+				<li [ngClass]="'list'">
+					<a  [ngClass]="'link'">
+						Ingresar con email
+					</a>
+				</li>
+
+			</ul>
+		</div>
+		
+
+	</div>
+
 </ion-content>
