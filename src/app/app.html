@@ -1,1 +1,17 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="content">
+  <ion-content>
+
+    <img src="assets/imgs/app.jpg" alt="">
+
+    <ion-list>
+      <button *ngFor="let data of pages"
+               (click)="openPage(data)"
+               menuClose ion-item color="light">
+        {{ data.title }}
+      </button>
+    </ion-list>
+
+  </ion-content>
+</ion-menu>
+
+<ion-nav #content [root]="rootPage"></ion-nav>

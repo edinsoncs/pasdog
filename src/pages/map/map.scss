@@ -1,0 +1,32 @@
+ion-app._gmaps_cdv_ .nav-decor{
+  background-color: transparent !important;
+}
+
+page-map {
+  ion-header{
+    width: 68px;
+    .toolbar-background{
+      background: none;
+    }
+    &::after{
+      content: none !important;
+    }
+    button[menutoggle]{
+      background: color($colors, light, base) !important;
+      margin-top: 6px;
+      margin-bottom: 6px;
+      height: 42px;
+      box-shadow: 0 3px 10px rgba(0,0,0,.2)
+    }
+  }
+
+  background: none !important;
+  background: #DDD !important;
+  ion-content{
+    background: none !important;
+  }
+
+  #map{
+    height: 100%;
+  }
+}
