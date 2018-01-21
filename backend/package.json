@@ -15,5 +15,17 @@
   "bugs": {
     "url": "https://github.com/ockang/pasdog/issues"
   },
-  "homepage": "https://github.com/ockang/pasdog#readme"
+  "homepage": "https://github.com/ockang/pasdog#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "hotnode": "0.0.8",
+    "jsonwebtoken": "^8.1.0",
+    "mongodb": "^3.0.1",
+    "mongoose": "^5.0.1",
+    "monk": "^6.0.5"
+  }
 }
