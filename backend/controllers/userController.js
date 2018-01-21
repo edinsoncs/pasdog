@@ -93,3 +93,44 @@ exports.register = (req, res, next) => {
 
 
 }
+
+
+exports.access_email = (req, res, next) => {
+
+	User.findOne({
+		email: req.body.email
+	}, (err, user) => {
+
+
+		if(err) throw err;
+
+
+		if (!user || !user.comparePassword(req.body.password)) {
+	      return res.status(401).json({ message: message('fail_access_es') });
+	    }
+
+		return res.json({
+			token: jwt.sign({ email: user.email, name: user.name, _id: user._id }, 'p4stx!d39xz<!ag'),
+			name: user.name,
+			city: user.city,
+			email: user.email
+		});
+
+
+	});
+
+}
+
+exports.loginRequired = (req, res, next) => {
+	if(req.user) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+exports.userErr = (req, res, next) => {
+
+	return res.status(401).json({ message: message('fail_user_es') });
+
+}
