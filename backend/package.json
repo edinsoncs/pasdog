@@ -1,0 +1,19 @@
+{
+  "name": "pasdocbackend",
+  "version": "0.0.1",
+  "description": "The backend PasDoc",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ockang/pasdog.git"
+  },
+  "author": "Team Pasdoc",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ockang/pasdog/issues"
+  },
+  "homepage": "https://github.com/ockang/pasdog#readme"
+}
