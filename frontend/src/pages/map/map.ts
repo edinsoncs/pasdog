@@ -75,20 +75,17 @@ export class MapPage {
 
           // Now you can use all methods safely.
           this.map.addMarker({
-              title: 'Ionic',
-              icon: 'blue',
+              title: 'Carla Rodríguez',
+              icon: 'red',
               animation: 'DROP',
               position: {
-                lat: -34.7874879,
-                lng: -58.3311765
+                lat: -34.608682,
+                lng: -58.3764658
               }
             })
             .then(marker => {
-
               marker.on(GoogleMapsEvent.MARKER_CLICK)
                 .subscribe(() => {
-                  alert('clicked');
-
                   self.userPreview()
                 });
             });

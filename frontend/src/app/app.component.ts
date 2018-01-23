@@ -21,10 +21,11 @@ export class MyApp {
   pages:any
 
   constructor(
-    platform: Platform,
-    statusBar: StatusBar,
-    splashScreen: SplashScreen,
+    public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
   ) {
+    let self = this
 
     this.pages = [
       {
@@ -49,12 +50,12 @@ export class MyApp {
       }
     ]
 
-    platform.ready().then(() => {
+    this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      statusBar.overlaysWebView(false);
-      statusBar.backgroundColorByHexString('#82CDB9');
-      splashScreen.hide();
+      self.statusBar.overlaysWebView(false);
+      self.statusBar.backgroundColorByHexString('#82CDB9');
+      self.splashScreen.hide();
     });
 
   }

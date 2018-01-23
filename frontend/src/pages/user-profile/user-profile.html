@@ -42,10 +42,10 @@
 
 
   <ion-segment [(ngModel)]="tab">
-    <ion-segment-button value="tab1">
+    <ion-segment-button value="tab1" (tap)="tab = 'tab1'">
       Información
     </ion-segment-button>
-    <ion-segment-button value="tab2">
+    <ion-segment-button value="tab2" (tap)="tab = 'tab2'">
       Opiniones
     </ion-segment-button>
   </ion-segment>
