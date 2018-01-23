@@ -4,10 +4,10 @@ This api in Nodejs - use framework expressjs - jwt - mongoose - monk - mongodb -
 
 ## List of avaiable methods
 
-| Route | Method | Params | Description |
+| Route | Method | Description |
 |--------|--------|--------|
 | `/` | `GET` | Hello World Route |
-| `http://46.101.73.97:3000/api/newuser/` | `POST`  | `EMAIL: STRING, PASSWORD:STRING, CITY:STRING, CITY:STRING` | Return data |
+| `http://46.101.73.97:3000/api/newuser/` | `POST` | Return data |
 
 ### Example: Body of the request
 
