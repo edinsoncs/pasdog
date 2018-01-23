@@ -7,7 +7,9 @@ This api in Nodejs - use framework expressjs - jwt - mongoose - monk - mongodb -
 | Route | Method | Description |
 |--------|--------|--------|
 | `/` | `GET` | Hello World Route |
-| `http://46.101.73.97:3000/api/newuser/` | `POST` | Return data |
+| `1. http://46.101.73.97:3000/api/newuser/` | `POST` | Return data |
+| `2. http://46.101.73.97:3000/api/access/` | `POST` | Return data and token |
+| `3. http://46.101.73.97:3000/api/profile/` | `POST` | Return data user complet|
 
 ### Example: Body of the request
 
