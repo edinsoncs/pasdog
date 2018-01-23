@@ -13,6 +13,16 @@ This api in Nodejs - use framework expressjs - jwt - mongoose - monk - mongodb -
 
 ### Example: Body of the request
 
+###1.
+```json
+{
+    "email": "edinsoncode@gmail.com",
+    "name": "edinson carranza",
+    "password": "1234567",
+    "city": "Argentina"
+}
+```
+
 
 ## Tools and modules used
 
