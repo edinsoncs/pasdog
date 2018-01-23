@@ -13,13 +13,29 @@ This api in Nodejs - use framework expressjs - jwt - mongoose - monk - mongodb -
 
 ### Example: Body of the request
 
-###1.
+Method 1. newuser
 ```json
 {
     "email": "edinsoncode@gmail.com",
     "name": "edinson carranza",
     "password": "1234567",
     "city": "Argentina"
+}
+```
+
+Method 2. access
+```json
+{
+    "email": "edinsoncode@gmail.com",
+    "password": "1234567"
+}
+```
+
+Method 3. access
+```json
+{
+    "Authorization": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkaW5zb25jb2RlQGhvdG1haWwuY29tIiwibmFtZSI6IkVkaW5zb24gQ2FycmFuemEiLCJfaWQiOiI1YTY0YWY3Mjk0MWE0YTgzMWFlNDlhZWQiLCJpYXQiOjE1MTY1NTM1NzV9.y3ltGB-WehYZ2Ylc-yY70bCWrqf4Nqe4YwIeqGpWeWc"
+    
 }
 ```
 
