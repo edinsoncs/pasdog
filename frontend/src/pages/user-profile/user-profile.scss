@@ -1,0 +1,61 @@
+page-user-profile {
+
+  .is__Header{
+    display: flex;
+    align-items: center;
+
+    ion-avatar{
+      img{
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+      }
+    }
+
+    .is__Name{
+      font-weight: 400;
+      margin-left: 22px;
+      font-size: 1.5em;
+    }
+  }
+
+
+  .is__Reputation{
+    padding: 10px 16px 25px !important;
+
+    ion-icon{
+      font-size: 1.75em;
+      margin-right: 6px;
+    }
+    p.is__Price{
+      font-size: 2em;
+      font-weight: 500;
+      color: color($colors, primary, base);
+    }
+    span{
+      margin-top: 6px;
+      display: block;
+      width: 100%;
+    }
+  }
+
+
+  ion-segment{
+    border-top: 1px solid #DDD
+  }
+
+
+  .is__Body{
+    padding: 6px 0;
+  }
+
+
+  ion-footer{
+    button.button-md{
+      margin: 0;
+      height: 44px;
+      font-weight: 400;
+      font-size: 1.2em;
+    }
+  }
+}

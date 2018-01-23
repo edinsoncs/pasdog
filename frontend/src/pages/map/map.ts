@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import {
  GoogleMaps,
  GoogleMap,
@@ -10,6 +10,9 @@ import {
  Marker
 } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
+
+// pages
+import { UserPreviewPage } from '../user-preview/user-preview';
 
 
 @Component({
@@ -26,6 +29,7 @@ export class MapPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public modalCtrl: ModalController,
     private _googleMaps: GoogleMaps,
     private _geolocation: Geolocation
   ) { }
@@ -35,6 +39,8 @@ export class MapPage {
   }
 
   loadMap(latitude?: number, longitude?: number) {
+
+    let self = this
 
     if(!latitude && !longitude){
       this.geolocation();
@@ -73,14 +79,17 @@ export class MapPage {
               icon: 'blue',
               animation: 'DROP',
               position: {
-                lat: latitude+200,
-                lng: latitude-200
+                lat: -34.7874879,
+                lng: -58.3311765
               }
             })
             .then(marker => {
+
               marker.on(GoogleMapsEvent.MARKER_CLICK)
                 .subscribe(() => {
                   alert('clicked');
+
+                  self.userPreview()
                 });
             });
 
@@ -103,6 +112,12 @@ export class MapPage {
         this.loadMap(this.defaultLatitude, this.defaultLongitude);
       }
     );
+  }
+
+
+  userPreview() {
+    let modal = this.modalCtrl.create(UserPreviewPage)
+        modal.present()
   }
 
 }

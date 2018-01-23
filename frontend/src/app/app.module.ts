@@ -9,12 +9,16 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
+import { UserPreviewPage } from '../pages/user-preview/user-preview';
+import { UserProfilePage } from '../pages/user-profile/user-profile';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    MapPage
+    MapPage,
+    UserPreviewPage,
+    UserProfilePage
   ],
   imports: [
     BrowserModule,
@@ -24,7 +28,9 @@ import { MapPage } from '../pages/map/map';
   entryComponents: [
     MyApp,
     HomePage,
-    MapPage
+    MapPage,
+    UserPreviewPage,
+    UserProfilePage
   ],
   providers: [
     StatusBar,

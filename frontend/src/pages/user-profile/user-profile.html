@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-navbar>
+
+    <ion-title text-center>Perfil</ion-title>
+
+    <ion-buttons end no-margin>
+      <button ion-button icon-only>
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <div class="is__Header" padding>
+    <ion-avatar item-start>
+      <img src="https://ta.azureedge.net/p/images/usuarios/l/878872.jpg/300x300cut/?v=2">
+    </ion-avatar>
+    <h3 class="is__Name" no-margin>Carla Rodríguez</h3>
+  </div>
+
+  <ion-grid class="is__Reputation" no-padding>
+    <ion-row>
+      <ion-col col-6>
+        <ion-icon name="star" color="danger"></ion-icon>
+        <ion-icon name="star" color="danger"></ion-icon>
+        <ion-icon name="star" color="danger"></ion-icon>
+        <ion-icon name="star" color="danger"></ion-icon>
+        <ion-icon name="star" color="danger"></ion-icon>
+        <span>4.3 en 138 votos</span>
+      </ion-col>
+      <ion-col col-6 text-center>
+        <p class="is__Price" no-margin>
+          $ 140
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-segment [(ngModel)]="tab">
+    <ion-segment-button value="tab1">
+      Información
+    </ion-segment-button>
+    <ion-segment-button value="tab2">
+      Opiniones
+    </ion-segment-button>
+  </ion-segment>
+
+
+  <div [ngSwitch]="tab" class="is__Body">
+    <div *ngSwitchCase="'tab1'" padding>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      <br><br>
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </div>
+
+    <div *ngSwitchCase="'tab2'">
+
+    </div>
+  </div>
+
+</ion-content>
+
+
+<ion-footer>
+  <button ion-button full color="secondary" no-margin>
+    Contratar
+  </button>
+</ion-footer>

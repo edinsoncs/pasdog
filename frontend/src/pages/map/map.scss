@@ -5,12 +5,6 @@ ion-app._gmaps_cdv_ .nav-decor{
 page-map {
   ion-header{
     width: 68px;
-    .toolbar-background{
-      background: none;
-    }
-    &::after{
-      content: none !important;
-    }
     button[menutoggle]{
       background: color($colors, light, base) !important;
       margin-top: 6px;
@@ -19,7 +13,6 @@ page-map {
       box-shadow: 0 3px 10px rgba(0,0,0,.2)
     }
   }
-
   background: none !important;
   background: #DDD !important;
   ion-content{
@@ -29,4 +22,21 @@ page-map {
   #map{
     height: 100%;
   }
+
+  ion-searchbar{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    &.searchbar-md{
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-bottom: 20px;
+    }
+    .searchbar-search-icon{
+      color: color($colors, primary, base)
+    }
+  }
+
 }

@@ -28,11 +28,23 @@ export class MyApp {
 
     this.pages = [
       {
-        title: 'Home',
-        component: HomePage
+        title: 'Inicio',
+        component: MapPage
       },
       {
-        title: 'Mapa',
+        title: 'Contratados',
+        component: MapPage
+      },
+      {
+        title: 'Historial',
+        component: MapPage
+      },
+      {
+        title: 'Mis pagos',
+        component: MapPage
+      },
+      {
+        title: 'Configuración',
         component: MapPage
       }
     ]
