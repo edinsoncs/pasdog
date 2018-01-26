@@ -7,9 +7,6 @@ page-map {
     width: 68px;
     button[menutoggle]{
       background: color($colors, light, base) !important;
-      margin-top: 6px;
-      margin-bottom: 6px;
-      height: 42px;
       box-shadow: 0 3px 10px rgba(0,0,0,.2)
     }
   }

@@ -42,6 +42,11 @@ ion-header{
   &::after{
     content: none !important;
   }
+  button[menutoggle]{
+    margin-top: 6px;
+    margin-bottom: 6px;
+    height: 42px;
+  }
   button.back-button{
     color: color($colors, primary, base);
   }

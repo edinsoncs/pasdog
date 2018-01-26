@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
+import { HistoryPage } from '../pages/history/history';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class MyApp {
       },
       {
         title: 'Historial',
-        component: MapPage
+        component: HistoryPage
       },
       {
         title: 'Mis pagos',

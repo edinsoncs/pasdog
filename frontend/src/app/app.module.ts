@@ -11,6 +11,7 @@ import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
 import { UserPreviewPage } from '../pages/user-preview/user-preview';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
+import { HistoryPage } from '../pages/history/history';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { UserProfilePage } from '../pages/user-profile/user-profile';
     HomePage,
     MapPage,
     UserPreviewPage,
-    UserProfilePage
+    UserProfilePage,
+    HistoryPage
   ],
   imports: [
     BrowserModule,
@@ -30,7 +32,8 @@ import { UserProfilePage } from '../pages/user-profile/user-profile';
     HomePage,
     MapPage,
     UserPreviewPage,
-    UserProfilePage
+    UserProfilePage,
+    HistoryPage
   ],
   providers: [
     StatusBar,
