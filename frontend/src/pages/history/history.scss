@@ -3,6 +3,7 @@ page-history {
   ion-note{
     display: block;
     margin: 16px 0 3px;
+    font-size: .9em;
   }
 
   .is__History{
@@ -12,7 +13,7 @@ page-history {
       padding-top: 0;
       padding-bottom: 0;
       display: flex;
-      box-shadow: 0 4px 10px rgba(0,0,0,.15);
+      box-shadow: 0 3px 6px rgba(0,0,0,.15);
       margin-top: -1px;
       .item-inner{
         border: none !important
