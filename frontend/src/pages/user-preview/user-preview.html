@@ -1,0 +1,36 @@
+<ion-content padding>
+
+  <div class="is__Dismisser" (click)="dismiss()"></div>
+
+
+  <ion-card>
+
+    <ion-item padding-top>
+      <ion-avatar item-start>
+        <img src="https://ta.azureedge.net/p/images/usuarios/l/878872.jpg/300x300cut/?v=2">
+      </ion-avatar>
+      <h2 class="is__Name">Carla Rodríguez</h2>
+      <p class="is__Price">$ 140</p>
+    </ion-item>
+
+    <ion-card-content>
+      <ion-row>
+        <ion-col col-8 class="is__Reputation">
+          <ion-icon name="star" color="danger"></ion-icon>
+          <ion-icon name="star" color="danger"></ion-icon>
+          <ion-icon name="star" color="danger"></ion-icon>
+          <ion-icon name="star" color="danger"></ion-icon>
+          <ion-icon name="star" color="danger"></ion-icon>
+        </ion-col>
+        <ion-col col-4>
+          <button ion-button clear small (click)="openProfile()">
+            Ver perfil
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+
+  </ion-card>
+
+
+</ion-content>

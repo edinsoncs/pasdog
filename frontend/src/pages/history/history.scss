@@ -1,0 +1,48 @@
+page-history {
+
+  ion-note{
+    display: block;
+    margin: 16px 0 3px;
+  }
+
+  .is__History{
+    padding: 10px;
+
+    .is__History__Item{
+      padding-top: 0;
+      padding-bottom: 0;
+      display: flex;
+      box-shadow: 0 4px 10px rgba(0,0,0,.15);
+      margin-top: -1px;
+      .item-inner{
+        border: none !important
+      }
+      ion-avatar{
+        margin-top: 3px;
+        margin-right: 10px;
+        img{
+          width: 45px;
+          height: 45px;
+        }
+      }
+      .is__Price{
+        p{
+          font-size: 1.3em;
+          color: color($colors, primary, base);
+          padding-right: 0;
+        }
+      }
+      .is__Reputation{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding-left: 0;
+        ion-icon{
+          font-size: 1.3em;
+          margin-right: 6px;
+        }
+      }
+    }
+  }
+
+}
