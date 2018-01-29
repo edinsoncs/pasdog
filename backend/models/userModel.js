@@ -17,6 +17,10 @@ let UserSchema = new Schema({
 	role: Boolean,
 	avatar: String,
 	city: String,
+	
+	//Price user if "PASEADOR DE MASCOTAS => return number" else "USUARIO NORMAL => return 0"
+	price: Number,
+	
 	create: Date
 
 });
