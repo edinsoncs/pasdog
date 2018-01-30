@@ -21,7 +21,11 @@ let UserSchema = new Schema({
 	//Price user if "PASEADOR DE MASCOTAS => return number" else "USUARIO NORMAL => return 0"
 	price: Number,
 	
-	create: Date
+	create: Date,
+
+
+	//Geolocation user position[0] => Latitud and position[1] => longitud
+	geolocation: Array
 
 });
 
