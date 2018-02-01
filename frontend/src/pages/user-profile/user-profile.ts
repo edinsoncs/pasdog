@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 
 // pages
 import { AgreePage } from '../agree/agree';
@@ -16,7 +16,8 @@ export class UserProfilePage {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams
+    public navParams: NavParams,
+    public loadingCtrl: LoadingController
   ) { }
 
   ionViewDidLoad() {
@@ -24,7 +25,18 @@ export class UserProfilePage {
   }
 
   agree() {
-    this.navCtrl.push(AgreePage)
+    let self = this
+
+    let loading = this.loadingCtrl.create({
+      content: 'Cargando...'
+    })
+    loading.present()
+
+    setTimeout(
+      () => {
+        self.navCtrl.push(AgreePage)
+      }, 1000
+    )
   }
 
 }
