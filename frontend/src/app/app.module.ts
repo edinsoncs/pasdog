@@ -11,7 +11,9 @@ import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
 import { UserPreviewPage } from '../pages/user-preview/user-preview';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
+import { UserAgreedPage } from '../pages/user-agreed/user-agreed';
 import { HistoryPage } from '../pages/history/history';
+import { AgreePage } from '../pages/agree/agree';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { HistoryPage } from '../pages/history/history';
     MapPage,
     UserPreviewPage,
     UserProfilePage,
-    HistoryPage
+    UserAgreedPage,
+    HistoryPage,
+    AgreePage
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,9 @@ import { HistoryPage } from '../pages/history/history';
     MapPage,
     UserPreviewPage,
     UserProfilePage,
-    HistoryPage
+    UserAgreedPage,
+    HistoryPage,
+    AgreePage
   ],
   providers: [
     StatusBar,

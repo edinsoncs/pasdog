@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+// pages
+import { AgreePage } from '../agree/agree';
+
 
 @Component({
   selector: 'page-user-profile',
@@ -18,6 +21,10 @@ export class UserProfilePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProfilePage');
+  }
+
+  agree() {
+    this.navCtrl.push(AgreePage)
   }
 
 }
