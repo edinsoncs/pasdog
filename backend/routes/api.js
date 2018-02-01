@@ -2,8 +2,16 @@
 
 const express = require('express');
 const router = express.Router();
+const fs = require('fs');
+const path = require('path');
+
+
+//NPM MODULES
+let shortid = require('shortid');
+
 
 let userHandlers = require('../controllers/userController');
+let files = require('../controllers/filesController');
 
 //router.post(userHandlers.register);
 
@@ -46,6 +54,23 @@ router.post('/profile', (req, res, next) => {
 	} else {
 		return userHandlers.userErr(req, res, next);
 	}
+
+
+});
+
+
+router.post('/profile/saveimage', (req, res, next) => {
+
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status) {
+		return files.savephotoprofile(req, res, next);
+
+	} else {
+		return userHandlers.userErr(req, res, next);
+	}
+	
 
 
 });
