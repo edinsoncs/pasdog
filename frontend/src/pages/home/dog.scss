@@ -396,14 +396,14 @@ div:before, div:after {
   
   + .ear {
     animation: right-ear $duration both infinite;
-    background-color: $color-dark;
+    background-color: #000;
     left: 15%;
     top: 5%;
     z-index: -1;
     transform-origin: right center;
     
     &:before {
-      border-color: $color-dark;
+      border-color: #000;
     }
     
     &:after {
