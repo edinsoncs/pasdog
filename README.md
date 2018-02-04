@@ -10,6 +10,7 @@ This api in Nodejs - use framework expressjs - jwt - mongoose - monk - mongodb -
 | `1. http://46.101.73.97:3000/api/newuser/` | `POST` | Return data |
 | `2. http://46.101.73.97:3000/api/access/` | `POST` | Return data and token |
 | `3. http://46.101.73.97:3000/api/profile/` | `POST` | Return data user complet|
+| `4. http://localhost:3000/api/profile/saveimage` | `POST` | Return data url file avatar complet|
 
 ### Example: Body of the request
 
@@ -35,6 +36,16 @@ Method 3. access
 ```json
 {
     "Authorization": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkaW5zb25jb2RlQGhvdG1haWwuY29tIiwibmFtZSI6IkVkaW5zb24gQ2FycmFuemEiLCJfaWQiOiI1YTY0YWY3Mjk0MWE0YTgzMWFlNDlhZWQiLCJpYXQiOjE1MTY1NTM1NzV9.y3ltGB-WehYZ2Ylc-yY70bCWrqf4Nqe4YwIeqGpWeWc"
+    
+}
+```
+
+
+Method 4. avatar profile upload and update avatar user
+```json
+{
+    "Authorization": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkaW5zb25jb2RlQGhvdG1haWwuY29tIiwibmFtZSI6IkVkaW5zb24gQ2FycmFuemEiLCJfaWQiOiI1YTY0YWY3Mjk0MWE0YTgzMWFlNDlhZWQiLCJpYXQiOjE1MTY1NTM1NzV9.y3ltGB-WehYZ2Ylc-yY70bCWrqf4Nqe4YwIeqGpWeWc",
+   "avatar": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQABAA...."
     
 }
 ```
