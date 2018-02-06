@@ -14,6 +14,9 @@ import { Geolocation } from '@ionic-native/geolocation';
 // pages
 import { UserPreviewPage } from '../user-preview/user-preview';
 
+// providers
+import { GlobalProvider } from '../../providers/global/global';
+
 
 @Component({
   selector: 'page-map',
@@ -23,15 +26,14 @@ import { UserPreviewPage } from '../user-preview/user-preview';
 export class MapPage {
 
   map: GoogleMap
-  defaultLatitude: -34.6036845
-  defaultLongitude: -58.3816649
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
     private _googleMaps: GoogleMaps,
-    private _geolocation: Geolocation
+    private _geolocation: Geolocation,
+    private _globalProvider: GlobalProvider
   ) { }
 
   ionViewDidLoad() {
@@ -75,7 +77,6 @@ export class MapPage {
 
           // Now you can use all methods safely.
           this.map.addMarker({
-              title: 'Carla Rodríguez',
               icon: 'red',
               animation: 'DROP',
               position: {
@@ -106,7 +107,7 @@ export class MapPage {
     ).catch(
       (error) => {
         console.log('Error getting location', error);
-        this.loadMap(this.defaultLatitude, this.defaultLongitude);
+        this.loadMap(this._globalProvider.defaultLatitude, this._globalProvider.defaultLongitude);
       }
     );
   }

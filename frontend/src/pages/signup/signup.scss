@@ -1,0 +1,24 @@
+page-signup {
+
+  ion-list{
+    padding-top: 20px;
+
+    ion-item{
+      &,
+      .item-inner{
+        border: none !important;
+        box-shadow: none !important;
+      }
+      ion-input,
+      ion-select{
+        margin: 6px 12px 6px 6px;
+        border-bottom: 1px solid $gray-6;
+      }
+      ion-select{
+        width: 100%;
+        max-width: 100%;
+        padding-left: 10px !important;
+      }
+    }
+  }
+}

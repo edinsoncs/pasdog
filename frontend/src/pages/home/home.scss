@@ -12,13 +12,13 @@ page-home {
 	#map{
     height: 100%;
   	}
-	
+
 
 	//Home Page
 	.home__Content {
 		background: #fff;
 		height: 100%;
-	
+
 		.header {
 			position: static;
 			text-align: center;
@@ -45,7 +45,7 @@ page-home {
 			.__isLogo {
 			  margin-top: 2em;
 			  position: relative;
-			  @import url('dog.scss');
+			  @import 'dog';
 			}
 
 			.is__Socials {

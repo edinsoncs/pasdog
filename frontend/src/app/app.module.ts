@@ -5,6 +5,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
+import { NativeGeocoder } from '@ionic-native/native-geocoder';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -14,6 +15,9 @@ import { UserProfilePage } from '../pages/user-profile/user-profile';
 import { UserAgreedPage } from '../pages/user-agreed/user-agreed';
 import { HistoryPage } from '../pages/history/history';
 import { AgreePage } from '../pages/agree/agree';
+import { SignupPage } from '../pages/signup/signup';
+
+import { GlobalProvider } from '../providers/global/global';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,8 @@ import { AgreePage } from '../pages/agree/agree';
     UserProfilePage,
     UserAgreedPage,
     HistoryPage,
-    AgreePage
+    AgreePage,
+    SignupPage
   ],
   imports: [
     BrowserModule,
@@ -39,14 +44,17 @@ import { AgreePage } from '../pages/agree/agree';
     UserProfilePage,
     UserAgreedPage,
     HistoryPage,
-    AgreePage
+    AgreePage,
+    SignupPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     GoogleMaps,
     Geolocation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    NativeGeocoder,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    GlobalProvider
   ]
 })
 export class AppModule {}

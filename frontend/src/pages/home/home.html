@@ -13,7 +13,7 @@
 	<div [ngClass]="'is__Container'">
 
 		<div [ngClass]="'__isLogo'">
-			
+
            <div class="husky">
 	           	<div class="mane">
 	           		<div class="coat"></div>
@@ -83,7 +83,7 @@
 	           			<feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="4"/>
 	           			<feDisplacementMap in="SourceGraphic" in2="noise" scale="1" />
 	           		</filter>
-	           	</defs> 
+	           	</defs>
 	        </svg>
 
 		</div>
@@ -91,7 +91,7 @@
 		<div [ngClass]="'is__Socials'">
 			<button ion-button color="dark" [ngClass]="'facebook'">Ingresar con Facebook</button>
 			<button ion-button color="dark" [ngClass]="'google'">Ingresar con Google</button>
-			<button ion-button color="dark" [ngClass]="'white'">Registrar cuenta</button>
+			<button ion-button color="dark" [ngClass]="'white'" (click)="signup()">Crear cuenta</button>
 		</div>
 
 	</div>
