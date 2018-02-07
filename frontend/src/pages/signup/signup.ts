@@ -8,6 +8,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 
 // providers
 import { GlobalProvider } from '../../providers/global/global'
+import { UserProvider } from '../../providers/user/user'
 
 
 @Component({
@@ -28,7 +29,8 @@ export class SignupPage {
     public loadingCtrl: LoadingController,
     private _nativeGeocoder: NativeGeocoder,
     private _geolocation: Geolocation,
-    private _globalProvider: GlobalProvider
+    private _globalProvider: GlobalProvider,
+    private _userProvider: UserProvider
   ) { }
 
   ionViewDidLoad() {
@@ -93,6 +95,13 @@ export class SignupPage {
       let form = this.form.value
 
       console.log('signup data:', this.form.value)
+      this._userProvider.setUser(form).subscribe(
+        (response) => {
+          alert('response!')
+          alert(response)
+          console.log(response)
+        }
+      )
     }
   }
 

@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { RequestOptions, Headers, Http } from '@angular/http'
 import { Injectable } from '@angular/core';
 
 
@@ -12,9 +13,30 @@ export class GlobalProvider {
   public defaultLongitude: number = -58.3816649
 
   constructor(
-    //public http: HttpClient
+    public http: HttpClient
   ) {
     console.log('Hello GlobalProvider Provider');
+  }
+
+
+  headersBuilder(auth?: boolean, body?: string) {
+    let headers = new Headers()
+        headers.append(`Content-Type`, `application/json`)
+
+    let requestOptions
+
+    if(body)
+      requestOptions = new RequestOptions({
+        headers: headers,
+        body: body
+      })
+
+    else
+      requestOptions = new RequestOptions({
+        headers: headers
+      })
+
+    return requestOptions
   }
 
 }

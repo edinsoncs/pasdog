@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -18,6 +19,7 @@ import { AgreePage } from '../pages/agree/agree';
 import { SignupPage } from '../pages/signup/signup';
 
 import { GlobalProvider } from '../providers/global/global';
+import { UserProvider } from '../providers/user/user';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { GlobalProvider } from '../providers/global/global';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -54,7 +57,8 @@ import { GlobalProvider } from '../providers/global/global';
     Geolocation,
     NativeGeocoder,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    GlobalProvider
+    GlobalProvider,
+    UserProvider
   ]
 })
 export class AppModule {}
