@@ -49,6 +49,7 @@ exports.register = (req, res, next) => {
 
 	let newProcess = () => {
 
+		 console.log(req.body);
 
 		if(req.body.name && req.body.email && req.body.city && req.body.password) {
 
