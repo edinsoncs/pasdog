@@ -7,8 +7,11 @@ import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/nativ
 import { Geolocation } from '@ionic-native/geolocation';
 
 // providers
-import { GlobalProvider } from '../../providers/global/global'
-import { UserProvider } from '../../providers/user/user'
+import { GlobalProvider } from '../../providers/global/global';
+import { UserProvider } from '../../providers/user/user';
+
+// pages
+import { MapPage } from '../map/map';
 
 
 @Component({
@@ -40,8 +43,8 @@ export class SignupPage {
       'name': new FormControl(null, Validators.required),
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'password': new FormControl(null, Validators.required),
-      'country': new FormControl('argentina', Validators.required),
-      'province': new FormControl('CABA'),
+      //'country': new FormControl('Argentina', Validators.required),
+      //'province': new FormControl('CABA'),
       'city': new FormControl('San Nicolás')
     })
     this.isFormLoaded = true
@@ -73,35 +76,88 @@ export class SignupPage {
     }
 
     else{
-
       this._nativeGeocoder.reverseGeocode(latitude, longitude).then(
-        (result: NativeGeocoderReverseResult) => console.log('geocoder:', JSON.stringify(result))
+        (response: NativeGeocoderReverseResult) => {
+          // console.log('geocoder:', JSON.stringify(result))
+
+          this.form.patchValue({
+            //country: response.countryName,
+            //province: response.administrativeArea,
+            city: response.subAdministrativeArea,
+            //latitude: latitude,
+            //longitude: longitude
+          })
+
+          this.isGeolocated = true
+        }
       )
       .catch(
-        (error: any) => console.log(error)
+        (error: any) => {
+          console.log(error)
+          this.isGeolocated = true
+        }
       );
 
     }
   }
 
 
-  signup() {
-    let loading = this.loadingCtrl.create({
-      content: 'Cargando...'
-    });
-    loading.present();
+  signup(geolocating?) {
 
-    if(this.form.valid) {
-      let form = this.form.value
+    let self = this
 
-      console.log('signup data:', this.form.value)
-      this._userProvider.setUser(form).subscribe(
-        (response) => {
-          alert('response!')
-          alert(response)
-          console.log(response)
+    if(geolocating) {
+      if(this.isGeolocated)
+        this.signup()
+
+      else {
+        let loading = this.loadingCtrl.create({
+          content: 'Localizando...'
+        });
+        loading.present();
+
+        setTimeout(() => {
+          self.signup(true)
+          loading.dismiss();
+        }, 500)
+      }
+    }
+
+    else{
+
+      if(!this.isGeolocated) {
+        let loading = this.loadingCtrl.create({
+          content: 'Localizando...'
+        });
+        loading.present();
+
+        setTimeout(() => {
+          self.signup(true)
+          loading.dismiss();
+        }, 500)
+      }
+
+      else{
+
+        let loading = this.loadingCtrl.create({
+          content: 'Cargando...'
+        });
+        loading.present();
+
+        if(this.form.valid) {
+          let form = this.form.value
+
+          console.log('signup data:', this.form.value)
+          this._userProvider.setUser(form).subscribe(
+            (response) => {
+              alert('response!')
+              alert(response)
+              console.log(response)
+            }
+          )
         }
-      )
+
+      }
     }
   }
 

@@ -16,8 +16,10 @@ export class UserProvider {
 
 
   setUser(formData) {
-    let data = JSON.stringify(formData)
-    return this.http.post(`${ this._globalProvider.apiUrl }/user/new`, data)
+    let data = JSON.stringify(formData);
+    let options = this._globalProvider.headersBuilder(null, data);
+
+    return this.http.post(`${ this._globalProvider.apiUrl }/newuser`, data, options);
   }
 
 }

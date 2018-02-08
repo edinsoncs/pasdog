@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { RequestOptions, Headers, Http } from '@angular/http'
+import { RequestOptions, Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 
@@ -7,10 +7,10 @@ import { Injectable } from '@angular/core';
 
 export class GlobalProvider {
 
-  public baseUrl: string = "http://46.101.73.97:3000"
-  public apiUrl: string = "http://46.101.73.97:3000/api"
-  public defaultLatitude: number = -34.6036845
-  public defaultLongitude: number = -58.3816649
+  public baseUrl: string = "http://46.101.73.97:3000";
+  public apiUrl: string = "http://46.101.73.97:3000/api";
+  public defaultLatitude: number = -34.6036845;
+  public defaultLongitude: number = -58.3816649;
 
   constructor(
     public http: HttpClient
@@ -20,8 +20,8 @@ export class GlobalProvider {
 
 
   headersBuilder(auth?: boolean, body?: string) {
-    let headers = new Headers()
-        headers.append(`Content-Type`, `application/json`)
+    let headers = new Headers();
+        headers.append(`Content-Type`, `application/json`);
 
     let requestOptions
 
@@ -29,14 +29,14 @@ export class GlobalProvider {
       requestOptions = new RequestOptions({
         headers: headers,
         body: body
-      })
+      });
 
     else
       requestOptions = new RequestOptions({
         headers: headers
-      })
+      });
 
-    return requestOptions
+    return requestOptions;
   }
 
 }
