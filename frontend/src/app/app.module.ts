@@ -14,9 +14,13 @@ import { MapPage } from '../pages/map/map';
 import { UserPreviewPage } from '../pages/user-preview/user-preview';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
 import { UserAgreedPage } from '../pages/user-agreed/user-agreed';
-import { HistoryPage } from '../pages/history/history';
+import { UserConfigurationPage } from '../pages/user-configuration/user-configuration';
+import { ListHistoryPage } from '../pages/list-history/list-history';
+import { ListAgreedPage } from '../pages/list-agreed/list-agreed';
 import { AgreePage } from '../pages/agree/agree';
 import { SignupPage } from '../pages/signup/signup';
+import { SignupUserTypePage } from '../pages/signup-user-type/signup-user-type';
+import { PaymentSelectPage } from '../pages/payment-select/payment-select';
 
 import { GlobalProvider } from '../providers/global/global';
 import { UserProvider } from '../providers/user/user';
@@ -29,9 +33,13 @@ import { UserProvider } from '../providers/user/user';
     UserPreviewPage,
     UserProfilePage,
     UserAgreedPage,
-    HistoryPage,
+    UserConfigurationPage,
+    ListHistoryPage,
+    ListAgreedPage,
     AgreePage,
-    SignupPage
+    SignupPage,
+    SignupUserTypePage,
+    PaymentSelectPage
   ],
   imports: [
     BrowserModule,
@@ -46,9 +54,13 @@ import { UserProvider } from '../providers/user/user';
     UserPreviewPage,
     UserProfilePage,
     UserAgreedPage,
-    HistoryPage,
+    UserConfigurationPage,
+    ListHistoryPage,
+    ListAgreedPage,
     AgreePage,
-    SignupPage
+    SignupPage,
+    SignupUserTypePage,
+    PaymentSelectPage
   ],
   providers: [
     StatusBar,

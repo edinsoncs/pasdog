@@ -3,11 +3,10 @@ import { NavController, NavParams } from 'ionic-angular';
 
 
 @Component({
-  selector: 'page-history',
-  templateUrl: 'history.html',
+  selector: 'page-payment-select',
+  templateUrl: 'payment-select.html',
 })
-
-export class HistoryPage {
+export class PaymentSelectPage {
 
   constructor(
     public navCtrl: NavController,
@@ -15,7 +14,10 @@ export class HistoryPage {
   ) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HistoryPage');
+    console.log('ionViewDidLoad PaymentSelectPage');
   }
 
+  pay(type) {
+    this.navCtrl.pop();
+  }
 }

@@ -2,17 +2,15 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
 
 // pages
-import { AgreePage } from '../agree/agree';
+import { MapPage } from '../map/map';
 
 
 @Component({
-  selector: 'page-user-profile',
-  templateUrl: 'user-profile.html',
+  selector: 'page-signup-user-type',
+  templateUrl: 'signup-user-type.html',
 })
 
-export class UserProfilePage {
-
-  tab: string = "tab1"
+export class SignupUserTypePage {
 
   constructor(
     public navCtrl: NavController,
@@ -21,10 +19,10 @@ export class UserProfilePage {
   ) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UserProfilePage');
+    console.log('ionViewDidLoad SignupUserTypePage');
   }
 
-  agree() {
+  setUserType(type) {
     let self = this;
 
     let loading = this.loadingCtrl.create({
@@ -32,12 +30,10 @@ export class UserProfilePage {
     });
     loading.present();
 
-    setTimeout(
-      () => {
-        self.navCtrl.push(AgreePage);
-        loading.dismiss();
-      }, 1000
-    )
+    setTimeout(() => {
+      loading.dismiss();
+      self.navCtrl.setRoot(MapPage);
+    }, 1000)
   }
 
 }

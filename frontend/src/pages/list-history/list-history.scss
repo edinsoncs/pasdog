@@ -1,4 +1,4 @@
-page-history {
+page-list-history {
 
   ion-note{
     display: block;
@@ -16,7 +16,10 @@ page-history {
       box-shadow: 0 3px 6px rgba(0,0,0,.15);
       margin-top: -1px;
       .item-inner{
-        border: none !important
+        border: none !important;
+        ion-label{
+          margin-right: 0;
+        }
       }
       ion-avatar{
         margin-top: 3px;

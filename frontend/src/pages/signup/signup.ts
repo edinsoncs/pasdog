@@ -12,6 +12,7 @@ import { UserProvider } from '../../providers/user/user';
 
 // pages
 import { MapPage } from '../map/map';
+import { SignupUserTypePage } from '../signup-user-type/signup-user-type';
 
 
 @Component({
@@ -43,9 +44,11 @@ export class SignupPage {
       'name': new FormControl(null, Validators.required),
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'password': new FormControl(null, Validators.required),
-      //'country': new FormControl('Argentina', Validators.required),
-      //'province': new FormControl('CABA'),
-      'city': new FormControl('San Nicolás')
+      'country': new FormControl('Argentina', Validators.required),
+      'province': new FormControl('CABA', Validators.required),
+      'city': new FormControl('San Nicolás', Validators.required),
+      'latitude': new FormControl(null, Validators.required),
+      'longitude': new FormControl(null, Validators.required)
     })
     this.isFormLoaded = true
 
@@ -81,11 +84,11 @@ export class SignupPage {
           // console.log('geocoder:', JSON.stringify(result))
 
           this.form.patchValue({
-            //country: response.countryName,
-            //province: response.administrativeArea,
+            country: response.countryName,
+            province: response.administrativeArea,
             city: response.subAdministrativeArea,
-            //latitude: latitude,
-            //longitude: longitude
+            latitude: latitude,
+            longitude: longitude
           })
 
           this.isGeolocated = true
@@ -95,6 +98,10 @@ export class SignupPage {
         (error: any) => {
           console.log(error)
           this.isGeolocated = true
+          this.form.patchValue({
+            latitude: latitude,
+            longitude: longitude
+          })
         }
       );
 
@@ -147,12 +154,13 @@ export class SignupPage {
         if(this.form.valid) {
           let form = this.form.value
 
-          console.log('signup data:', this.form.value)
           this._userProvider.setUser(form).subscribe(
             (response) => {
-              alert('response!')
-              alert(response)
-              console.log(response)
+              loading.dismiss();
+              this.navCtrl.setRoot(SignupUserTypePage);
+            },
+            (error) => {
+              loading.dismiss();
             }
           )
         }

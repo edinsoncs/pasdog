@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+// pages
+import { PaymentSelectPage } from '../payment-select/payment-select';
+
 
 @Component({
   selector: 'page-user-agreed',
@@ -15,6 +18,10 @@ export class UserAgreedPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserAgreedPage');
+  }
+
+  pay() {
+    this.navCtrl.push(PaymentSelectPage)
   }
 
 }

@@ -5,7 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
-import { HistoryPage } from '../pages/history/history';
+import { ListAgreedPage } from '../pages/list-agreed/list-agreed';
+import { ListHistoryPage } from '../pages/list-history/list-history';
+import { UserConfigurationPage } from '../pages/user-configuration/user-configuration';
 
 
 @Component({
@@ -35,11 +37,11 @@ export class MyApp {
       },
       {
         title: 'Contratados',
-        component: MapPage
+        component: ListAgreedPage
       },
       {
         title: 'Historial',
-        component: HistoryPage
+        component: ListHistoryPage
       },
       {
         title: 'Mis pagos',
@@ -47,7 +49,7 @@ export class MyApp {
       },
       {
         title: 'Configuración',
-        component: MapPage
+        component: UserConfigurationPage
       }
     ]
 

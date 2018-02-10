@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 // pages
-import { UserAgreedPage } from '../user-agreed/user-agreed';
+import { ListAgreedPage } from '../list-agreed/list-agreed';
 
 
 @Component({
@@ -23,8 +23,8 @@ export class AgreePage {
 
   openPage(page) {
     switch(page) {
-      case 'user-agreed':
-        this.navCtrl.push(UserAgreedPage);
+      case 'list-agreed':
+        this.navCtrl.setRoot(ListAgreedPage);
         break;
     }
   }
