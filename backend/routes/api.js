@@ -15,6 +15,11 @@ let files = require('../controllers/filesController');
 
 //router.post(userHandlers.register);
 
+
+//import new dog
+let newdog = require('../controllers/newdogController');
+
+
 router.post('/newuser', (req, res, next) => {
 
 	return userHandlers.register(req, res, next);
@@ -71,6 +76,32 @@ router.post('/profile/saveimage', (req, res, next) => {
 		return userHandlers.userErr(req, res, next);
 	}
 	
+
+
+});
+
+
+router.post('/newdog', (req, res, next) => {
+
+	//#one => route create new dog in collection "listdog"
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status){
+
+		//find if exist dog
+		//create new dog in insert to array in #one
+		return newdog.create(req, res, next);
+
+	}  else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
+
+	
+	
+
 
 
 });

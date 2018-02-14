@@ -52,6 +52,8 @@ app.use(function(req, res, next) {
 //Other imports
 const User = require('./models/userModel');
 
+require('./models/dogModel');
+
 //Create routes
 let api = require('./routes/api');
 

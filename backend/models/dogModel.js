@@ -15,4 +15,4 @@ let UserSchema = new Schema({
 
 });
 
-mongoose.model('DogModel', UserSchema);
+mongoose.model('Dog', UserSchema);
