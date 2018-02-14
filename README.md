@@ -54,13 +54,13 @@ Method 4. avatar profile upload and update avatar user
 Method 5. create new dog in database profile user related
 ```json
 {
-    "Authorization": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkaW5zb25jb2RlQGhvdG1haWwuY29tIiwibmFtZSI6IkVkaW5zb24gQ2FycmFuemEiLCJfaWQiOiI1YTY0YWY3Mjk0MWE0YTgzMWFlNDlhZWQiLCJpYXQiOjE1MTY1NTM1NzV9.y3ltGB-WehYZ2Ylc-yY70bCWrqf4Nqe4YwIeqGpWeWc",
-    "name": "Rambo",
-	  "color": "amarillo",
-	  "race": "Normal",
-	  "age": "4",
-   "avatar": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQABAA....",
-   "details": "informacion como es esto"
+  "Authorization": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkaW5zb25jb2RlQGhvdG1haWwuY29tIiwibmFtZSI6IkVkaW5zb24gQ2FycmFuemEiLCJfaWQiOiI1YTY0YWY3Mjk0MWE0YTgzMWFlNDlhZWQiLCJpYXQiOjE1MTY1NTM1NzV9.y3ltGB-WehYZ2Ylc-yY70bCWrqf4Nqe4YwIeqGpWeWc",
+  "name": "Rambo",
+	"color": "amarillo",
+	"race": "Normal",
+	"age": "4",
+  "avatar": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQABAA....",
+  "details": "informacion como es esto"
     
 }
 ```
