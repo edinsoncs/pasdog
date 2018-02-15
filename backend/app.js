@@ -11,8 +11,7 @@ const cookieParser = require('cookie-parser');
 let app = express();
 let server = require('http').createServer(app);
 let io = require('socket.io')(server);
-let initio = require('./socket/init');
-
+let socket_conect = require('./socket/init');
 
 //Import database no-sql
 const mongodb = require('mongodb');
@@ -55,6 +54,8 @@ const User = require('./models/userModel');
 
 require('./models/dogModel');
 
+socket_conect(io);
+
 //Create routes
 let api = require('./routes/api');
 
@@ -79,14 +80,12 @@ app.use(function(req, res, next) {
 });
 
 
-initio(io);
-
-
 app.use('/api', api);
 
 
 
-app.listen(3000, () => {
+
+server.listen(3000, () => {
 
 	console.log('run server in nodejs -> pasdog');
 

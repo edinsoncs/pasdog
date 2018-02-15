@@ -5,6 +5,8 @@ import { NavController, LoadingController } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { MapPage } from '../map/map';
 
+import { Socket } from 'ng-socket-io';
+
 
 @Component({
   selector: 'page-home',
@@ -15,7 +17,8 @@ export class HomePage {
 
   constructor(
     public navCtrl: NavController,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    private socket: Socket
   ) { }
 
 
@@ -31,7 +34,13 @@ export class HomePage {
       self.navCtrl.setRoot(MapPage);
       loading.dismiss();
     }, 700)
+
+    
   }
+
+  ngOnInit(){
+    this.socket.connect();
+  };
 
   signup() {
     this.navCtrl.push(SignupPage)

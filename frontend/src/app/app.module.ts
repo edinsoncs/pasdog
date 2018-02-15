@@ -25,6 +25,12 @@ import { PaymentSelectPage } from '../pages/payment-select/payment-select';
 import { GlobalProvider } from '../providers/global/global';
 import { UserProvider } from '../providers/user/user';
 
+//Sockets connect frontend to backend
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+const config: SocketIoConfig = { url: 'http://localhost:3000/', options: {} };
+
+
+
 @NgModule({
   declarations: [
     MyApp,
@@ -44,7 +50,8 @@ import { UserProvider } from '../providers/user/user';
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    SocketIoModule.forRoot(config)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
