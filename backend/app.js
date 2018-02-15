@@ -7,7 +7,11 @@ const path = require('path');
 const bodyParser  = require('body-parser');
 const cookieParser = require('cookie-parser');
 
+
 let app = express();
+let server = require('http').createServer(app);
+let io = require('socket.io')(server);
+let initio = require('./socket/init');
 
 
 //Import database no-sql
@@ -19,9 +23,6 @@ const db = monk('localhost:27017/pasdog');
 
 //Import jwt
 const jsonwebtoken = require("jsonwebtoken");
-
-
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -78,9 +79,7 @@ app.use(function(req, res, next) {
 });
 
 
-
-
-
+initio(io);
 
 
 app.use('/api', api);
