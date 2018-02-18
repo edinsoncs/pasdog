@@ -91,7 +91,8 @@
 		<div [ngClass]="'is__Socials'">
 			<button ion-button color="dark" [ngClass]="'facebook'" (click)="login('facebook')">Ingresar con Facebook</button>
 			<button ion-button color="dark" [ngClass]="'google'" (click)="login('google')">Ingresar con Google</button>
-			<button ion-button color="dark" [ngClass]="'white'" (click)="signup()">Crear cuenta</button>
+			<button ion-button color="dark" [ngClass]="'white'" (click)="login('email')">Ingresar con email</button>
+			<button ion-button color="dark" clear (click)="signup()">Crear cuenta</button>
 		</div>
 
 	</div>

@@ -87,3 +87,26 @@ ion-footer.call-to-action{
     font-size: 1.2em;
   }
 }
+
+// CUSTOM ======================================================================
+
+// forms
+.std-form{
+  ion-list{
+    padding-top: 20px;
+
+    ion-item{
+      margin: 6px 12px 6px 6px !important;
+
+      &,
+      .item-inner{
+        border: none !important;
+        box-shadow: none !important;
+      }
+      ion-input{
+        border-bottom: 1px solid $gray-6;
+      }
+
+    }
+  }
+}

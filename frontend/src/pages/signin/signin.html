@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
 
-    <ion-title text-center>Crear cuenta</ion-title>
+    <ion-title text-center>Ingresar</ion-title>
 
     <ion-buttons end no-margin>
     </ion-buttons>
@@ -12,12 +12,8 @@
 
 <ion-content>
   <div class="std-form">
-    <form *ngIf="isFormLoaded" [formGroup]="form" novalidate="novalidate" (ngSubmit)="signup()">
+    <form *ngIf="isFormLoaded" [formGroup]="form" novalidate="novalidate" (ngSubmit)="signin()">
       <ion-list>
-
-        <ion-item>
-          <ion-input type="text" name="name" formControlName="name" placeholder="Nombre"></ion-input>
-        </ion-item>
 
         <ion-item>
           <ion-input type="text" name="email" formControlName="email" placeholder="E-mail"></ion-input>
@@ -34,7 +30,7 @@
 
 
 <ion-footer class="call-to-action">
-  <button ion-button full color="secondary" no-margin (click)="signup()" [disabled]="!form.valid" *ngIf="isFormLoaded">
-    Crear cuenta
+  <button ion-button full color="secondary" no-margin (click)="signin()" [disabled]="!form.valid" *ngIf="isFormLoaded">
+    Ingresar
   </button>
 </ion-footer>

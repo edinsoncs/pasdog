@@ -20,6 +20,7 @@ import { ListAgreedPage } from '../pages/list-agreed/list-agreed';
 import { AgreePage } from '../pages/agree/agree';
 import { SignupPage } from '../pages/signup/signup';
 import { SignupUserTypePage } from '../pages/signup-user-type/signup-user-type';
+import { SigninPage } from '../pages/signin/signin';
 import { PaymentSelectPage } from '../pages/payment-select/payment-select';
 
 import { GlobalProvider } from '../providers/global/global';
@@ -27,7 +28,7 @@ import { UserProvider } from '../providers/user/user';
 
 //Sockets connect frontend to backend
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
-const config: SocketIoConfig = { url: 'http://localhost:3000/', options: {} };
+const config: SocketIoConfig = { url: 'http://46.101.73.97:3000/', options: {} };
 
 
 
@@ -45,6 +46,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000/', options: {} };
     AgreePage,
     SignupPage,
     SignupUserTypePage,
+    SigninPage,
     PaymentSelectPage
   ],
   imports: [
@@ -67,6 +69,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000/', options: {} };
     AgreePage,
     SignupPage,
     SignupUserTypePage,
+    SigninPage,
     PaymentSelectPage
   ],
   providers: [
