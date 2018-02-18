@@ -82,7 +82,17 @@ exports.register = (req, res, next) => {
 			} else {
 
 				user.hash_password = undefined;
-				return res.json(user);
+				return res.json({
+
+					id: user._id,
+					token: jwt.sign({ email: user.email, name: user.name, _id: user._id }, 'p4stx!d39xz<!ag'),
+					email: user.email,
+					name: user.name,
+					city: user.city,
+					geolocation: user.geolocation
+
+
+				});
 
 			}
 
