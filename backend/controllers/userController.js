@@ -49,7 +49,6 @@ exports.register = (req, res, next) => {
 
 	let newProcess = () => {
 
-		 console.log(req.body);
 
 		if(req.body.name && req.body.email && req.body.city && req.body.password) {
 
@@ -84,12 +83,13 @@ exports.register = (req, res, next) => {
 				user.hash_password = undefined;
 				return res.json({
 
-					id: user._id,
+					user_id: user._id,
+					user_type: user.role,
 					token: jwt.sign({ email: user.email, name: user.name, _id: user._id }, 'p4stx!d39xz<!ag'),
 					email: user.email,
 					name: user.name,
 					city: user.city,
-					geolocation: user.geolocation
+					geolocation: user.geolocation,
 
 
 				});
@@ -121,6 +121,8 @@ exports.access_email = (req, res, next) => {
 	    }
 
 		return res.json({
+			user_id: user._id,
+			user_type: user.role,
 			token: jwt.sign({ email: user.email, name: user.name, _id: user._id }, 'p4stx!d39xz<!ag'),
 			name: user.name,
 			city: user.city,
