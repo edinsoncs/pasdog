@@ -7,6 +7,15 @@ module.exports = (io) => {
 
 		console.log('socket active in time real');
 
+		client.on('set-nickname', (data) => {
+
+			//con esto verifico si llego la data que me enviastes :D
+
+			console.log(data);
+
+
+		})
+
 	});
 
 
