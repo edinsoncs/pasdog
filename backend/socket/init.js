@@ -12,7 +12,7 @@ module.exports = (io) => {
 
 		client.on('set-nickname', (data) => {
 
-			arr.push(data);
+			users.push(data);
 			console.log(data);
 
 			client.emit('message', (data) => {
