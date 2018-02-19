@@ -27,7 +27,12 @@ export class HomePage {
 
 
   ionViewDidLoad() {
-    // this._socket.connect()
+    this._socket.connect();
+    
+    this._socket.on('message', (data) => {
+       console.log(data);
+    });
+
   }
 
 
