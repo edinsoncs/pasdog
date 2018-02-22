@@ -14,10 +14,7 @@ const message = require('../helps/message');
 const files = require('./filesController');
 
 module.exports.create = (req, res, next) => {
-
-
-	let db = req.db;
-	let listdog = db.get('listdog');
+	
 
 
 	//validation dog in model

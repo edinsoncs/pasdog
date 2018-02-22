@@ -31,7 +31,11 @@ export class HomePage {
     let token = this._globalProvider.getStorage('token')
     if(token){
 
-      this._userProvider.getProfile
+      this._userProvider.getProfile().subscribe(
+        (response) => {
+          console.log('getProfile: ', response)
+        }
+      )
     }
 
   }
