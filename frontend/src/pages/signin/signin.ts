@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { Socket } from 'ng-socket-io';
 
 // providers
 import { GlobalProvider } from '../../providers/global/global';
@@ -26,6 +27,7 @@ export class SigninPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
+    private _socket: Socket,
     private _userProvider: UserProvider,
     private _globalProvider: GlobalProvider
   ) { }
@@ -57,9 +59,13 @@ export class SigninPage {
           let profile = {
             email: response.email,
             name: response.name,
-            city: response.city
+            city: response.city,
+            user_id: response.user_id
           }
           let token = response.token
+
+          this._socket.connect()
+          this._socket.emit('set-nickname', {id: profile.user_id, name: profile.name});
 
           this._globalProvider.setStorage('token', JSON.stringify(profile))
           this._globalProvider.setStorage('profile', token)

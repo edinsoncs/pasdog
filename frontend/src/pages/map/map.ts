@@ -10,6 +10,7 @@ import {
  Marker
 } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Socket } from 'ng-socket-io';
 
 // pages
 import { UserPreviewPage } from '../user-preview/user-preview';
@@ -33,12 +34,27 @@ export class MapPage {
     public modalCtrl: ModalController,
     private _googleMaps: GoogleMaps,
     private _geolocation: Geolocation,
+    private _socket: Socket,
     private _globalProvider: GlobalProvider
   ) { }
 
   ionViewDidLoad() {
-   this.loadMap();
+    this.loadMap();
   }
+
+
+  click() {
+
+    this._socket.on('message', (data) => {
+         if(data){
+           console.log('SOCKET DATA!', data.message)
+         }
+         else {
+           console.log('No socket data (click ev)')
+         }
+    })
+  }
+
 
   loadMap(latitude?: number, longitude?: number) {
 

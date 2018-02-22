@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
-import { Socket } from 'ng-socket-io';
 
 // pages
 import { SignupPage } from '../signup/signup';
@@ -9,7 +8,7 @@ import { MapPage } from '../map/map';
 
 // providers
 import { GlobalProvider } from '../../providers/global/global';
-
+import { UserProvider } from '../../providers/user/user';
 
 
 @Component({
@@ -22,12 +21,19 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
-    private _socket: Socket
+    private _globalProvider: GlobalProvider,
+    private _userProvider: UserProvider
   ) { }
 
 
   ionViewDidLoad() {
-    // this._socket.connect()
+
+    let token = this._globalProvider.getStorage('token')
+    if(token){
+
+      this._userProvider.getProfile
+    }
+
   }
 
 
