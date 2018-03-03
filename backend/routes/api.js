@@ -36,6 +36,7 @@ router.post('/profile', (req, res, next) => {
 
 	var status = userHandlers.loginRequired(req, res, next);
 
+    console.log(status);
 
 	if(status) {
 
