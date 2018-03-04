@@ -33,13 +33,14 @@ app.use(function(req, res, next) {
  if(req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
  	
  	jsonwebtoken.verify(req.headers.authorization.split(' ')[1], 'p4stx!d39xz<!ag', function(err, decode) {
-      if (err) req.user = undefined;
+    if (err)req.user = undefined;
       req.user = decode;
       next();
       
     });
 
  } else {
+  console.log('llego aqui');
  	req.user = undefined;
     next();
  }
@@ -63,10 +64,10 @@ let api = require('./routes/api');
 
 
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
-    next();
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  next();
 });
 
 mongoose.connect('mongodb://localhost:27017/pasdog', function(err, res) {

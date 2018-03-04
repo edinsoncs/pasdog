@@ -19,6 +19,9 @@ let files = require('../controllers/filesController');
 //import new dog
 let newdog = require('../controllers/newdogController');
 
+//import role user
+let role = require('../controllers/roleController');
+
 
 router.post('/newuser', (req, res, next) => {
 
@@ -35,8 +38,6 @@ router.post('/access', (req, res, next) => {
 router.post('/profile', (req, res, next) => {
 
 	var status = userHandlers.loginRequired(req, res, next);
-
-    console.log(status);
 
 	if(status) {
 
@@ -64,6 +65,21 @@ router.post('/profile', (req, res, next) => {
 
 
 });
+
+router.post('/profile/role', (req, res, next) => {
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status) {
+		return role.update(req, res, next);
+
+	} else {
+		return userHandlers.userErr(req, res, next);
+	}
+
+
+});
+
 
 
 router.post('/profile/saveimage', (req, res, next) => {
@@ -101,12 +117,12 @@ router.post('/newdog', (req, res, next) => {
 
 	}
 
-	
-	
-
 
 
 });
+
+
+
 
 
 module.exports = router;
