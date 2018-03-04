@@ -11,23 +11,7 @@ module.exports.update = (req, res, next) => {
 	let user = db.get('users');
 	let role = req.body.type;
 
-
-	if(role) {
-
-		user.findOneAndUpdate({'_id': req.user._id}, {
-			$set:{
-				role: role
-			} 
-		}, (err, data) => {
-
-			if(err) return err;
-
-			res.json({'role': role});
-
-
-		});
-
-	} else  {
+	if(role == 0 || role == 1) {
 
 		user.findOneAndUpdate({'_id': req.user._id}, {
 			$set:{
@@ -41,7 +25,15 @@ module.exports.update = (req, res, next) => {
 
 
 		});
+
+	} else {
+
+		res.status(400).
+		send({
+			message: message('user_role_es')
+		})
 
 	}
+
 
 }
