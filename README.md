@@ -12,6 +12,7 @@ This api in Nodejs - use framework expressjs - jwt - mongoose - monk - mongodb -
 | `3. http://46.101.73.97:3000/api/profile/` | `POST` | Return data user complet|
 | `4. http://localhost:3000/api/profile/saveimage` | `POST` | Return data url file avatar complet|
 | `5. http://localhost:3000/api/newdog` | `POST` | Return success new dog|
+| `6. http://localhost:3000/api/profile/role` | `POST` | Return success role user|
 
 ### Example: Body of the request
 
@@ -61,6 +62,15 @@ Method 5. create new dog in database profile user related
 	"age": "4",
   "avatar": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQABAA....",
   "details": "informacion como es esto"
+    
+}
+```
+
+Method 6. update role user: 0 => user normal and 1 => user paseador
+```json
+{
+  "Authorization": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkaW5zb25jb2RlQGhvdG1haWwuY29tIiwibmFtZSI6IkVkaW5zb24gQ2FycmFuemEiLCJfaWQiOiI1YTY0YWY3Mjk0MWE0YTgzMWFlNDlhZWQiLCJpYXQiOjE1MTY1NTM1NzV9.y3ltGB-WehYZ2Ylc-yY70bCWrqf4Nqe4YwIeqGpWeWc",
+  "type": 0 (boolean)
     
 }
 ```
