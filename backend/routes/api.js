@@ -16,6 +16,9 @@ let files = require('../controllers/filesController');
 //router.post(userHandlers.register);
 
 
+let socket_conect = require('../socket/init');
+
+
 //import new dog
 let newdog = require('../controllers/newdogController');
 
@@ -122,7 +125,27 @@ router.post('/newdog', (req, res, next) => {
 });
 
 
+//List users geolocation in real time
 
+router.post('/map', (req, res, next) => {
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status) {
+
+
+		socket_conect.list(req, res, next);
+
+
+	} else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
+
+
+
+});
 
 
 module.exports = router;

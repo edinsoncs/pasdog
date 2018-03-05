@@ -1,22 +1,21 @@
 'use strict'
 
-module.exports = (io) => {
+var users = [];  
 
 
-	var users = [];  
+
+module.exports.connect = (io) => {
 
 
 	io.on('connection', (client, username) => {
 
-		console.log('socket active in time real');
 
 		client.on('set-nickname', (data) => {
 
 			users.push(data);
-			console.log(data);
-
 
 		});
+
 
 
 
@@ -29,6 +28,14 @@ module.exports = (io) => {
 		
 
 	});
+
+
+}
+
+module.exports.list = (req, res, next) => {
+
+
+	console.log(users);
 
 
 }
