@@ -25,7 +25,7 @@ export class GlobalProvider {
     if(auth)
       headers = new HttpHeaders({
         'Content-Type': 'application/json; charset=utf-8',
-        'Authorization': `${ this.getStorage('token') }`,
+        'Authorization': `JWT ${ this.getStorage('token') }`,
       })
 
     else

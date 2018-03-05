@@ -31,6 +31,7 @@ export class UserProvider {
 
   getProfile() {
     let options = this._globalProvider.headersBuilder(true);
+
     return this.http.post(`${ this._globalProvider.apiUrl }/profile`, null, options);
   }
 

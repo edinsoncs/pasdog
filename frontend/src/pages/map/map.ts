@@ -39,20 +39,32 @@ export class MapPage {
   ) { }
 
   ionViewDidLoad() {
-    this.loadMap();
-  }
+    this.loadMap()
 
+    let profile = JSON.parse(this._globalProvider.getStorage('profile'))
 
-  click() {
+    this._socket.connect()
+    this._socket.emit('set-nickname', {
+      id: profile.user_id,
+      name: profile.name,
+      latitude: -34.6036845,
+      longitude: -58.3816649
+    })
 
-    this._socket.on('message', (data) => {
+    this._socket.on('listmap', (data) => {
          if(data){
-           console.log('SOCKET DATA!', data.message)
+           console.log('SOCKET DATA!', data)
          }
          else {
            console.log('No socket data (click ev)')
          }
     })
+  }
+
+
+  click() {
+
+
   }
 
 

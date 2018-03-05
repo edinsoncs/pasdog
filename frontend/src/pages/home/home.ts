@@ -27,17 +27,30 @@ export class HomePage {
 
 
   ionViewDidLoad() {
+    let loading = this.loadingCtrl.create({
+      content: 'Cargando...'
+    })
+    loading.present()
 
     let token = this._globalProvider.getStorage('token')
     if(token){
 
       this._userProvider.getProfile().subscribe(
-        (response) => {
-          console.log('getProfile: ', response)
-        }
-      )
-    }
+        (response: any) => {
+          loading.dismiss()
 
+          if(response.user_id) {
+            this._globalProvider.setStorage('profile', JSON.stringify(response))
+            this.navCtrl.setRoot(MapPage)
+          }
+        },
+        (error) => loading.dismiss()
+      )
+
+    }
+    
+    else
+      loading.dismiss()
   }
 
 
