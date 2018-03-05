@@ -55,7 +55,7 @@ const User = require('./models/userModel');
 
 require('./models/dogModel');
 
-socket_conect(io);
+socket_conect.connect(io);
 
 //Create routes
 let api = require('./routes/api');
