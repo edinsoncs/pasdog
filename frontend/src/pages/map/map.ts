@@ -59,7 +59,7 @@ export class MapPage {
 
 
   click() {
-
+    this.updateMakers()
   }
 
 
@@ -106,25 +106,6 @@ export class MapPage {
       this.map.one(GoogleMapsEvent.MAP_READY).then(
         () => {
           self.isMapReady = true
-
-          let marker = {
-            icon: 'red',
-            animation: 'DROP',
-            position: {
-              lat: -34.608682,
-              lng: -58.3764658
-            }
-          }
-
-          // Now you can use all methods safely.
-          self.map.addMarker(marker).then(marker => {
-
-              marker.on(GoogleMapsEvent.MARKER_CLICK)
-                .subscribe(() => {
-                  self.userPreview()
-                });
-          });
-
         }
       );
 
@@ -147,7 +128,42 @@ export class MapPage {
   }
 
 
-  userPreview() {
+  updateMakers() {
+    let self = this
+
+    for(let i = 0; i < this.walkers.length; i++) {
+
+      let marker = {
+        icon: 'red',
+        animation: 'DROP',
+        position: {
+          lat: this.walkers[i].latitude,
+          lng: this.walkers[i].longitude,
+        }
+      }
+
+      // Now you can use all methods safely.
+      this.map.addMarker(marker).then(marker => {
+        marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+
+          let data = {
+            id: this.walkers[i].iduser,
+            name: this.walkers[i].name,
+          }
+
+          self.userPreview(data)
+
+        })
+      })
+
+    }
+  }
+
+
+  userPreview(data) {
+
+    console.log('data received: ', data)
+
     let modal = this.modalCtrl.create(UserPreviewPage)
         modal.present()
   }
