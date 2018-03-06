@@ -35,6 +35,13 @@ export class UserProvider {
     return this.http.post(`${ this._globalProvider.apiUrl }/profile`, null, options);
   }
 
+  setUserType(formData) {
+    let data = JSON.stringify(formData);
+    let options = this._globalProvider.headersBuilder(true, data);
+
+    return this.http.post(`${ this._globalProvider.apiUrl }/profile/role`, data, options);
+  }
+
   saveImage(formData) {
     let data = JSON.stringify(formData);
     let options = this._globalProvider.headersBuilder(null, data);

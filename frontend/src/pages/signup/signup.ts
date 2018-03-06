@@ -38,7 +38,6 @@ export class SignupPage {
   ) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SignupPage');
 
     this.form = new FormGroup({
       'name': new FormControl(null, Validators.required),
@@ -155,8 +154,19 @@ export class SignupPage {
           let form = this.form.value
 
           this._userProvider.setUser(form).subscribe(
-            (response) => {
+            (response: any) => {
               loading.dismiss();
+
+              let profile = {
+                city: response.city,
+                email: response.email,
+                geolocation: response.geolocation,
+                name: response.name,
+                user_id: response.user_id
+              }
+
+              this._globalProvider.setStorage('token', response.token)
+              this._globalProvider.setStorage('profile', JSON.stringify(profile))
               this.navCtrl.setRoot(SignupUserTypePage);
             },
             (error) => {

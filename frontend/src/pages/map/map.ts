@@ -27,6 +27,8 @@ import { GlobalProvider } from '../../providers/global/global';
 export class MapPage {
 
   map: GoogleMap
+  isMapReady: boolean = false
+  walkers: any = []
 
   constructor(
     public navCtrl: NavController,
@@ -38,32 +40,25 @@ export class MapPage {
     private _globalProvider: GlobalProvider
   ) { }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
+    let self = this
     this.loadMap()
-
-    let profile = JSON.parse(this._globalProvider.getStorage('profile'))
-
     this._socket.connect()
-    this._socket.emit('set-nickname', {
-      id: profile.user_id,
-      name: profile.name,
-      latitude: -34.6036845,
-      longitude: -58.3816649
-    })
 
     this._socket.on('listmap', (data) => {
-         if(data){
-           console.log('SOCKET DATA!', data)
-         }
-         else {
-           console.log('No socket data (click ev)')
-         }
+       if(data){
+         console.log('SOCKET DATA!', data)
+         self.walkers = data
+       }
+       else {
+         self.walkers = []
+         console.log('No socket data')
+       }
     })
   }
 
 
   click() {
-
 
   }
 
@@ -71,12 +66,21 @@ export class MapPage {
   loadMap(latitude?: number, longitude?: number) {
 
     let self = this
+    let profile = JSON.parse(this._globalProvider.getStorage('profile'))
 
     if(!latitude && !longitude){
       this.geolocation();
     }
 
+    // if the geolocation is completed
     else{
+      this._socket.emit('set-nickname', {
+        id: profile.user_id,
+        name: profile.name,
+        latitude: latitude,
+        longitude: longitude
+      })
+
       let mapOptions: GoogleMapOptions = {
         controls: {
   				myLocationButton: true,
@@ -101,23 +105,25 @@ export class MapPage {
       // Wait the MAP_READY before using any methods.
       this.map.one(GoogleMapsEvent.MAP_READY).then(
         () => {
-          console.log('Map is ready!');
+          self.isMapReady = true
+
+          let marker = {
+            icon: 'red',
+            animation: 'DROP',
+            position: {
+              lat: -34.608682,
+              lng: -58.3764658
+            }
+          }
 
           // Now you can use all methods safely.
-          this.map.addMarker({
-              icon: 'red',
-              animation: 'DROP',
-              position: {
-                lat: -34.608682,
-                lng: -58.3764658
-              }
-            })
-            .then(marker => {
+          self.map.addMarker(marker).then(marker => {
+
               marker.on(GoogleMapsEvent.MARKER_CLICK)
                 .subscribe(() => {
                   self.userPreview()
                 });
-            });
+          });
 
         }
       );
