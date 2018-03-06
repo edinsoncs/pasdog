@@ -134,7 +134,7 @@ router.post('/map', (req, res, next) => {
 	if(status) {
 
 
-		socket_conect.list(req, res, next);
+		
 
 
 	} else {

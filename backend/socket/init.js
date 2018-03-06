@@ -8,18 +8,33 @@ module.exports.connect = (io) => {
 
 
 	io.on('connection', (client, username) => {
+        
+        io.sockets.sockets['nickname'] = client.id;
 
+		client.on('set-nickname', (user) => {
 
-		client.on('set-nickname', (data) => {
-
-			users.push(data);
+			client.user = user;
+			users.push(user);
+			updateClients();
 
 		});
 
+		client.on('disconnect', function () {
+	        
+	        for(var i=0; i< users.length; i++) {
+	            if(users[i] == client.user) {
+	                delete users[users[i]];
+	            }
+	        }
+	        updateClients(); 
+	    });
 
 
-		client.emit('listmap',  users);
-
+		
+		function updateClients() {
+			console.log(users);
+	        io.sockets.emit('listmap', users);
+	    }
 		
 
 	});
@@ -27,10 +42,3 @@ module.exports.connect = (io) => {
 
 }
 
-module.exports.list = (req, res, next) => {
-
-
-	console.log(users);
-
-
-}
