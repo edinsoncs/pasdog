@@ -22,6 +22,8 @@ module.exports.connect = (io) => {
 		client.on('disconnect', function () {
 	        
 	        for(var i=0; i< users.length; i++) {
+	        	console.log(users[i]);
+	        	console.log(client.user);
 	            if(users[i] == client.user) {
 	                delete users[users[i]];
 	            }
