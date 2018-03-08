@@ -23,7 +23,7 @@ module.exports.connect = (io) => {
 	        
 	        for(var i=0; i< users.length; i++) {
 	        	console.log(users[i].id);
-	        	console.log(client.id);
+	        	console.log(client);
 	            if(users[i].id == client.id) {
 	            	console.log('entre');
 	                delete users[users[i]];
