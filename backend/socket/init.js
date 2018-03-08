@@ -22,8 +22,8 @@ module.exports.connect = (io) => {
 		client.on('disconnect', function () {
 	        
 	        for(var i=0; i< users.length; i++) {
-	            console.log('uno: '+ users[i].idsocket);
-	            console.log('dos: ' + client);
+	            console.log(users[i]);
+	            console.log(client);
 	            /*if(users[i].idsocket == client.id) {
 	            	console.log('entre');
 	                delete users[users[i]];
