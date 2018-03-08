@@ -34,7 +34,6 @@ module.exports.connect = (io) => {
 
 		
 		function updateClients() {
-			console.log(users);
 	        io.sockets.emit('listmap', users);
 	    }
 		
