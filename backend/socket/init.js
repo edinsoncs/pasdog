@@ -9,7 +9,7 @@ module.exports.connect = (io) => {
 
 	io.on('connection', (client, username) => {
         
-        io.sockets.sockets['nickname'] = client.id;
+        io.sockets.sockets['id'] = client.id;
 
 		client.on('set-nickname', (user) => {
 
