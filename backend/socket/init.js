@@ -23,7 +23,7 @@ module.exports.connect = (io) => {
 	        
 	        for(var i=0; i< users.length; i++) {
 	            console.log(users[i]);
-	            console.log(client);
+	            console.log(client.id);
 	            /*if(users[i].idsocket == client.id) {
 	            	console.log('entre');
 	                delete users[users[i]];
