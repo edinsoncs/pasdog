@@ -4,7 +4,6 @@ import { NavController, NavParams, LoadingController } from 'ionic-angular';
 
 // plugins
 import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder';
-import { Geolocation } from '@ionic-native/geolocation';
 
 // providers
 import { GlobalProvider } from '../../providers/global/global';
@@ -32,7 +31,6 @@ export class SignupPage {
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
     private _nativeGeocoder: NativeGeocoder,
-    private _geolocation: Geolocation,
     private _globalProvider: GlobalProvider,
     private _userProvider: UserProvider
   ) { }
@@ -51,60 +49,40 @@ export class SignupPage {
     })
     this.isFormLoaded = true
 
-    this.geolocation();
+    let geolocation = this._globalProvider.geolocation
+    this.geocoder(geolocation.latitude, geolocation.longitude)
   }
 
 
-  geolocation() {
-
-    this._geolocation.getCurrentPosition().then(
-      (res) => {
-        this.geocoder(res.coords.latitude, res.coords.longitude)
-      }
-    ).catch(
-      (error) => {
-        console.log('Error getting location', error);
-        this.geocoder(this._globalProvider.defaultLatitude, this._globalProvider.defaultLongitude);
-      }
-    );
-  }
-
-
-  geocoder(latitude?: number, longitude?: number) {
+  geocoder(latitude: number, longitude: number) {
     let self = this
 
-    if(!latitude && !longitude){
-      this.geolocation();
-    }
+    this._nativeGeocoder.reverseGeocode(latitude, longitude).then(
+      (response: NativeGeocoderReverseResult) => {
+        // console.log('geocoder:', JSON.stringify(result))
 
-    else{
-      this._nativeGeocoder.reverseGeocode(latitude, longitude).then(
-        (response: NativeGeocoderReverseResult) => {
-          // console.log('geocoder:', JSON.stringify(result))
+        this.form.patchValue({
+          country: response.countryName,
+          province: response.administrativeArea,
+          city: response.subAdministrativeArea,
+          latitude: latitude,
+          longitude: longitude
+        })
 
-          this.form.patchValue({
-            country: response.countryName,
-            province: response.administrativeArea,
-            city: response.subAdministrativeArea,
-            latitude: latitude,
-            longitude: longitude
-          })
+        this.isGeolocated = true
+      }
+    )
+    .catch(
+      (error: any) => {
+        console.log(error)
+        this.isGeolocated = true
+        this.form.patchValue({
+          latitude: latitude,
+          longitude: longitude
+        })
+      }
+    )
 
-          this.isGeolocated = true
-        }
-      )
-      .catch(
-        (error: any) => {
-          console.log(error)
-          this.isGeolocated = true
-          this.form.patchValue({
-            latitude: latitude,
-            longitude: longitude
-          })
-        }
-      );
-
-    }
   }
 
 

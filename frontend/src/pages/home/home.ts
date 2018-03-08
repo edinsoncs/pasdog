@@ -48,7 +48,7 @@ export class HomePage {
       )
 
     }
-    
+
     else
       loading.dismiss()
   }

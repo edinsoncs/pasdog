@@ -41,14 +41,21 @@ export class MapPage {
   ) { }
 
   ionViewDidEnter() {
-    let self = this
-    this.loadMap()
     this._socket.connect()
+
+    let self = this
+    let geolocation = this._globalProvider.geolocation
+
+    this._socket.on('connect', (data) => {
+      self.loadMap(geolocation.latitude, geolocation.longitude)
+      self.watchGeolocation()
+    })
 
     this._socket.on('listmap', (data) => {
        if(data){
          console.log('SOCKET DATA!', data)
          self.walkers = data
+         self.updateMakers()
        }
        else {
          self.walkers = []
@@ -58,78 +65,86 @@ export class MapPage {
   }
 
 
-  click() {
-    this.updateMakers()
-  }
-
-
   loadMap(latitude?: number, longitude?: number) {
 
     let self = this
-    let profile = JSON.parse(this._globalProvider.getStorage('profile'))
 
-    if(!latitude && !longitude){
-      this.geolocation();
-    }
-
-    // if the geolocation is completed
-    else{
-      this._socket.emit('set-nickname', {
-        id: profile.user_id,
-        name: profile.name,
-        latitude: latitude,
-        longitude: longitude
-      })
-
-      let mapOptions: GoogleMapOptions = {
-        controls: {
-  				myLocationButton: true,
-  				//indoorPicker: true,
-  			},
-        gestures: {
-          zoom: true,
-          rotate: false
+    let mapOptions: GoogleMapOptions = {
+      controls: {
+				myLocationButton: true,
+				//indoorPicker: true,
+			},
+      gestures: {
+        zoom: true,
+        rotate: false
+      },
+      camera: {
+        target: {
+          lat: latitude,
+          lng: longitude
         },
-        camera: {
-          target: {
-            lat: latitude,
-            lng: longitude
-          },
-          zoom: 18,
-          tilt: 30
-        }
-      };
-
-      this.map = GoogleMaps.create('map', mapOptions);
-
-      // Wait the MAP_READY before using any methods.
-      this.map.one(GoogleMapsEvent.MAP_READY).then(
-        () => {
-          self.isMapReady = true
-        }
-      );
-
+        zoom: 18,
+        tilt: 30
+      }
     }
+
+    this.map = GoogleMaps.create('map', mapOptions);
+
+    // Wait the MAP_READY before using any methods.
+    this.map.one(GoogleMapsEvent.MAP_READY).then(
+      () => {
+        self.isMapReady = true
+      }
+    )
+
+    // move map to actual position
+    this._geolocation.getCurrentPosition().then(
+      (res) => {
+
+        let data = {
+          lat: res.coords.latitude,
+          lng: res.coords.longitude
+        }
+        self.map.setCameraTarget(data)
+
+        self._globalProvider.geolocation.latitude = res.coords.latitude
+        self._globalProvider.geolocation.longitude = res.coords.longitude
+      }
+    )
+
   }
 
 
-  geolocation() {
+  watchGeolocation() {
+    let self = this
+    let watch = this._geolocation.watchPosition()
+    let profile = JSON.parse(this._globalProvider.getStorage('profile'))
 
-    this._geolocation.getCurrentPosition().then(
-      (res) => {
-        this.loadMap(res.coords.latitude, res.coords.longitude)
-      }
-    ).catch(
-      (error) => {
-        console.log('Error getting location', error);
-        this.loadMap(this._globalProvider.defaultLatitude, this._globalProvider.defaultLongitude);
-      }
-    );
+    watch.subscribe((data) => {
+     // data can be a set of coordinates, or an error (if an error occurred).
+     // data.coords.latitude
+     // data.coords.longitude
+     self._globalProvider.geolocation.latitude = data.coords.latitude
+     self._globalProvider.geolocation.longitude = data.coords.longitude
+
+     self._socket.emit('set-nickname', {
+       idsocket: self._socket.ioSocket.id,
+       id: profile.user_id,
+       name: profile.name,
+       latitude:  self._globalProvider.geolocation.latitude,
+       longitude:  self._globalProvider.geolocation.longitude
+     })
+
+    })
+
   }
 
 
   updateMakers() {
     let self = this
+
+    this.map.clear()
+
 
     for(let i = 0; i < this.walkers.length; i++) {
 

@@ -1,13 +1,16 @@
-import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { Component, ViewChild } from '@angular/core'
+import { Nav, Platform } from 'ionic-angular'
+import { StatusBar } from '@ionic-native/status-bar'
+import { SplashScreen } from '@ionic-native/splash-screen'
+import { Geolocation } from '@ionic-native/geolocation'
 
-import { HomePage } from '../pages/home/home';
-import { MapPage } from '../pages/map/map';
-import { ListAgreedPage } from '../pages/list-agreed/list-agreed';
-import { ListHistoryPage } from '../pages/list-history/list-history';
-import { UserConfigurationPage } from '../pages/user-configuration/user-configuration';
+import { HomePage } from '../pages/home/home'
+import { MapPage } from '../pages/map/map'
+import { ListAgreedPage } from '../pages/list-agreed/list-agreed'
+import { ListHistoryPage } from '../pages/list-history/list-history'
+import { UserConfigurationPage } from '../pages/user-configuration/user-configuration'
+
+import { GlobalProvider } from '../providers/global/global'
 
 
 @Component({
@@ -27,6 +30,8 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
+    private _geolocation: Geolocation,
+    private _globalProvider: GlobalProvider
   ) {
     let self = this
 
@@ -54,12 +59,25 @@ export class MyApp {
     ]
 
     this.platform.ready().then(() => {
+
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      self.statusBar.overlaysWebView(false);
-      self.statusBar.backgroundColorByHexString('#82CDB9');
-      self.splashScreen.hide();
-    });
+      self.statusBar.overlaysWebView(false)
+      self.statusBar.backgroundColorByHexString('#82CDB9')
+      self.splashScreen.hide()
+
+      // get current position
+      this._geolocation.getCurrentPosition().then(
+        (res) => {
+          let geolocation = {
+            latitude: res.coords.latitude,
+            longitude: res.coords.longitude
+          }
+          self._globalProvider.geolocation = geolocation
+        }
+      )
+
+    })
 
   }
 
