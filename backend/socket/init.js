@@ -22,8 +22,12 @@ module.exports.connect = (io) => {
 		client.on('disconnect', function () {
 	        
 	        for(var i=0; i< users.length; i++) {
-	            if(users[i] == client.user) {
+	          
+	            if(users[i].idsocket == client.id) {
+
 	                delete users[users[i]];
+	                console.log('entre');
+	            	console.log(users);
 	            }
 	        }
 	        updateClients(); 
@@ -32,7 +36,6 @@ module.exports.connect = (io) => {
 
 		
 		function updateClients() {
-			console.log(users);
 	        io.sockets.emit('listmap', users);
 	    }
 		
