@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { Component } from '@angular/core'
+import { NavController, LoadingController } from 'ionic-angular'
 
 // pages
-import { SignupPage } from '../signup/signup';
-import { SigninPage } from '../signin/signin';
-import { MapPage } from '../map/map';
+import { SignupPage } from '../signup/signup'
+import { SignupUserTypePage } from '../signup-user-type/signup-user-type';
+import { SigninPage } from '../signin/signin'
+import { MapPage } from '../map/map'
 
 // providers
-import { GlobalProvider } from '../../providers/global/global';
-import { UserProvider } from '../../providers/user/user';
+import { GlobalProvider } from '../../providers/global/global'
+import { UserProvider } from '../../providers/user/user'
 
 
 @Component({
@@ -41,7 +42,12 @@ export class HomePage {
 
           if(response.user_id) {
             this._globalProvider.setStorage('profile', JSON.stringify(response))
-            this.navCtrl.setRoot(MapPage)
+
+            if(response.user_type != null)
+              this.navCtrl.setRoot(MapPage)
+
+            else
+              this.navCtrl.setRoot(SignupUserTypePage)
           }
         },
         (error) => loading.dismiss()

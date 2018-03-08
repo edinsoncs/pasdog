@@ -40,9 +40,9 @@ export class SignupUserTypePage {
       (response: any) => {
         loading.dismiss()
 
-        let profile: any = this._globalProvider.getStorage('token')
+        let profile: any = this._globalProvider.getStorage('profile')
             profile = JSON.parse(profile)
-            profile.role = response.role
+            profile.user_type = response.role
 
         this._globalProvider.setStorage('profile', JSON.stringify(profile))
         self.navCtrl.setRoot(MapPage)

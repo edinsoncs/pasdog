@@ -8,6 +8,7 @@ import { UserProvider } from '../../providers/user/user';
 
 // pages
 import { MapPage } from '../map/map';
+import { SignupUserTypePage } from '../signup-user-type/signup-user-type';
 
 
 @Component({
@@ -58,13 +59,19 @@ export class SigninPage {
             email: response.email,
             name: response.name,
             city: response.city,
-            user_id: response.user_id
+            user_id: response.user_id,
+            user_type: response.user_type
           }
           let token = response.token
 
           this._globalProvider.setStorage('profile', JSON.stringify(profile))
           this._globalProvider.setStorage('token', token)
-          this.navCtrl.setRoot(MapPage)
+
+          if(profile.user_type != null)
+            this.navCtrl.setRoot(MapPage)
+
+          else
+            this.navCtrl.setRoot(SignupUserTypePage)
         },
         (error) => {
           loading.dismiss()
