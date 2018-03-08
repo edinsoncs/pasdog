@@ -22,10 +22,12 @@ module.exports.connect = (io) => {
 		client.on('disconnect', function () {
 	        
 	        for(var i=0; i< users.length; i++) {
-	            if(users[i].idsocket == client.id) {
+	            console.log('uno: '+ users[i].idsocket);
+	            console.log('dos: ' + client);
+	            /*if(users[i].idsocket == client.id) {
 	            	console.log('entre');
 	                delete users[users[i]];
-	            }
+	            }*/
 	        }
 	        updateClients(); 
 	    });
