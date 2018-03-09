@@ -1,6 +1,6 @@
 'use strict'
 
-var users = [];  
+var users = {}  
 
 
 
@@ -12,31 +12,23 @@ module.exports.connect = (io) => {
 		client.on('set-nickname', (user) => {
 			console.log('conectado');
 
-			client.handshake.id = user.id;
-			users.push(user);
+			client.handshake.name = user.name;
+			users[user.name] = user;
 			updateClients();
 
 		});
 
 		client.on('disconnect', function () {
-			console.log('desconectado');
-	        
-	        for(var i = 0; i < users.length; i++) {
-
-	        	if(users[i].id == client.handshake.id) {
-	        		console.log('borrado');
-	        		delete users[i];
-	        	}
-
-
-	        }
-
+			
+			delete users[client.handshake.name];
 	        updateClients(); 
 	    });
 
 
 		
 		function updateClients() {	
+
+			console.log(users);
 
 	        io.sockets.emit('listmap', users);
 	    }
