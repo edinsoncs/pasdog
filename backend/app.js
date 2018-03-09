@@ -34,13 +34,12 @@ app.use(function(req, res, next) {
  	
  	jsonwebtoken.verify(req.headers.authorization.split(' ')[1], 'p4stx!d39xz<!ag', function(err, decode) {
     if (err)req.user = undefined;
+       console.log('ingrese');
       req.user = decode;
       next();
-      
     });
 
  } else {
-  console.log('llego aqui');
  	req.user = undefined;
     next();
  }

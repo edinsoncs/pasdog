@@ -51,7 +51,7 @@ router.post('/profile', (req, res, next) => {
 			if(err) return err;
 
 			res.json({
-				user_id: data._id,
+				user_id: data.id,
 				user_type: data.role,
 				name: data.name,
 				email: data.email,

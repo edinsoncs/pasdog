@@ -9,33 +9,35 @@ module.exports.connect = (io) => {
 
 	io.on('connection', (client, username) => {
         
-        io.sockets.sockets['id'] = client.id;
-
 		client.on('set-nickname', (user) => {
+			console.log('conectado');
 
-			client.user = user;
+			client.handshake.id = user.id;
 			users.push(user);
 			updateClients();
 
 		});
 
 		client.on('disconnect', function () {
+			console.log('desconectado');
 	        
-	        for(var i=0; i< users.length; i++) {
-	          
-	            if(users[i].idsocket == client.id) {
+	        for(var i = 0; i < users.length; i++) {
 
-	                delete users[users[i]];
-	                console.log('entre');
-	            	console.log(users);
-	            }
+	        	if(users[i].id == client.handshake.id) {
+	        		console.log('borrado');
+	        		delete users[i];
+	        	}
+
+
 	        }
+
 	        updateClients(); 
 	    });
 
 
 		
-		function updateClients() {
+		function updateClients() {	
+
 	        io.sockets.emit('listmap', users);
 	    }
 		

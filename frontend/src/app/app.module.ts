@@ -28,7 +28,7 @@ import { UserProvider } from '../providers/user/user';
 
 //Sockets connect frontend to backend
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
-const config: SocketIoConfig = { url: 'http://46.101.73.97:3000/', options: {} };
+const config: SocketIoConfig = { url: 'http://localhost:3000/', options: {} };
 
 
 
