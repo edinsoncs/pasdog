@@ -54,9 +54,7 @@ router.post('/profile', (req, res, next) => {
 
 			res.json([
 
-			'data' {
-				data
-			}
+			'data': data
 
 			]);
 
