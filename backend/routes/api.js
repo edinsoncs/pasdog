@@ -52,7 +52,7 @@ router.post('/profile', (req, res, next) => {
 
 			var show = [{'data': data}]
 
-			res.json();
+			res.json(show);
 
 		});
 
