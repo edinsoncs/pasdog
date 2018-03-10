@@ -47,14 +47,7 @@ router.post('/profile', (req, res, next) => {
 		let db = req.db;
 		let user = db.get('users');
 		
-		res.json({
-				user_id: req.user._id,
-				user_type: req.user.role,
-				name: req.user.name,
-				email: req.user.email,
-				city: req.user.city,
-				geolocation: req.user.geolocation
-		});
+		res.json(req.user);
 
 
 
