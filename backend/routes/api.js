@@ -50,9 +50,9 @@ router.post('/profile', (req, res, next) => {
 		user.findOne({'_id': req.user._id}, (err, data) => {
 			if(err) return err;
 
-			var show = [{'data': user_id: data._id,
+			var show = [{'data': {user_id: data._id,
 		    role: data.role, name: data.name, geolocation: data.geolocation,
-			emal: data.email, date: data.create, city: data.city}]
+			emal: data.email, date: data.create, city: data.city}}]
 
 			res.json(show);
 
