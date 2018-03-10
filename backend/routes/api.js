@@ -46,9 +46,13 @@ router.post('/profile', (req, res, next) => {
 
 		let db = req.db;
 		let user = db.get('users');
-		
-		res.json(req.user);
 
+		user.findOne({'_id': req.user._id}, (err, data) => {
+			if(err) return err;
+
+			res.json(data);
+
+		});
 
 
 	} else {
