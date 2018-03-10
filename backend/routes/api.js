@@ -52,7 +52,7 @@ router.post('/profile', (req, res, next) => {
 
 			var show = [{'data': {user_id: data._id,
 		    user_type: data.role, name: data.name, geolocation: data.geolocation,
-			emal: data.email, date: data.create, city: data.city}}]
+			email: data.email, date: data.create, city: data.city}}]
 
 			res.json(show);
 
