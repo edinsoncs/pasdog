@@ -51,7 +51,7 @@ router.post('/profile', (req, res, next) => {
 			if(err) return err;
 
 			var show = [{'data': {user_id: data._id,
-		    role: data.role, name: data.name, geolocation: data.geolocation,
+		    user_type: data.role, name: data.name, geolocation: data.geolocation,
 			emal: data.email, date: data.create, city: data.city}}]
 
 			res.json(show);
