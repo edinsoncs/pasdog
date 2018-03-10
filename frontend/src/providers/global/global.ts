@@ -8,7 +8,7 @@ import { ToastController, Platform } from 'ionic-angular';
 
 export class GlobalProvider {
 
-  public baseUrl: string = "http://localhost:3000";
+  public baseUrl: string = "http://46.101.73.97:3000";
   public apiUrl: string = this.baseUrl + "/api";
   public geolocation: any ={
     latitude: -34.6036845,

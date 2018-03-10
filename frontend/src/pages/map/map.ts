@@ -28,7 +28,8 @@ export class MapPage {
 
   map: GoogleMap
   isMapReady: boolean = false
-  walkers: any = []
+  walkers: any = {}
+  walkersQty: number = 0
 
   constructor(
     public navCtrl: NavController,
@@ -41,13 +42,15 @@ export class MapPage {
   ) { }
 
   ionViewDidEnter() {
-    this._socket.connect()
 
     let self = this
     let geolocation = this._globalProvider.geolocation
+    this.loadMap(geolocation.latitude, geolocation.longitude)
+
+
+    this._socket.connect()
 
     this._socket.on('connect', (data) => {
-      self.loadMap(geolocation.latitude, geolocation.longitude)
       self.watchGeolocation()
     })
 
@@ -58,10 +61,15 @@ export class MapPage {
          self.updateMakers()
        }
        else {
-         self.walkers = []
+         self.walkers = {}
          console.log('No socket data')
        }
     })
+  }
+
+
+  click() {
+    this.updateMakers()
   }
 
 
@@ -142,34 +150,40 @@ export class MapPage {
 
   updateMakers() {
     let self = this
+    let profile = JSON.parse(this._globalProvider.getStorage('profile'))
 
     this.map.clear()
+    this.walkersQty = 0
 
+    for(let walker in this.walkers) {
 
-    for(let i = 0; i < this.walkers.length; i++) {
+      this.walkersQty++
 
-      let marker = {
-        icon: 'red',
-        animation: 'DROP',
-        position: {
-          lat: this.walkers[i].latitude,
-          lng: this.walkers[i].longitude,
-        }
-      }
+      if(this.walkers[walker].id != profile.user_id) {
 
-      // Now you can use all methods safely.
-      this.map.addMarker(marker).then(marker => {
-        marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-
-          let data = {
-            id: this.walkers[i].iduser,
-            name: this.walkers[i].name,
+        let marker = {
+          icon: 'red',
+          animation: 'DROP',
+          position: {
+            lat: this.walkers[walker].latitude,
+            lng: this.walkers[walker].longitude,
           }
+        }
 
-          self.userPreview(data)
+        // Now you can use all methods safely.
+        this.map.addMarker(marker).then(marker => {
+          marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
 
+            let data = {
+              id: this.walkers[walker].iduser,
+              name: this.walkers[walker].name,
+            }
+
+            self.userPreview(data)
+
+          })
         })
-      })
+      }
 
     }
   }

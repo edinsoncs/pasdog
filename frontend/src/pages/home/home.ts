@@ -40,6 +40,8 @@ export class HomePage {
         (response: any) => {
           loading.dismiss()
 
+          response = response[0].data
+
           if(response.user_id) {
             this._globalProvider.setStorage('profile', JSON.stringify(response))
 
