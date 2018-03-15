@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
 
 // plugins
@@ -44,8 +44,10 @@ export class SignupPage {
       'country': new FormControl('Argentina', Validators.required),
       'province': new FormControl('CABA', Validators.required),
       'city': new FormControl('San Nicolás', Validators.required),
-      'latitude': new FormControl(null, Validators.required),
-      'longitude': new FormControl(null, Validators.required)
+      'geolocation': new FormArray([
+        new FormControl(null, Validators.required),
+        new FormControl(null, Validators.required),
+      ])
     })
     this.isFormLoaded = true
 
@@ -65,8 +67,7 @@ export class SignupPage {
           country: response.countryName,
           province: response.administrativeArea,
           city: response.subAdministrativeArea,
-          latitude: latitude,
-          longitude: longitude
+          geolocation: [latitude, longitude]
         })
 
         this.isGeolocated = true
@@ -77,8 +78,7 @@ export class SignupPage {
         console.log(error)
         this.isGeolocated = true
         this.form.patchValue({
-          latitude: latitude,
-          longitude: longitude
+          geolocation: [latitude, longitude]
         })
       }
     )
@@ -138,9 +138,10 @@ export class SignupPage {
               let profile = {
                 city: response.city,
                 email: response.email,
-                geolocation: response.geolocation,
+                geolocation: response.geolocation.length > 1 ? response.geolocation : null,
                 name: response.name,
-                user_id: response.user_id
+                user_id: response.user_id,
+                user_type: null
               }
 
               this._globalProvider.setStorage('token', response.token)

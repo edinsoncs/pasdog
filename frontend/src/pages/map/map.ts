@@ -69,7 +69,8 @@ export class MapPage {
 
 
   click() {
-    this.updateMakers()
+    // this.updateMakers()
+    this.userPreview('yeah')
   }
 
 
@@ -102,6 +103,7 @@ export class MapPage {
     this.map.one(GoogleMapsEvent.MAP_READY).then(
       () => {
         self.isMapReady = true
+        self.updateMakers(true)
       }
     )
 
@@ -129,26 +131,26 @@ export class MapPage {
     let profile = JSON.parse(this._globalProvider.getStorage('profile'))
 
     watch.subscribe((data) => {
-     // data can be a set of coordinates, or an error (if an error occurred).
-     // data.coords.latitude
-     // data.coords.longitude
-     self._globalProvider.geolocation.latitude = data.coords.latitude
-     self._globalProvider.geolocation.longitude = data.coords.longitude
+       // data can be a set of coordinates, or an error (if an error occurred).
+       // data.coords.latitude
+       // data.coords.longitude
+       self._globalProvider.geolocation.latitude = data.coords.latitude
+       self._globalProvider.geolocation.longitude = data.coords.longitude
 
-     self._socket.emit('set-nickname', {
-       idsocket: self._socket.ioSocket.id,
-       id: profile.user_id,
-       name: profile.name,
-       latitude:  self._globalProvider.geolocation.latitude,
-       longitude:  self._globalProvider.geolocation.longitude
-     })
+       self._socket.emit('set-nickname', {
+         idsocket: self._socket.ioSocket.id,
+         id: profile.user_id,
+         name: profile.name,
+         latitude:  self._globalProvider.geolocation.latitude,
+         longitude:  self._globalProvider.geolocation.longitude
+      })
 
     })
 
   }
 
 
-  updateMakers() {
+  updateMakers(animation?) {
     let self = this
     let profile = JSON.parse(this._globalProvider.getStorage('profile'))
 
@@ -163,7 +165,7 @@ export class MapPage {
 
         let marker = {
           icon: 'red',
-          animation: 'DROP',
+          animation: animation ? 'DROP' : null,
           position: {
             lat: this.walkers[walker].latitude,
             lng: this.walkers[walker].longitude,

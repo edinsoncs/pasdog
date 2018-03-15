@@ -27,6 +27,10 @@
           <ion-input type="password" name="password" formControlName="password" placeholder="Contraseña"></ion-input>
         </ion-item>
 
+        <ion-item *ngIf="!isGeolocated">
+          <p no-margin>Localizando...</p>
+        </ion-item>
+
       </ion-list>
     </form>
   </div>

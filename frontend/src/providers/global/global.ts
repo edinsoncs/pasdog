@@ -1,23 +1,37 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { RequestOptions, Headers, Http } from '@angular/http';
-import { Injectable } from '@angular/core';
-import { ToastController, Platform } from 'ionic-angular';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
+import { RequestOptions, Headers, Http } from '@angular/http'
+import { Injectable } from '@angular/core'
+import { ToastController, Platform } from 'ionic-angular'
+
+// plugins
+import { Network } from '@ionic-native/network'
 
 
 @Injectable()
 
 export class GlobalProvider {
 
-  public baseUrl: string = "http://46.101.73.97:3000";
-  public apiUrl: string = this.baseUrl + "/api";
-  public geolocation: any ={
+  public onDevice: boolean = this.platform.is('cordova')
+  public baseUrl: string = "http://46.101.73.97:3000"
+  public apiUrl: string = this.baseUrl + "/api"
+  public geolocation: any = {
     latitude: -34.6036845,
     longitude: -58.3816649
+  }
+  public profile: any = {
+    name: '',
+    city: '',
+    email: '',
+    url: '',
+    user_id: null,
+    user_type: null
   }
 
   constructor(
     public http: HttpClient,
-    public toastCtrl: ToastController
+    public platform: Platform,
+    public toastCtrl: ToastController,
+    private _network: Network
   ) { }
 
 
@@ -55,6 +69,20 @@ export class GlobalProvider {
   setStorage(key: string, value: any){
     localStorage.setItem(key, value)
     console.log('set :', key, ' value: ', value)
+  }
+
+
+  isOnline(defaultToast: boolean = false) {
+    let status: boolean
+
+    if(this.onDevice && this._network.type)
+      this._network.type == 'none' ? status = false : status = true
+    else
+      navigator.onLine ? status = true : status = false
+
+    defaultToast && !status ? this.toast('Revisa tu conexión a internet') : null
+
+    return status
   }
 
 
