@@ -12,6 +12,12 @@ import { UserProfilePage } from '../user-profile/user-profile';
 
 export class UserPreviewPage {
 
+  id: number
+  name: string
+  avatar: string
+  price: number
+  reputation: string
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -20,6 +26,11 @@ export class UserPreviewPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserPreviewPage');
+    this.id = this.navParams.get('id')
+    this.name = this.navParams.get('name')
+    this.avatar = this.navParams.get('avatar')
+    this.price = this.navParams.get('price')
+    this.reputation = this.navParams.get('reputation')
   }
 
   dismiss() {

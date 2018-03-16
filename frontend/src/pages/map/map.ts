@@ -70,7 +70,15 @@ export class MapPage {
 
   click() {
     // this.updateMakers()
-    this.userPreview('yeah')
+    let data = {
+      id: 14,
+      name: 'Juan Taboda',
+      avatar: 'https://ta.azureedge.net/p/images/usuarios/l/878872.jpg/300x300cut/?v=2',
+      price: 140,
+      reputation: 4
+    }
+
+    this.userPreview(data)
   }
 
 
@@ -195,7 +203,7 @@ export class MapPage {
 
     console.log('data received: ', data)
 
-    let modal = this.modalCtrl.create(UserPreviewPage)
+    let modal = this.modalCtrl.create(UserPreviewPage, data)
         modal.present()
   }
 
