@@ -90,7 +90,8 @@ exports.register = (req, res, next) => {
 					name: user.name,
 					city: user.city,
 					geolocation: user.geolocation,
-					create: user.create
+					create: user.create,
+          avatar: user.avatar
 
 
 				});
@@ -127,7 +128,8 @@ exports.access_email = (req, res, next) => {
 			token: jwt.sign({ email: user.email, name: user.name, _id: user._id }, 'p4stx!d39xz<!ag'),
 			name: user.name,
 			city: user.city,
-			email: user.email
+			email: user.email,
+      avatar: user.avatar
 		});
 
 
