@@ -134,9 +134,9 @@ export class MapPage {
 
 
   watchGeolocation() {
-    let self = this
-    let watch = this._geolocation.watchPosition()
-    let profile = JSON.parse(this._globalProvider.getStorage('profile'))
+    let self = this,
+        watch = this._geolocation.watchPosition(),
+        profile = JSON.parse(this._globalProvider.getStorage('profile'))
 
     watch.subscribe((data) => {
        // data can be a set of coordinates, or an error (if an error occurred).
@@ -149,6 +149,7 @@ export class MapPage {
          idsocket: self._socket.ioSocket.id,
          id: profile.user_id,
          name: profile.name,
+         avatar: profile.avatar,
          latitude:  self._globalProvider.geolocation.latitude,
          longitude:  self._globalProvider.geolocation.longitude
       })
@@ -159,8 +160,8 @@ export class MapPage {
 
 
   updateMakers(animation?) {
-    let self = this
-    let profile = JSON.parse(this._globalProvider.getStorage('profile'))
+    let self = this,
+        profile = JSON.parse(this._globalProvider.getStorage('profile'))
 
     this.map.clear()
     this.walkersQty = 0
@@ -187,6 +188,7 @@ export class MapPage {
             let data = {
               id: this.walkers[walker].iduser,
               name: this.walkers[walker].name,
+              avatar: this.walkers[walker].avatar
             }
 
             self.userPreview(data)

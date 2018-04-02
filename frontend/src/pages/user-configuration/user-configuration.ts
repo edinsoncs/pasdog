@@ -4,7 +4,6 @@ import { NavController, NavParams, Platform, AlertController, LoadingController 
 // plugins
 import { Camera, CameraOptions } from '@ionic-native/camera'
 import { File } from '@ionic-native/file'
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer'
 import { FilePath } from '@ionic-native/file-path'
 declare var cordova: any
 
@@ -21,8 +20,8 @@ import { UserProvider } from '../../providers/user/user'
 export class UserConfigurationPage {
 
   profile: any
-  file: string = "https://ta.azureedge.net/p/images/usuarios/l/878872.jpg/300x300cut/?v=2"
-  
+  file: string = this._globalProvider.emptyProfile
+
   fileUploading: boolean = false
   fileUploaded: boolean = false
   fileId: number = null
@@ -40,7 +39,6 @@ export class UserConfigurationPage {
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     private _camera: Camera,
-    private _transfer: FileTransfer,
     private _file: File,
     private _filePath: FilePath,
     private _globalProvider: GlobalProvider,
@@ -50,6 +48,10 @@ export class UserConfigurationPage {
   ionViewDidLoad() {
     let profile = this._globalProvider.getStorage('profile')
         this.profile = JSON.parse(profile)
+
+    if(this.profile.avatar)
+      this.file = this._globalProvider.galleryUrl + '/' + this.profile.avatar
+
   }
 
   takePicture(type?: string) {
@@ -81,10 +83,7 @@ export class UserConfigurationPage {
            let base64Image = imageData
            self.uploadFile(base64Image)
 
-         }, (err) => {
-           alert('getPicture Error')
-           console.log(err)
-         }
+         }, (err) => { }
        )
 
     }
@@ -124,7 +123,7 @@ export class UserConfigurationPage {
   uploadFile(base64Image) {
 
     let loader = this.loadingCtrl.create({
-      content: "Uploading..."
+      content: "Subiendo..."
     })
     loader.present()
 
@@ -140,35 +139,7 @@ export class UserConfigurationPage {
         loader.dismiss()
       }
     )
-/*
-    const fileTransfer: FileTransferObject = this._transfer.create()
-    let token = this._globalProvider.getStorage('token')
 
-    let options: FileUploadOptions = {
-      fileKey: 'avatar',
-      fileName: 'profile',
-      chunkedMode: false,
-      mimeType: "image/jpeg",
-      headers: {
-        "Authorization" : `JWT ${ token }`
-      }
-    }
-
-    fileTransfer.upload(base64Image, this._globalProvider.apiUrl + '/profile/saveimage', options).then(
-      (data) => {
-        alert('file upload success')
-        this.resp = data
-        this.file = 'data:image/jpeg;base64,' + base64Image
-        loader.dismiss()
-      },
-      (err) => {
-        alert('file upload error')
-        alert(err)
-        this.fakeResp = err
-        loader.dismiss()
-      }
-    )
-*/
   }
 
 }

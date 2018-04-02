@@ -14,6 +14,8 @@ export class GlobalProvider {
   public onDevice: boolean = this.platform.is('cordova')
   public baseUrl: string = "http://46.101.73.97:3000"
   public apiUrl: string = this.baseUrl + "/api"
+  public galleryUrl: string = this.baseUrl + '/gallery'
+  public emptyProfile: string = "assets/imgs/profile.jpg"
   public geolocation: any = {
     latitude: -34.6036845,
     longitude: -58.3816649
