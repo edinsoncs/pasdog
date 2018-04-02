@@ -1,0 +1,110 @@
+<ion-header>
+  <ion-navbar>
+
+    <ion-title text-center>Agregar mascota</ion-title>
+
+    <ion-buttons end no-margin>
+      <button ion-button icon-only>
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="std-form">
+
+
+    <form *ngIf="step1.isFormLoaded" [formGroup]="step1.form" novalidate="novalidate">
+      <ion-list [hidden]="step != 1" class="step-1">
+        <ion-item>
+          <ion-input type="text" name="name" formControlName="name" placeholder="Nombre"></ion-input>
+        </ion-item>
+
+        <ion-grid no-padding>
+          <ion-row>
+            <ion-col col-7>
+              <ion-item>
+                <ion-input type="text" name="race" formControlName="race" placeholder="Raza"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-5>
+              <ion-item class="size-item">
+                <div class="size">
+                  <img src="assets/imgs/dog.svg" class="dog"
+                                                 [class.dog--selected]="step1.form.value.size >= 1"
+                                                 (click)="changeSize(1)">
+                  <img src="assets/imgs/dog.svg" class="dog"
+                                                 [class.dog--selected]="step1.form.value.size >= 2"
+                                                 (click)="changeSize(2)">
+                  <img src="assets/imgs/dog.svg" class="dog"
+                                                 [class.dog--selected]="step1.form.value.size >= 3"
+                                                 (click)="changeSize(3)">
+                </div>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid no-padding>
+          <ion-row>
+            <ion-col col-6>
+              <ion-item>
+                <ion-input type="number" name="age" formControlName="age" placeholder="Edad"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-6>
+              <ion-item>
+                <ion-input type="number" name="weight" formControlName="weight" placeholder="Peso"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-list>
+    </form>
+
+
+    <form *ngIf="step2.isFormLoaded" [formGroup]="step2.form" novalidate="novalidate">
+      <ion-list [hidden]="step != 2" class="step-2">
+
+        <div class="avatar">
+          <ion-avatar item-start>
+            <img *ngIf="file" [src]="file">
+            <div class="profile-image" (click)="takePicture()">
+              <ion-icon name="camera"></ion-icon>
+            </div>
+          </ion-avatar>
+
+          <p>
+            ¡Sube una foto de {{ step1.form.value.name }}!
+          </p>
+        </div>
+
+        <ion-item>
+          <ion-textarea name="description" formControlName="description"
+                                           placeholder="Descripción breve...">
+          </ion-textarea>
+        </ion-item>
+
+      </ion-list>
+    </form>
+
+
+  </div>
+</ion-content>
+
+
+<ion-footer class="call-to-action">
+  <button ion-button full color="secondary" no-margin (click)="nextStep()"
+                                                      [disabled]="!step1.isFormLoaded || !step1.form.valid"
+                                                      *ngIf="step == 1">
+    Continuar
+  </button>
+  <button ion-button full color="secondary" no-margin (click)="formSubmit()"
+                                                      [disabled]="!step2.isFormLoaded || !step2.form.valid"
+                                                      *ngIf="step == 2">
+    Guardar mascota
+  </button>
+</ion-footer>

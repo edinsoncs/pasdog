@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser'
 import { ErrorHandler, NgModule } from '@angular/core'
 import { HttpClientModule } from '@angular/common/http'
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular'
+import { ComponentsModule } from '../components/components.module'
+
 import { StatusBar } from '@ionic-native/status-bar'
 import { SplashScreen } from '@ionic-native/splash-screen'
 import { GoogleMaps } from '@ionic-native/google-maps'
@@ -28,9 +30,13 @@ import { SignupPage } from '../pages/signup/signup'
 import { SignupUserTypePage } from '../pages/signup-user-type/signup-user-type'
 import { SigninPage } from '../pages/signin/signin'
 import { PaymentSelectPage } from '../pages/payment-select/payment-select'
+import { PetsPage } from '../pages/pets/pets'
+import { PetProfilePage } from '../pages/pet-profile/pet-profile'
+import { PetAddPage } from '../pages/pet-add/pet-add'
 
 import { GlobalProvider } from '../providers/global/global'
 import { UserProvider } from '../providers/user/user'
+import { PetProvider } from '../providers/pet/pet'
 
 const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', options: {} }
 
@@ -50,13 +56,17 @@ const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', option
     SignupPage,
     SignupUserTypePage,
     SigninPage,
-    PaymentSelectPage
+    PaymentSelectPage,
+    PetsPage,
+    PetProfilePage,
+    PetAddPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    SocketIoModule.forRoot(SOCKET_CONFIG)
+    SocketIoModule.forRoot(SOCKET_CONFIG),
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -73,7 +83,10 @@ const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', option
     SignupPage,
     SignupUserTypePage,
     SigninPage,
-    PaymentSelectPage
+    PaymentSelectPage,
+    PetsPage,
+    PetProfilePage,
+    PetAddPage
   ],
   providers: [
     StatusBar,
@@ -89,7 +102,8 @@ const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', option
     Network,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GlobalProvider,
-    UserProvider
+    UserProvider,
+    PetProvider
   ]
 })
 export class AppModule {}

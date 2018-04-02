@@ -1,0 +1,24 @@
+<div class="card-pet" (click)="openProfile()">
+  <div class="card-pet__Image">
+    <img [src]="avatar" alt="">
+  </div>
+  <div class="card-pet__Content">
+    <div class="title">
+      <p>
+        {{ name }}
+      </p>
+      <span text-capitalize
+            [class.standard]="race == 'mestizo'">
+        {{ race }}
+      </span>
+    </div>
+    <div class="size">
+      <img src="assets/imgs/dog.svg" class="dog"
+                                     [class.dog--selected]="size >= 1">
+      <img src="assets/imgs/dog.svg" class="dog"
+                                     [class.dog--selected]="size >= 2">
+      <img src="assets/imgs/dog.svg" class="dog"
+                                     [class.dog--selected]="size >= 3">
+    </div>
+  </div>
+</div>

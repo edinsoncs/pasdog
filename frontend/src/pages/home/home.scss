@@ -19,64 +19,72 @@ page-home {
 		background: #fff;
 		height: 100%;
 
-		.header {
-			position: static;
+
+		h1 {
+			font-size: 36px;
+	    color: color($colors, primary, base);
+			text-transform: uppercase;
+	    font-weight: 700;
+			padding: 40px 0 0;
 			text-align: center;
-			padding: 1em 0;
-			background: white;
+			filter: brightness(1.15);
+			text-shadow: 0 1px 1px rgba(0,0,0,.2);
 		}
 
-		.is__Header {
-			font-size: 25px;
-			border-bottom: 1px solid whitesmoke;
-			h1 {
-				font-size: 28px;
-			    color: #78cab4;
-			    font-family: 'Karma', serif;
-			    font-weight: 700;
-				margin: 0;
-			}
-			.is__Subcontent {
-				font-family: 'Raleway', sans-serif;
-			}
-		}
-/*
 		.is__Container {
 			.__isLogo {
-			  margin-top: 2em;
-			  position: relative;
-			  @import 'dog';
-			}
-
-			.is__Socials {
-				position: absolute;
-				bottom: 0;
-				width: 100%;
-				button {
-					display: block;
-					width: 90%;
-					padding-top: 1em;
-					padding-bottom: 1em;
-					margin: 0.8em auto;
-					height: 50px;
-					box-shadow: none!important;
-				}
-				button.facebook {
-					background: #3b5998;
-				}
-				button.google {
-					background: #d9524f;
-				}
-				button.white {
-					background: #fff;
-					color: #5bc0de;
-					border: 1px solid #dadada;
+				position: relative;
+			  height: 55vh;
+				background-size: cover;
+				background-position: bottom;
+				background-image: url('../assets/imgs/intro.jpg');
+				&:after{
+					content:"";
+					position: absolute;
+			    height:100%;
+			    width:100%;
+			    top:0;
+			    left:0;
+			    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,.2), white);
 				}
 			}
 		}
-*/
+
+		.is__Socials {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			button {
+				display: block;
+				width: 90%;
+				margin: 0.8em auto;
+				/*
+				height: 42px;
+				box-shadow: 0 3px 6px
+				*/
+				height: 40px;
+		    text-transform: none;
+		    font-weight: 400;
+		    font-size: 1.2em;
+		    box-shadow: 0 1px 1px rgba(0,0,0,.15);
+			}
+			button.facebook {
+				background: #3b5998;
+			}
+			button.google {
+				background: #d9524f;
+			}
+			button.white {
+				background: #FAFAFA;
+				color: #333;
+			}
+			button[clear] {
+				box-shadow: none;
+				color: color($colors, primary, base);
+				height: 50px;
+			}
+		}
+
 	}
-
-
 
 }

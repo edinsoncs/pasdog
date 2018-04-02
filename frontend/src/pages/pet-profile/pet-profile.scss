@@ -1,0 +1,78 @@
+page-pet-profile {
+
+  .header{
+    display: flex;
+    align-items: center;
+
+    ion-avatar{
+      img{
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+      }
+    }
+
+    &__Name{
+      font-weight: 400;
+      margin-left: 22px;
+      font-size: 1.5em;
+
+      & + p{
+        margin-left: 22px;
+        color: $gray-5;
+      }
+    }
+
+
+
+    &__Reputation{
+      padding: 10px 16px 25px !important;
+
+      .features {
+        p {
+          margin-bottom: 6px
+        }
+      }
+      .size {
+        float: right;
+        min-width: 90px;
+        max-width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px 0 0 0;
+        .dog {
+          opacity: .2;
+          padding-right: 3px;
+          &:nth-child(1) {
+            width: 20px;
+            height: 20px;
+          }
+          &:nth-child(2) {
+            width: 25px;
+            height: 25px;
+          }
+          &:nth-child(3) {
+            width: 30px;
+            height: 30px;
+          }
+          &--selected {
+            opacity: 1;
+          }
+        }
+      }
+
+    }
+  }
+
+
+  ion-segment{
+    border-top: 1px solid #DDD
+  }
+
+
+  .body{
+    border-top: 1px solid $gray-6;
+    padding: 6px 0;
+  }
+}

@@ -68,20 +68,6 @@ export class HomePage {
     if(type == 'email'){
       self.navCtrl.push(SigninPage);
     }
-
-    else{
-
-      let loading = this.loadingCtrl.create({
-        content: 'Cargando...'
-      })
-      loading.present();
-
-      setTimeout(() => {
-        self.navCtrl.setRoot(MapPage);
-        loading.dismiss();
-      }, 700)
-    }
-
   }
 
 

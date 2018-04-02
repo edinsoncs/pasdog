@@ -104,7 +104,8 @@ ion-footer.call-to-action{
         border: none !important;
         box-shadow: none !important;
       }
-      ion-input{
+      ion-input,
+      ion-textarea{
         border-bottom: 1px solid $gray-6;
       }
 

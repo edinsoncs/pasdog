@@ -9,6 +9,7 @@ import { MapPage } from '../pages/map/map'
 import { ListAgreedPage } from '../pages/list-agreed/list-agreed'
 import { ListHistoryPage } from '../pages/list-history/list-history'
 import { UserConfigurationPage } from '../pages/user-configuration/user-configuration'
+import { PetsPage } from '../pages/pets/pets'
 
 import { GlobalProvider } from '../providers/global/global'
 
@@ -51,6 +52,10 @@ export class MyApp {
       {
         title: 'Mis pagos',
         component: MapPage
+      },
+      {
+        title: 'Mis mascotas',
+        component: PetsPage
       },
       {
         title: 'Configuración',
