@@ -91,8 +91,7 @@ exports.register = (req, res, next) => {
 					city: user.city,
 					geolocation: user.geolocation,
 					create: user.create,
-          avatar: user.avatar
-
+                    avatar: user.avatar
 
 				});
 
@@ -129,7 +128,7 @@ exports.access_email = (req, res, next) => {
 			name: user.name,
 			city: user.city,
 			email: user.email,
-      avatar: user.avatar
+            avatar: user.avatar
 		});
 
 
