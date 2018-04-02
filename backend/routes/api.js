@@ -50,9 +50,17 @@ router.post('/profile', (req, res, next) => {
 		user.findOne({'_id': req.user._id}, (err, data) => {
 			if(err) return err;
 
-			var show = [{'data': {user_id: data._id,
-		    user_type: data.role, name: data.name, geolocation: data.geolocation,
-			email: data.email, date: data.create, city: data.city}}]
+			var show = [
+			{'data': 
+			{user_id: data._id,
+		    user_type: data.role, 
+		    name: data.name, 
+		    geolocation: data.geolocation,
+			email: data.email, 
+			date: data.create, 
+			city: data.city,
+			avatar: data.avatar
+			}}]
 
 			res.json(show);
 
@@ -129,9 +137,6 @@ router.post('/map', (req, res, next) => {
 	var status = userHandlers.loginRequired(req, res, next);
 
 	if(status) {
-
-
-		
 
 
 	} else {

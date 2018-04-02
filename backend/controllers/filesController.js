@@ -30,7 +30,7 @@ exports.savephotoprofile = (req, res, next) => {
 
 		user.findOneAndUpdate({'_id': req.user._id}, {
 			$set: {
-				'avatar': _url
+				'avatar': _name
 			}
 		}, (err, doc) => {
 
