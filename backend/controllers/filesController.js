@@ -69,7 +69,9 @@ exports.savephotodog = (req, res, next) => {
 			race: req.body.race,
 			age: req.body.age,
 			avatar: _url,
-			details: req.body.details
+			details: req.body.details,
+			size: req.body.size,
+			body: req.body.weight
 		}, (err, success) => {
 
 			if(err) return err;
