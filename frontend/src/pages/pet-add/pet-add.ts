@@ -75,7 +75,6 @@ export class PetAddPage {
       })
       loading.present()
 
-
       let form = {
         name: step1.value.name,
         race: step1.value.race,
@@ -83,7 +82,7 @@ export class PetAddPage {
         size: Number(step1.value.size),
         weight: Number(step1.value.weight),
         avatar: step2.value.avatar,
-        description: step2.value.description,
+        details: step2.value.description,
       }
 
       this._petProvider.setPet(form).subscribe(
