@@ -11,7 +11,9 @@ let UserSchema = new Schema({
 	'race': String,
 	'age': { type: Date, default: Date.now },
 	'avatar': String,
-	'details': String
+	'details': String,
+	'size': Number,
+	'weight': Number
 
 });
 
