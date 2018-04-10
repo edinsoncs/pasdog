@@ -56,19 +56,20 @@ exports.savephotodog = (req, res, next) => {
 	let _img = req.body.avatar;
 	let _data = _img.replace(/^data:image\/\w+;base64,/, "");
 	let _buf = new Buffer(_data, 'base64');
-	let _name = shortid.generate();
+	let _name = shortid.generate() + '.png';
 
-	let _url = path.join(__dirname, '..', 'public/', 'dogs/' + _name + '.png');
+	let _url = path.join(__dirname, '..', 'public/', 'dogs/' + _name);
 
 	fs.writeFile(_url, _buf, (xhr) => {
 		if(xhr) return xhr;
 
 		listdog.insert({
+			user: req.user._id,
 			name: req.body.name,
 			color: req.body.color,
 			race: req.body.race,
 			age: req.body.age,
-			avatar: _url,
+			avatar: _name,
 			details: req.body.details,
 			size: req.body.size,
 			body: req.body.weight

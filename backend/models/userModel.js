@@ -27,7 +27,12 @@ let UserSchema = new Schema({
 
 
 	//Geolocation user position[0] => Latitud and position[1] => longitud
-	geolocation: Array
+	geolocation: Array,
+
+	//Price and Description user
+
+	price: Number,
+	description: String
 
 });
 

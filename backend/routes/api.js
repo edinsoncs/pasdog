@@ -125,7 +125,25 @@ router.post('/newdog', (req, res, next) => {
 
 	}
 
+});
 
+
+router.post('/listdog', (req, res, next) => {
+
+	//#one => route create list dog in collection "listdog"
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status){
+
+		//list dog in user related collections
+		return newdog.list(req, res, next);
+
+	}  else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
 
 });
 
@@ -145,6 +163,21 @@ router.post('/map', (req, res, next) => {
 
 	}
 
+});
+
+router.post('/profile/paseador', (req, res, next) => {
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status) {
+
+		return userHandlers.completPaseador(req, res, next);
+
+	} else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
 
 
 });

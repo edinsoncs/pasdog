@@ -45,3 +45,36 @@ module.exports.create = (req, res, next) => {
 	res.json({'success': req.user._id});*/
 
 }
+
+module.exports.list = (req, res, next) => {
+
+
+	let db = req.db;
+	let dog = db.get('listdog');
+
+	var id = String(req.user._id);
+
+
+	dog.findOne({user: id}).then((doc) => {
+
+		if(doc) {
+
+			return res.status(200).json({ list: doc });
+
+		} else {
+			return res.status(401).json({ message: message('fail_list_dog') });
+		}
+
+	});
+
+
+}
+
+
+
+
+
+
+
+
+
