@@ -14,7 +14,8 @@ module.exports = (type) => {
 		'success_dog_es': 'Se dio de alta una nueva mascota',
 		'user_role_es': 'No llego el tipo de usuario role',
 		'user_pricepaseador_es': 'Se cargo detalles del paseador',
-		'user_pricepaseador_error_es': 'Falta enviar los campos precio y detalle'
+		'user_pricepaseador_error_es': 'Falta enviar los campos precio y detalle',
+		'fail_list_dog': 'No tienes ningun dog'
 	
 	}
 
