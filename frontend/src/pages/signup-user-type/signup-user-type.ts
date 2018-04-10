@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { Component } from '@angular/core'
+import { NavController, NavParams, LoadingController } from 'ionic-angular'
 
 // pages
-import { MapPage } from '../map/map';
+import { MapPage } from '../map/map'
+import { UserWalkerCompletePage } from '../user-walker-complete/user-walker-complete'
 
 // providers
 import { GlobalProvider } from '../../providers/global/global'
@@ -16,6 +17,8 @@ import { UserProvider } from '../../providers/user/user'
 
 export class SignupUserTypePage {
 
+  name: string
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -24,30 +27,46 @@ export class SignupUserTypePage {
     private _userProvider: UserProvider
   ) { }
 
+  ionViewDidLoad() {
+    let profile: any = this._globalProvider.getStorage('profile')
+        profile = JSON.parse(profile)
+
+    this.name = profile.name
+  }
+
   setUserType(type) {
-    let self = this;
+    let self = this,
+        loading = this.loadingCtrl.create({
+          content: 'Cargando...'
+        }),
+        data = {
+          type: type
+        }
 
-    let loading = this.loadingCtrl.create({
-      content: 'Cargando...'
-    });
-    loading.present();
-
-    let data = {
-      type: type
+    if(type == 1) {
+      this.navCtrl.push(UserWalkerCompletePage)
     }
 
-    this._userProvider.setUserType(data).subscribe(
-      (response: any) => {
-        loading.dismiss()
+    else {
+      loading.present()
+      
+      this._userProvider.setUserType(data).subscribe(
+        (response: any) => {
+          loading.dismiss()
 
-        let profile: any = this._globalProvider.getStorage('profile')
-            profile = JSON.parse(profile)
-            profile.user_type = response.role
+          let profile: any = this._globalProvider.getStorage('profile')
+              profile = JSON.parse(profile)
+              profile.user_type = response.role
 
-        this._globalProvider.setStorage('profile', JSON.stringify(profile))
-        self.navCtrl.setRoot(MapPage)
-      }
-    )
+          this._globalProvider.setStorage('profile', JSON.stringify(profile))
+          self.navCtrl.setRoot(MapPage)
+        },
+        (error) => {
+          loading.dismiss()
+        }
+      )
+    }
+
   }
 
 }

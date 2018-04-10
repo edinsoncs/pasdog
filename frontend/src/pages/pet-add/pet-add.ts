@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { NavController, NavParams, LoadingController } from 'ionic-angular'
 
 // services
+import { GlobalProvider } from '../../providers/global/global'
 import { PetProvider } from '../../providers/pet/pet'
 
 
@@ -28,6 +29,7 @@ export class PetAddPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
+    private _globalProvider: GlobalProvider,
     private _petProvider: PetProvider
   ) { }
 
@@ -59,12 +61,10 @@ export class PetAddPage {
     this.step1.form.patchValue({
       size: Number(size)
     })
-
   }
 
 
   formSubmit() {
-
     let step1 = this.step1.form,
         step2 = this.step2.form
 
@@ -86,13 +86,13 @@ export class PetAddPage {
       }
 
       this._petProvider.setPet(form).subscribe(
-        (response) => {
+        (response: any) => {
           loading.dismiss()
-
+          this._globalProvider.toast(response.message)
         },
         (error) => {
           loading.dismiss()
-
+          this._globalProvider.toast(error.message ? error.message : 'Ocurrió un problema al agregar a tu mascota')
         }
       )
 

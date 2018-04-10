@@ -97,12 +97,12 @@ export class SignupPage {
       else {
         let loading = this.loadingCtrl.create({
           content: 'Localizando...'
-        });
-        loading.present();
+        })
+        loading.present()
 
         setTimeout(() => {
           self.signup(true)
-          loading.dismiss();
+          loading.dismiss()
         }, 500)
       }
     }
@@ -112,12 +112,12 @@ export class SignupPage {
       if(!this.isGeolocated) {
         let loading = this.loadingCtrl.create({
           content: 'Localizando...'
-        });
-        loading.present();
+        })
+        loading.present()
 
         setTimeout(() => {
           self.signup(true)
-          loading.dismiss();
+          loading.dismiss()
         }, 500)
       }
 
@@ -125,31 +125,44 @@ export class SignupPage {
 
         let loading = this.loadingCtrl.create({
           content: 'Cargando...'
-        });
-        loading.present();
+        })
+        loading.present()
 
         if(this.form.valid) {
-          let form = this.form.value
 
-          this._userProvider.setUser(form).subscribe(
+          this.form.patchValue({
+            email: this.form.value.email.toLowerCase()
+          })
+
+          let form = this.form
+
+          this._userProvider.setUser(form.value).subscribe(
             (response: any) => {
-              loading.dismiss();
+              loading.dismiss()
 
-              let profile = {
-                city: response.city,
-                email: response.email,
-                geolocation: response.geolocation.length > 1 ? response.geolocation : null,
-                name: response.name,
-                user_id: response.user_id,
-                user_type: null
+              if(response.status == 0) {
+                let message = response.message ? response.message : 'Ocurrió un problema al registrarte'
+                this._globalProvider.toast(message)
               }
 
-              this._globalProvider.setStorage('token', response.token)
-              this._globalProvider.setStorage('profile', JSON.stringify(profile))
-              this.navCtrl.setRoot(SignupUserTypePage);
+              else {
+                let profile = {
+                  city: response.city,
+                  email: response.email,
+                  geolocation: response.geolocation.length > 1 ? response.geolocation : null,
+                  name: response.name,
+                  user_id: response.user_id,
+                  user_type: null
+                }
+
+                this._globalProvider.setStorage('token', response.token)
+                this._globalProvider.setStorage('profile', JSON.stringify(profile))
+                this.navCtrl.setRoot(SignupUserTypePage)
+              }
+
             },
             (error) => {
-              loading.dismiss();
+              loading.dismiss()
             }
           )
         }

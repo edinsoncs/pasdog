@@ -43,10 +43,14 @@ export class SigninPage {
 
 
   signin() {
-    let form = this.form
+    if(this.form.valid) {
 
-    if(form.valid) {
-      let loading = this.loadingCtrl.create({
+      this.form.patchValue({
+        email: this.form.value.email.toLowerCase()
+      })
+
+      let form = this.form,
+          loading = this.loadingCtrl.create({
         content: 'Cargando...'
       })
       loading.present()

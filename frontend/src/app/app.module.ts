@@ -33,6 +33,7 @@ import { PaymentSelectPage } from '../pages/payment-select/payment-select'
 import { PetsPage } from '../pages/pets/pets'
 import { PetProfilePage } from '../pages/pet-profile/pet-profile'
 import { PetAddPage } from '../pages/pet-add/pet-add'
+import { UserWalkerCompletePage } from '../pages/user-walker-complete/user-walker-complete'
 
 import { GlobalProvider } from '../providers/global/global'
 import { UserProvider } from '../providers/user/user'
@@ -59,7 +60,8 @@ const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', option
     PaymentSelectPage,
     PetsPage,
     PetProfilePage,
-    PetAddPage
+    PetAddPage,
+    UserWalkerCompletePage
   ],
   imports: [
     BrowserModule,
@@ -86,7 +88,8 @@ const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', option
     PaymentSelectPage,
     PetsPage,
     PetProfilePage,
-    PetAddPage
+    PetAddPage,
+    UserWalkerCompletePage
   ],
   providers: [
     StatusBar,

@@ -3,8 +3,6 @@ import { NavController, NavParams, Platform, AlertController, LoadingController 
 
 // plugins
 import { Camera, CameraOptions } from '@ionic-native/camera'
-import { File } from '@ionic-native/file'
-import { FilePath } from '@ionic-native/file-path'
 declare var cordova: any
 
 // providers
@@ -28,9 +26,6 @@ export class UserConfigurationPage {
   file64: string
   oldFile: string = null
 
-  resp: any
-  fakeResp: any
-
 
   constructor(
     public navCtrl: NavController,
@@ -39,8 +34,6 @@ export class UserConfigurationPage {
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     private _camera: Camera,
-    private _file: File,
-    private _filePath: FilePath,
     private _globalProvider: GlobalProvider,
     private _userProvider: UserProvider
   ) { }
