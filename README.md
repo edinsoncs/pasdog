@@ -14,6 +14,7 @@ This api in Nodejs - use framework expressjs - jwt - mongoose - monk - mongodb -
 | `5. http://localhost:3000/api/newdog` | `POST` | Return success new dog|
 | `6. http://localhost:3000/api/profile/role` | `POST` | Return success role user|
 | `7. http://localhost:3000/api/profile/paseador` | `POST` | Return price and description success|
+| `8. http://localhost:3000/api/listdog` | `POST` | Return list´s dog´s|
 
 
 ### Example: Body of the request
@@ -83,6 +84,16 @@ Method 7. update role user: 0 => user normal and 1 => user paseador
   "Authorization": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkaW5zb25jb2RlQGhvdG1haWwuY29tIiwibmFtZSI6IkVkaW5zb24gQ2FycmFuemEiLCJfaWQiOiI1YTY0YWY3Mjk0MWE0YTgzMWFlNDlhZWQiLCJpYXQiOjE1MTY1NTM1NzV9.y3ltGB-WehYZ2Ylc-yY70bCWrqf4Nqe4YwIeqGpWeWc",
   "price": Number,
   "description": String
+    
+}
+```
+
+
+Method 7. list dogs, new request return json one or all dog´s
+```json
+{
+  "Authorization": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkaW5zb25jb2RlQGhvdG1haWwuY29tIiwibmFtZSI6IkVkaW5zb24gQ2FycmFuemEiLCJfaWQiOiI1YTY0YWY3Mjk0MWE0YTgzMWFlNDlhZWQiLCJpYXQiOjE1MTY1NTM1NzV9.y3ltGB-WehYZ2Ylc-yY70bCWrqf4Nqe4YwIeqGpWeWc"
+  
     
 }
 ```
