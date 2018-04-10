@@ -145,6 +145,21 @@ router.post('/map', (req, res, next) => {
 
 	}
 
+});
+
+router.post('/profile/paseador', (req, res, next) => {
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status) {
+
+		return userHandlers.completPaseador(req, res, next);
+
+	} else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
 
 
 });
