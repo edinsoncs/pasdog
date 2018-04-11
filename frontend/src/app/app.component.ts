@@ -79,6 +79,12 @@ export class MyApp {
             longitude: res.coords.longitude
           }
           self._globalProvider.geolocation = geolocation
+        },
+        (err) => {
+          console.log(err)
+          let message
+              err.code == 1 ? message = 'Geolocalización no permitida' : message = 'Ocurrió un problema al geolocalizarte'
+          this._globalProvider.toast(message)
         }
       )
 

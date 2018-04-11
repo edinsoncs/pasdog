@@ -127,6 +127,10 @@ export class MapPage {
 
         self._globalProvider.geolocation.latitude = res.coords.latitude
         self._globalProvider.geolocation.longitude = res.coords.longitude
+      },
+      (err) => {
+        console.log(err)
+        self._globalProvider.toast('Ocurrió un problema al geolocalizar')
       }
     )
 
@@ -138,23 +142,26 @@ export class MapPage {
         watch = this._geolocation.watchPosition(),
         profile = JSON.parse(this._globalProvider.getStorage('profile'))
 
-    watch.subscribe((data) => {
-       // data can be a set of coordinates, or an error (if an error occurred).
-       // data.coords.latitude
-       // data.coords.longitude
-       self._globalProvider.geolocation.latitude = data.coords.latitude
-       self._globalProvider.geolocation.longitude = data.coords.longitude
+    watch.subscribe(
+      (data) => {
+        // data can be a set of coordinates, or an error (if an error occurred).
+        // data.coords.latitude
+        // data.coords.longitude
+        if(data.coords) {
+          self._globalProvider.geolocation.latitude = data.coords.latitude
+          self._globalProvider.geolocation.longitude = data.coords.longitude
+        }
 
-       self._socket.emit('set-nickname', {
-         idsocket: self._socket.ioSocket.id,
-         id: profile.user_id,
-         name: profile.name,
-         avatar: profile.avatar,
-         latitude:  self._globalProvider.geolocation.latitude,
-         longitude:  self._globalProvider.geolocation.longitude
-      })
-
-    })
+        self._socket.emit('set-nickname', {
+          idsocket: self._socket.ioSocket.id,
+          id: profile.user_id,
+          name: profile.name,
+          avatar: profile.avatar,
+          latitude:  self._globalProvider.geolocation.latitude,
+          longitude:  self._globalProvider.geolocation.longitude
+        })
+      }
+    )
 
   }
 
@@ -163,41 +170,45 @@ export class MapPage {
     let self = this,
         profile = JSON.parse(this._globalProvider.getStorage('profile'))
 
-    this.map.clear()
-    this.walkersQty = 0
+    this.map.clear().then(
+      () => {
 
-    for(let walker in this.walkers) {
+        self.walkersQty = 0
 
-      this.walkersQty++
+        for(let walker in this.walkers) {
 
-      if(this.walkers[walker].id != profile.user_id) {
+          self.walkersQty++
 
-        let marker = {
-          icon: 'red',
-          animation: animation ? 'DROP' : null,
-          position: {
-            lat: this.walkers[walker].latitude,
-            lng: this.walkers[walker].longitude,
+          if(self.walkers[walker].id != profile.user_id) {
+
+            let marker = {
+              icon: 'red',
+              animation: animation ? 'DROP' : null,
+              position: {
+                lat: self.walkers[walker].latitude,
+                lng: self.walkers[walker].longitude,
+              }
+            }
+
+            // Now you can use all methods safely.
+            self.map.addMarker(marker).then(marker => {
+              marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+
+                let data = {
+                  id: self.walkers[walker].iduser,
+                  name: self.walkers[walker].name,
+                  avatar: self.walkers[walker].avatar
+                }
+
+                self.userPreview(data)
+
+              })
+            })
           }
         }
 
-        // Now you can use all methods safely.
-        this.map.addMarker(marker).then(marker => {
-          marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-
-            let data = {
-              id: this.walkers[walker].iduser,
-              name: this.walkers[walker].name,
-              avatar: this.walkers[walker].avatar
-            }
-
-            self.userPreview(data)
-
-          })
-        })
       }
-
-    }
+    )
   }
 
 
