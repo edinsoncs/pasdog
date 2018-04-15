@@ -148,6 +148,28 @@ router.post('/listdog', (req, res, next) => {
 });
 
 
+router.post('/updatedog', (req, res, next) => {
+
+	/**
+	* UPDATE DOG
+	* {req to id dog}
+	*/
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status){
+
+		//list dog in user related collections
+		return newdog.update(req, res, next);
+
+	}  else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
+
+});
+
+
 //List users geolocation in real time
 
 router.post('/map', (req, res, next) => {
