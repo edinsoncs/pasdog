@@ -25,6 +25,9 @@ let newdog = require('../controllers/newdogController');
 //import role user
 let role = require('../controllers/roleController');
 
+//import chat
+let chat = require('../controllers/chatController');
+
 
 router.post('/newuser', (req, res, next) => {
 
@@ -222,6 +225,23 @@ router.post('/profile/paseador', (req, res, next) => {
 
 	}
 
+
+});
+
+
+router.post('/chat', (req, res, next) => {
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status) {
+
+		return chat.open(req, res, next);
+
+	} else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
 
 });
 

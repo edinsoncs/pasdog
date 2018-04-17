@@ -3,21 +3,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-let ChatSchema = new Schema({
-
-	/**
-	* Array Users Photo, Name, Age, Geo, Etc
-	*/
-
-	'user_1': Array,
-	'user_2': Array,
+var ChatSchema = new Schema({
 	
-	//Message related
+	'user_open': String,
+	'user_received': String,
 	'message': String,
-
-	'create': new Date()
+	'create': Date
 	
 
 });
 
-mongoose.model('Chat', ChatSchema);
+module.exports = mongoose.model('Chat', ChatSchema);

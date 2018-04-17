@@ -7,7 +7,7 @@ let MessageSchema = new Schema({
 
 	'idchat': String,
 	'message': String,
-	'create': new Date()
+	'create': Date
 
 });
 
