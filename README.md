@@ -16,6 +16,7 @@ This api in Nodejs - use framework expressjs - jwt - mongoose - monk - mongodb -
 | `7. http://localhost:3000/api/profile/paseador` | `POST` | Return price and description success|
 | `8. http://localhost:3000/api/listdog` | `POST` | Return list´s dog´s|
 | `9. http://localhost:3000/api/updatedog` | `POST` | Return update |
+| `9. http://localhost:3000/api/updatedog/photo` | `POST` | Return update photo dog |
 
 
 ### Example: Body of the request
@@ -113,6 +114,17 @@ Method 9. update keys to dog - key DOGID if to continue update
   "details": "epa",
   "size": "124",
   "body": null
+  
+    
+}
+```
+
+Method 10. update photo dog return success
+```json
+{
+  "Authorization": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkaW5zb25jb2RlQGhvdG1haWwuY29tIiwibmFtZSI6IkVkaW5zb24gQ2FycmFuemEiLCJfaWQiOiI1YTY0YWY3Mjk0MWE0YTgzMWFlNDlhZWQiLCJpYXQiOjE1MTY1NTM1NzV9.y3ltGB-WehYZ2Ylc-yY70bCWrqf4Nqe4YwIeqGpWeWc",
+  "dogid": "5acc1b989d48db0ca9875243",
+  "avatar": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gA8Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcgSlBFRyB2NjI..."
   
     
 }

@@ -17,7 +17,9 @@ module.exports = (type) => {
 		'user_pricepaseador_error_es': 'Falta enviar los campos precio y detalle',
 		'fail_list_dog': 'No tienes ningun dog',
 		'success_dog_es_update': 'Se actualizo la mascota',
-		'fail_dog_es_update': 'Enviame el id del dog'
+		'fail_dog_es_update': 'Enviame el id del dog',
+		'fail_dog_es_update_photo': 'Enviame el id del dog para cambiar la foto',
+		'success_dog_photo_profile': 'Se actualizo la foto'
 	
 	}
 

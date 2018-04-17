@@ -107,8 +107,28 @@ module.exports.update = (req, res, next) => {
 
 	}
 
-	
+}
 
+module.exports.updatePhoto = (req, res, next) => {
+
+
+	var dog_id = req.body.dogid;
+
+	if(dog_id) {
+
+		/**
+		* Send to id dogs
+		* {req, res, next, "21231221"}
+		*/
+
+		files.updatephotodog(req, res, next, dog_id);
+
+	} else {
+		return res.status(400).
+		json({
+			message: message('fail_dog_es_update_photo')
+		});
+	}
 
 }
 

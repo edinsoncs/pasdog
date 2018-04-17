@@ -88,5 +88,50 @@ exports.savephotodog = (req, res, next) => {
 
 	});
 
+}
+
+exports.updatephotodog = (req, res, next, dog_id) => {
+
+	let db = req.db;
+  let listdog = db.get('listdog');
+
+  let _img = req.body.avatar;
+	let _data = _img.replace(/^data:image\/\w+;base64,/, "");
+	let _buf = new Buffer(_data, 'base64');
+	let _name = shortid.generate() + '.png';
+
+	if(dog_id) {
+
+		let _url = path.join(__dirname, '..', 'public/', 'dogs/' + _name);
+
+		fs.writeFile(_url, _buf, (xhr) => {
+		if(xhr) return xhr;
+
+		
+		listdog.findOneAndUpdate({'_id': dog_id}, {
+			$set: {
+					avatar: _name
+			}
+		}, (xhr, success) => {
+			 if(xhr) return xhr;
+			
+			 return  res.status(200).
+			 					json({
+			 						message: message('success_dog_photo_profile')
+			 					});
+
+		});
+
+
+	});
+
+
+	} else {
+		return res.status(400).
+			json({ message: message('fail_dog_es_update_photo')
+		});
+	}
+
+
 
 }
