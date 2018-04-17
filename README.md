@@ -16,7 +16,7 @@ This api in Nodejs - use framework expressjs - jwt - mongoose - monk - mongodb -
 | `7. http://localhost:3000/api/profile/paseador` | `POST` | Return price and description success|
 | `8. http://localhost:3000/api/listdog` | `POST` | Return list´s dog´s|
 | `9. http://localhost:3000/api/updatedog` | `POST` | Return update |
-| `9. http://localhost:3000/api/updatedog/photo` | `POST` | Return update photo dog |
+| `10. http://localhost:3000/api/updatedog/photo` | `POST` | Return update photo dog |
 
 
 ### Example: Body of the request
