@@ -19,7 +19,8 @@ module.exports = (type) => {
 		'success_dog_es_update': 'Se actualizo la mascota',
 		'fail_dog_es_update': 'Enviame el id del dog',
 		'fail_dog_es_update_photo': 'Enviame el id del dog para cambiar la foto',
-		'success_dog_photo_profile': 'Se actualizo la foto'
+		'success_dog_photo_profile': 'Se actualizo la foto',
+		'fail_list_dog_not': 'No tienes ninguna mascota'
 	
 	}
 

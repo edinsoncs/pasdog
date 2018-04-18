@@ -62,7 +62,7 @@ module.exports.list = (req, res, next) => {
 			return res.status(200).json({ list: doc });
 
 		} else {
-			return res.status(401).json({ message: message('fail_list_dog') });
+			return res.status(200).json({ message: message('fail_list_dog_not') });
 		}
 
 	});
