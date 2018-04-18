@@ -6,6 +6,7 @@ import {
  GoogleMapsEvent,
  GoogleMapOptions,
  CameraPosition,
+ LatLng,
  MarkerOptions,
  Marker
 } from '@ionic-native/google-maps';
@@ -30,6 +31,10 @@ export class MapPage {
   isMapReady: boolean = false
   walkers: any = {}
   walkersQty: number = 0
+  subscriptions: any = {
+    markers: null,
+    watch: null
+  }
 
   constructor(
     public navCtrl: NavController,
@@ -108,7 +113,7 @@ export class MapPage {
     this.map = GoogleMaps.create('map', mapOptions);
 
     // Wait the MAP_READY before using any methods.
-    this.map.one(GoogleMapsEvent.MAP_READY).then(
+    this.map.on(GoogleMapsEvent.MAP_READY).subscribe(
       () => {
         self.isMapReady = true
         self.updateMakers(true)
@@ -119,11 +124,12 @@ export class MapPage {
     this._geolocation.getCurrentPosition().then(
       (res) => {
 
-        let data = {
-          lat: res.coords.latitude,
-          lng: res.coords.longitude
+        let position = {
+          target: new LatLng(res.coords.latitude, res.coords.longitude),
+          zoom: 15,
+          tilt: 30
         }
-        self.map.setCameraTarget(data)
+        self.map.moveCamera(position)
 
         self._globalProvider.geolocation.latitude = res.coords.latitude
         self._globalProvider.geolocation.longitude = res.coords.longitude
@@ -173,16 +179,20 @@ export class MapPage {
     this.map.clear().then(
       () => {
 
+        // clean subscriptions
         self.walkersQty = 0
+        self.subscriptions.markers ? self.subscriptions.markers.unsubscribe() : null
+
 
         for(let walker in this.walkers) {
 
           self.walkersQty++
 
           if(self.walkers[walker].id != profile.user_id) {
-
             let marker = {
-              icon: 'red',
+              icon: {
+                url: 'http://maps.google.com/mapfiles/ms/icons/red.png'
+              },
               animation: animation ? 'DROP' : null,
               position: {
                 lat: self.walkers[walker].latitude,
@@ -192,19 +202,17 @@ export class MapPage {
 
             // Now you can use all methods safely.
             self.map.addMarker(marker).then(marker => {
-              marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-
+              self.subscriptions.markers = marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
                 let data = {
                   id: self.walkers[walker].iduser,
                   name: self.walkers[walker].name,
                   avatar: self.walkers[walker].avatar
                 }
-
                 self.userPreview(data)
-
               })
             })
           }
+
         }
 
       }
@@ -215,7 +223,7 @@ export class MapPage {
   userPreview(data) {
 
     console.log('data received: ', data)
-
+    alert('preview')
     let modal = this.modalCtrl.create(UserPreviewPage, data)
         modal.present()
   }

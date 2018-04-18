@@ -1,6 +1,13 @@
 import { Component } from '@angular/core'
 import { FormGroup, FormControl, Validators } from '@angular/forms'
-import { NavController, NavParams, LoadingController } from 'ionic-angular'
+import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular'
+
+// plugins
+import { Camera, CameraOptions } from '@ionic-native/camera'
+declare var cordova: any
+
+// pages
+import { PetsPage } from '../pets/pets'
 
 // services
 import { GlobalProvider } from '../../providers/global/global'
@@ -15,6 +22,7 @@ import { PetProvider } from '../../providers/pet/pet'
 export class PetAddPage {
 
   step: number = 1
+  file: string
 
   step1: any = {
     form: null,
@@ -28,7 +36,9 @@ export class PetAddPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
+    private _camera: Camera,
     private _globalProvider: GlobalProvider,
     private _petProvider: PetProvider
   ) { }
@@ -40,12 +50,13 @@ export class PetAddPage {
       'race': new FormControl(null, Validators.required),
       'age': new FormControl(null, Validators.required),
       'size': new FormControl(2, Validators.required),
-      'weight': new FormControl(null, Validators.required)
+      'weight': new FormControl(null, Validators.required),
+      'color': new FormControl('blanco', Validators.required)
     })
     this.step1.isFormLoaded = true
 
     this.step2.form = new FormGroup({
-      'avatar': new FormControl(null/* FIXME: Mandatory , Validators.required */),
+      'avatar': new FormControl(null, Validators.required),
       'description': new FormControl(null, Validators.required)
     })
     this.step2.isFormLoaded = true
@@ -61,6 +72,68 @@ export class PetAddPage {
     this.step1.form.patchValue({
       size: Number(size)
     })
+  }
+
+
+  takePicture(type?: string) {
+
+    let self = this
+
+    if(type){
+      let sourceType
+
+      if(type == 'camera')
+        sourceType = this._camera.PictureSourceType.CAMERA
+      else
+        sourceType = this._camera.PictureSourceType.PHOTOLIBRARY
+
+      let options: CameraOptions = {
+        quality: 100,
+        sourceType: sourceType,
+        destinationType: this._camera.DestinationType.DATA_URL,
+        saveToPhotoAlbum: false,
+        correctOrientation: true,
+        allowEdit: true,
+        targetWidth: 560,
+        targetHeight: 560
+      }
+
+       this._camera.getPicture(options).then(
+         (imageData) => {
+           let base64Image = imageData
+           self.file = 'data:image/jpeg;base64,' + base64Image
+
+           this.step2.form.patchValue({
+             avatar: base64Image
+           })
+         }, (err) => self._globalProvider.toast('Ocurrió un problema al cargar la foto')
+       )
+    }
+
+    else{
+      let alert = this.alertCtrl.create({
+        title: 'Cambiar foto',
+        message: 'Seleccione una opción',
+        buttons: [
+          {
+            text: 'Camera roll',
+            cssClass: 'text-normal',
+            handler: () => {
+              this.takePicture('gallery')
+            }
+          },
+          {
+            text: 'Sacar foto',
+            cssClass: 'text-bold',
+            handler: () => {
+              this.takePicture('camera')
+            }
+          }
+        ]
+      })
+      alert.present()
+    }
+
   }
 
 
@@ -83,17 +156,18 @@ export class PetAddPage {
         weight: Number(step1.value.weight),
         avatar: step2.value.avatar,
         details: step2.value.description,
+        color: 'white'
       }
 
       this._petProvider.setPet(form).subscribe(
         (response: any) => {
-          loading.dismiss()
           this._globalProvider.toast(response.message)
+          this.navCtrl.setRoot(PetsPage)
         },
         (error) => {
-          loading.dismiss()
-          this._globalProvider.toast(error.message ? error.message : 'Ocurrió un problema al agregar a tu mascota')
-        }
+          this._globalProvider.toast(error.error ? error.error.message : 'Ocurrió un problema al agregar a tu mascota')
+        },
+        () => loading.dismiss()
       )
 
     }
