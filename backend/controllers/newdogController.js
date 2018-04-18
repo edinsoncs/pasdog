@@ -62,7 +62,7 @@ module.exports.list = (req, res, next) => {
 			return res.status(200).json({ list: doc });
 
 		} else {
-			return res.status(401).json({ message: message('fail_list_dog') });
+			return res.status(200).json({ message: message('fail_list_dog_not') });
 		}
 
 	});
@@ -71,7 +71,66 @@ module.exports.list = (req, res, next) => {
 }
 
 
+module.exports.update = (req, res, next) => {
 
+	let db = req.db;
+	let dog = db.get('listdog');
+
+	var dog_id = req.body.dogid;
+
+	if(dog_id) {
+
+		dog.findOneAndUpdate({'_id': dog_id}, {
+			$set: {
+				name: req.body.name,
+				color: req.body.color,
+				race: req.body.race,
+				age: req.body.age,
+				details: req.body.details,
+				size: req.body.size,
+				body: req.body.weight
+			}
+		}, (err, success) => {
+			if(err) return err;
+
+			return res.status(200).json({ 
+				message: message('success_dog_es_update') 
+			});
+
+		});
+
+	} else {
+
+		return res.status(400).json({
+			message: message('fail_dog_es_update')
+		})
+
+	}
+
+}
+
+module.exports.updatePhoto = (req, res, next) => {
+
+
+	var dog_id = req.body.dogid;
+
+	if(dog_id) {
+
+		/**
+		* Send to id dogs
+		* {req, res, next, "21231221"}
+		*/
+
+		files.updatephotodog(req, res, next, dog_id);
+
+	} else {
+		return res.status(400).
+		json({
+			message: message('fail_dog_es_update_photo')
+		});
+	}
+
+}
 
 
 

@@ -25,6 +25,9 @@ let newdog = require('../controllers/newdogController');
 //import role user
 let role = require('../controllers/roleController');
 
+//import chat
+let chat = require('../controllers/chatController');
+
 
 router.post('/newuser', (req, res, next) => {
 
@@ -148,6 +151,49 @@ router.post('/listdog', (req, res, next) => {
 });
 
 
+router.post('/updatedog', (req, res, next) => {
+
+	/**
+	* UPDATE DOG
+	* {req to id dog}
+	*/
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status){
+
+		//list dog in user related collections
+		return newdog.update(req, res, next);
+
+	}  else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
+
+});
+
+router.post('/updatedog/photo', (req, res, next) => {
+
+	/**
+	* UPDATE DOG PHOTO
+	* {req to id dog}
+	*/
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status){
+
+		//list dog in user related collections
+		return newdog.updatePhoto(req, res, next);
+
+	}  else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
+
+});
+
+
 //List users geolocation in real time
 
 router.post('/map', (req, res, next) => {
@@ -179,6 +225,23 @@ router.post('/profile/paseador', (req, res, next) => {
 
 	}
 
+
+});
+
+
+router.post('/chat', (req, res, next) => {
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status) {
+
+		return chat.open(req, res, next);
+
+	} else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
 
 });
 
