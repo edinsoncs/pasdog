@@ -161,8 +161,12 @@ export class PetAddPage {
 
       this._petProvider.setPet(form).subscribe(
         (response: any) => {
-          this._globalProvider.toast(response.message)
+          let message = response.message
+          this.navCtrl.pop()
           this.navCtrl.setRoot(PetsPage)
+
+          if(response.message)
+            this._globalProvider.toast(response.message)
         },
         (error) => {
           this._globalProvider.toast(error.error ? error.error.message : 'Ocurrió un problema al agregar a tu mascota')

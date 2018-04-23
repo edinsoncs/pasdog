@@ -28,6 +28,8 @@ export class GlobalProvider {
     user_id: null,
     user_type: null
   }
+  public isGeolocated: boolean = false
+  public geolocationHasError: boolean = false
 
   constructor(
     public http: HttpClient,

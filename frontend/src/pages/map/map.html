@@ -16,6 +16,16 @@
   placeholder="Buscar paseador">
 </ion-searchbar>
 
-<p style="position:absolute;top:50%;left:25px;z-index:2;">HAY {{ walkersQty }} ONLINE</p>
+<div *ngIf="!globalProvider.isGeolocated || globalProvider.geolocationHasError"
+     class="map-data map-data--geolocating">
+  <ion-icon name="locate"></ion-icon>
+  <span *ngIf="!globalProvider.geolocationHasError">Buscando ubicación...</span>
+  <span *ngIf="globalProvider.geolocationHasError">Error al localizar</span>  
+</div>
 
-<button ion-button style="position:absolute;top:50%;right:0;" (click)="click()"></button>
+<div class="map-data map-data--walkers">
+  <ion-icon name="pin"></ion-icon>
+  <span (click)="click()">
+    {{ walkersQty }}
+  </span>
+</div>

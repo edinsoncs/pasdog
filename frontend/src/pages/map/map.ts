@@ -5,10 +5,8 @@ import {
  GoogleMap,
  GoogleMapsEvent,
  GoogleMapOptions,
- CameraPosition,
  LatLng,
- MarkerOptions,
- Marker
+ MarkerOptions
 } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Socket } from 'ng-socket-io';
@@ -40,16 +38,15 @@ export class MapPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
-    private _googleMaps: GoogleMaps,
     private _geolocation: Geolocation,
     private _socket: Socket,
-    private _globalProvider: GlobalProvider
+    public globalProvider: GlobalProvider
   ) { }
 
   ionViewDidEnter() {
 
     let self = this
-    let geolocation = this._globalProvider.geolocation
+    let geolocation = this.globalProvider.geolocation
     this.loadMap(geolocation.latitude, geolocation.longitude)
 
 
@@ -91,6 +88,11 @@ export class MapPage {
 
     let self = this
 
+    if(this.globalProvider.isGeolocated) {
+      latitude = this.globalProvider.geolocation.latitude
+      longitude = this.globalProvider.geolocation.longitude
+    }
+
     let mapOptions: GoogleMapOptions = {
       controls: {
 				myLocationButton: true,
@@ -131,12 +133,15 @@ export class MapPage {
         }
         self.map.moveCamera(position)
 
-        self._globalProvider.geolocation.latitude = res.coords.latitude
-        self._globalProvider.geolocation.longitude = res.coords.longitude
+        self.globalProvider.geolocation.latitude = res.coords.latitude
+        self.globalProvider.geolocation.longitude = res.coords.longitude
+        self.globalProvider.isGeolocated = true
+        self.globalProvider.geolocationHasError = false
       },
       (err) => {
         console.log(err)
-        self._globalProvider.toast('Ocurrió un problema al geolocalizar')
+        self.globalProvider.toast('Ocurrió un problema al geolocalizar')
+        self.globalProvider.geolocationHasError = true
       }
     )
 
@@ -146,7 +151,7 @@ export class MapPage {
   watchGeolocation() {
     let self = this,
         watch = this._geolocation.watchPosition(),
-        profile = JSON.parse(this._globalProvider.getStorage('profile'))
+        profile = JSON.parse(this.globalProvider.getStorage('profile'))
 
     watch.subscribe(
       (data) => {
@@ -154,8 +159,13 @@ export class MapPage {
         // data.coords.latitude
         // data.coords.longitude
         if(data.coords) {
-          self._globalProvider.geolocation.latitude = data.coords.latitude
-          self._globalProvider.geolocation.longitude = data.coords.longitude
+          self.globalProvider.geolocation.latitude = data.coords.latitude
+          self.globalProvider.geolocation.longitude = data.coords.longitude
+          self.globalProvider.isGeolocated = true
+          self.globalProvider.geolocationHasError = false
+        }
+        else {
+          self.globalProvider.geolocationHasError = true
         }
 
         self._socket.emit('set-nickname', {
@@ -163,8 +173,8 @@ export class MapPage {
           id: profile.user_id,
           name: profile.name,
           avatar: profile.avatar,
-          latitude:  self._globalProvider.geolocation.latitude,
-          longitude:  self._globalProvider.geolocation.longitude
+          latitude:  self.globalProvider.geolocation.latitude,
+          longitude:  self.globalProvider.geolocation.longitude
         })
       }
     )
@@ -174,7 +184,7 @@ export class MapPage {
 
   updateMakers(animation?) {
     let self = this,
-        profile = JSON.parse(this._globalProvider.getStorage('profile'))
+        profile = JSON.parse(this.globalProvider.getStorage('profile'))
 
     this.map.clear().then(
       () => {
@@ -189,7 +199,7 @@ export class MapPage {
           self.walkersQty++
 
           if(self.walkers[walker].id != profile.user_id) {
-            let marker = {
+            let marker: MarkerOptions = {
               icon: {
                 url: 'http://maps.google.com/mapfiles/ms/icons/red.png'
               },
@@ -221,9 +231,7 @@ export class MapPage {
 
 
   userPreview(data) {
-
     console.log('data received: ', data)
-    alert('preview')
     let modal = this.modalCtrl.create(UserPreviewPage, data)
         modal.present()
   }
