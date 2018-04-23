@@ -28,6 +28,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(bodyParser.urlencoded({
+ limit: '400mb',
+ parameterLimit: 100000,
+ extended: true
+}))
+
 app.use(function(req, res, next) {
 
  if(req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
