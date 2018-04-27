@@ -135,4 +135,9 @@ export class UserConfigurationPage {
 
   }
 
+
+  editProfile() {
+
+  }
+
 }

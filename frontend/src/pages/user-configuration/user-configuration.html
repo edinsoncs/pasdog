@@ -27,7 +27,9 @@
     </ion-avatar>
     <div>
       <h3 *ngIf="profile" class="is__Name" no-margin> {{ profile.name }}</h3>
-      <button ion-button>Editar perfil</button>
+      <button ion-button (click)="editProfile()">
+        Editar perfil
+      </button>
     </div>
   </div>
 

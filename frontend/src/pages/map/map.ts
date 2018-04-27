@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { Component } from '@angular/core'
+import { NavController, NavParams, ModalController, LoadingController } from 'ionic-angular'
 import {
  GoogleMaps,
  GoogleMap,
@@ -7,15 +7,15 @@ import {
  GoogleMapOptions,
  LatLng,
  MarkerOptions
-} from '@ionic-native/google-maps';
-import { Geolocation } from '@ionic-native/geolocation';
-import { Socket } from 'ng-socket-io';
+} from '@ionic-native/google-maps'
+import { Geolocation } from '@ionic-native/geolocation'
+import { Socket } from 'ng-socket-io'
 
 // pages
-import { UserPreviewPage } from '../user-preview/user-preview';
+import { UserPreviewPage } from '../user-preview/user-preview'
 
 // providers
-import { GlobalProvider } from '../../providers/global/global';
+import { GlobalProvider } from '../../providers/global/global'
 
 
 @Component({
@@ -33,11 +33,13 @@ export class MapPage {
     markers: null,
     watch: null
   }
+  loadingSpinner: any
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
+    public loadingCtrl: LoadingController,
     private _geolocation: Geolocation,
     private _socket: Socket,
     public globalProvider: GlobalProvider
@@ -45,11 +47,19 @@ export class MapPage {
 
   ionViewDidEnter() {
 
-    let self = this
-    let geolocation = this.globalProvider.geolocation
+    let self = this,
+        geolocation = this.globalProvider.geolocation
+
+    this.loadingSpinner = this.loadingCtrl.create({
+      content: 'Cargando...'
+    })
+    this.loadingSpinner.present()
+
+
     this.loadMap(geolocation.latitude, geolocation.longitude)
 
 
+    // socket.io
     this._socket.connect()
 
     this._socket.on('connect', (data) => {
@@ -112,13 +122,15 @@ export class MapPage {
       }
     }
 
-    this.map = GoogleMaps.create('map', mapOptions);
+    this.map = GoogleMaps.create('map', mapOptions)
 
     // Wait the MAP_READY before using any methods.
     this.map.on(GoogleMapsEvent.MAP_READY).subscribe(
       () => {
         self.isMapReady = true
         self.updateMakers(true)
+        self.loadingSpinner.dismiss()
+        self.loadingSpinner = null
       }
     )
 

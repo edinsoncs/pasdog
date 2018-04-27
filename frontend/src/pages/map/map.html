@@ -16,11 +16,11 @@
   placeholder="Buscar paseador">
 </ion-searchbar>
 
-<div *ngIf="!globalProvider.isGeolocated || globalProvider.geolocationHasError"
+<div *ngIf="!globalProvider.isGeolocated || globalProvider.geolocationHasError || !isMapReady"
      class="map-data map-data--geolocating">
   <ion-icon name="locate"></ion-icon>
   <span *ngIf="!globalProvider.geolocationHasError">Buscando ubicación...</span>
-  <span *ngIf="globalProvider.geolocationHasError">Error al localizar</span>  
+  <span *ngIf="globalProvider.geolocationHasError">Error al localizar</span>
 </div>
 
 <div class="map-data map-data--walkers">
