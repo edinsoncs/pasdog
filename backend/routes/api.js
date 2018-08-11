@@ -172,6 +172,49 @@ router.post('/updatedog', (req, res, next) => {
 
 });
 
+
+router.post('/deletedog', (req, res, next) => {
+
+
+	/**
+	* REMOVE DOG IN THE COLLECTION LISTDOG´
+	* {req to id dog}
+	*/
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status){
+		//list dog in user related collections
+		return newdog.remove(req, res, next);
+	}  else {
+		return userHandlers.userErr(req, res, next);
+
+	}
+
+
+});
+
+
+router.post('/onelist', (req, res, next) => {
+
+
+	/**
+	* REMOVE DOG IN THE COLLECTION LISTDOG´
+	* {req to id dog}
+	*/
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status){
+		//list dog in user related collections
+		return newdog.onelist(req, res, next);
+	}  else {
+		return userHandlers.userErr(req, res, next);
+
+	}
+
+
+});
+
+
 router.post('/updatedog/photo', (req, res, next) => {
 
 	/**
