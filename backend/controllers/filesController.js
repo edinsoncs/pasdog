@@ -54,10 +54,12 @@ exports.savephotodog = (req, res, next) => {
 
 
 	let _img = req.body.avatar;
-	let _data = _img.replace(/^data:image\/\w+;base64,/, "");
-	let _buf = new Buffer(_data, 'base64');
+	/**
+	 * Update 10/08/18
+	 */
+	//let _data = _img.replace(/^data:image\/\w+;base64,/, "");
+	let _buf = new Buffer(_img, 'base64');
 	let _name = shortid.generate() + '.png';
-
 	let _url = path.join(__dirname, '..', 'public/', 'dogs/' + _name);
 
 	fs.writeFile(_url, _buf, (xhr) => {
