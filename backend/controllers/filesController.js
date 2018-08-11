@@ -95,10 +95,10 @@ exports.savephotodog = (req, res, next) => {
 exports.updatephotodog = (req, res, next, dog_id) => {
 
 	let db = req.db;
-  let listdog = db.get('listdog');
+  	let listdog = db.get('listdog');
 
-  let _img = req.body.avatar;
-	let _data = _img.replace(/^data:image\/\w+;base64,/, "");
+  	let _img = req.body.avatar;
+	//let _data = _img.replace(/^data:image\/\w+;base64,/, "");
 	let _buf = new Buffer(_data, 'base64');
 	let _name = shortid.generate() + '.png';
 

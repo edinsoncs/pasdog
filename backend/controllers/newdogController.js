@@ -48,17 +48,14 @@ module.exports.create = (req, res, next) => {
 
 module.exports.list = (req, res, next) => {
 
-
 	let db = req.db;
 	let dog = db.get('listdog');
 
 	var id = String(req.user._id);
 
-
-	dog.findOne({user: id}).then((doc) => {
+	dog.find({user: id}).then((doc) => {
 
 		if(doc) {
-
 			return res.status(200).json({ list: doc });
 
 		} else {
