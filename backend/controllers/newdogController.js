@@ -129,6 +129,38 @@ module.exports.updatePhoto = (req, res, next) => {
 }
 
 
+module.exports.onelist = (req, res, next) => {
+
+
+	var dog_id = req.body.dogid;
+
+	let db = req.db;
+	let dog = db.get('listdog');
+
+	if(dog_id) {
+
+		/**
+		* Send to id dogs
+		* {req, res, next, "21231221"}
+		*/
+
+		dog.findOne({'_id': dog_id}, (xhr, done) => {
+			if(xhr) return xhr;
+
+			res.json(done);
+		});
+
+	} else {
+		return res.status(400).
+		json({
+			message: message('fail_remove_dog_not')
+		});
+	}
+
+
+}
+
+
 module.exports.remove = (req, res, next) => {
 
 	var dog_id = req.body.dogid;
