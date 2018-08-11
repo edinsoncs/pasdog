@@ -15,6 +15,7 @@ export class GlobalProvider {
   public baseUrl: string = "http://46.101.73.97:3000"
   public apiUrl: string = this.baseUrl + "/api"
   public galleryUrl: string = this.baseUrl + '/gallery'
+  public galleryDogsUrl: string = this.baseUrl + '/dogs'
   public emptyProfile: string = "assets/imgs/profile.jpg"
   public geolocation: any = {
     latitude: -34.6036845,

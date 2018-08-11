@@ -6,9 +6,17 @@ card-pet {
   .card-pet {
 
     &__Image {
-      img {
-        display: block;
+      position: relative;
+      padding-bottom: 100%;
+      .image {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
+        height: 100%;
+        background-color: color($colors, light);
+        background-size: cover;
+        background-position: center;
       }
     }
 

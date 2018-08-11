@@ -3,7 +3,7 @@ import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
 
 // plugins
-import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder';
+import { NativeGeocoder, /*NativeGeocoderReverseResult*/ } from '@ionic-native/native-geocoder';
 
 // providers
 import { GlobalProvider } from '../../providers/global/global';
@@ -60,7 +60,7 @@ export class SignupPage {
     let self = this
 
     this._nativeGeocoder.reverseGeocode(latitude, longitude).then(
-      (response: NativeGeocoderReverseResult) => {
+      (response: any) => {
         // console.log('geocoder:', JSON.stringify(result))
 
         this.form.patchValue({

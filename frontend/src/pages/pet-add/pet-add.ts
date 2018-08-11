@@ -23,6 +23,7 @@ export class PetAddPage {
 
   step: number = 1
   file: string
+  formEdit: any
 
   step1: any = {
     form: null,
@@ -46,6 +47,7 @@ export class PetAddPage {
   ionViewDidLoad() {
 
     this.step1.form = new FormGroup({
+      'dogid': new FormControl(null),
       'name': new FormControl(null, Validators.required),
       'race': new FormControl(null, Validators.required),
       'age': new FormControl(null, Validators.required),
@@ -60,6 +62,24 @@ export class PetAddPage {
       'description': new FormControl(null, Validators.required)
     })
     this.step2.isFormLoaded = true
+
+    this.formEdit = this.navParams.get('formEdit')
+    const formEdit = this.formEdit
+
+    if(formEdit) {
+      this.step1.form.patchValue({
+        dogid: formEdit.dogid,
+        name: formEdit.name,
+        race: formEdit.race,
+        age: formEdit.age,
+        size: formEdit.size,
+        weight: formEdit.weight,
+      })
+      this.step2.form.patchValue({
+        avatar: 'none',
+        description: formEdit.description
+      })
+    }
   }
 
 
@@ -94,8 +114,8 @@ export class PetAddPage {
         saveToPhotoAlbum: false,
         correctOrientation: true,
         allowEdit: true,
-        targetWidth: 560,
-        targetHeight: 560
+        targetWidth: 250,
+        targetHeight: 250
       }
 
        this._camera.getPicture(options).then(
@@ -149,6 +169,7 @@ export class PetAddPage {
       loading.present()
 
       let form = {
+        dogid: step1.value.dogid,
         name: step1.value.name,
         race: step1.value.race,
         age: Number(step1.value.age),
@@ -159,20 +180,37 @@ export class PetAddPage {
         color: 'white'
       }
 
-      this._petProvider.setPet(form).subscribe(
-        (response: any) => {
-          let message = response.message
-          this.navCtrl.pop()
-          this.navCtrl.setRoot(PetsPage)
+      if(this.formEdit)
+        this._petProvider.updatPet(form).subscribe(
+          (response: any) => {
+            let message = response.message
+            this.navCtrl.pop()
+            // this.navCtrl.setRoot(PetsPage)
 
-          if(response.message)
-            this._globalProvider.toast(response.message)
-        },
-        (error) => {
-          this._globalProvider.toast(error.error ? error.error.message : 'Ocurrió un problema al agregar a tu mascota')
-        },
-        () => loading.dismiss()
-      )
+            if(response.message)
+              this._globalProvider.toast(response.message)
+          },
+          (error) => {
+            this._globalProvider.toast(error.error ? error.error.message : 'Ocurrió un problema al agregar a tu mascota')
+          },
+          () => loading.dismiss()
+        )
+
+      else
+        this._petProvider.setPet(form).subscribe(
+          (response: any) => {
+            let message = response.message
+            this.navCtrl.pop()
+            this.navCtrl.setRoot(PetsPage)
+
+            if(response.message)
+              this._globalProvider.toast(response.message)
+          },
+          (error) => {
+            this._globalProvider.toast(error.error ? error.error.message : 'Ocurrió un problema al agregar a tu mascota')
+          },
+          () => loading.dismiss()
+        )
 
     }
   }

@@ -1,6 +1,8 @@
 <div class="card-pet" (click)="openProfile()">
   <div class="card-pet__Image">
-    <img [src]="avatar" alt="">
+    <div class="image"
+         [ngStyle]="{'background-image' : 'url(' + (avatar) + ')'}">
+    </div>
   </div>
   <div class="card-pet__Content">
     <div class="title">

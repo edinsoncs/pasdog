@@ -41,18 +41,18 @@ export class MyApp {
         title: 'Inicio',
         component: MapPage
       },
-      {
-        title: 'Contratados',
-        component: ListAgreedPage
-      },
+      // {
+      //   title: 'Contratados',
+      //   component: ListAgreedPage
+      // },
       {
         title: 'Historial',
         component: ListHistoryPage
       },
-      {
-        title: 'Mis pagos',
-        component: MapPage
-      },
+      // {
+      //   title: 'Mis pagos',
+      //   component: MapPage
+      // },
       {
         title: 'Mis mascotas',
         component: PetsPage
