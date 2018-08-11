@@ -18,8 +18,8 @@ exports.savephotoprofile = (req, res, next) => {
 
 
 	let _img = req.body.avatar;
-	let _data = _img.replace(/^data:image\/\w+;base64,/, "");
-	let _buf = new Buffer(_data, 'base64');
+	//let _data = _img.replace(/^data:image\/\w+;base64,/, "");
+	let _buf = new Buffer(_img, 'base64');
 	let _name = shortid.generate() + '.png';
 
 	let _url = path.join(__dirname, '..', 'public/', 'gallery/' + _name);
@@ -39,8 +39,6 @@ exports.savephotoprofile = (req, res, next) => {
 			res.json({'avatar': _url});
 
 		});
-
-
 
 	});
 
@@ -99,7 +97,7 @@ exports.updatephotodog = (req, res, next, dog_id) => {
 
   	let _img = req.body.avatar;
 	//let _data = _img.replace(/^data:image\/\w+;base64,/, "");
-	let _buf = new Buffer(_data, 'base64');
+	let _buf = new Buffer(_img, 'base64');
 	let _name = shortid.generate() + '.png';
 
 	if(dog_id) {
