@@ -18,17 +18,18 @@
 
 <ion-content>
   <div class="cards">
-    <article>
-      <card-pet [id]="1"
-                [size]="2"
-                [name]="'Rambo'"
-                [weight]="21"
-                [age]="3"
-                [race]="'mestizo'"
-                [avatar]="'assets/imgs/dog1.jpg'">
+    <article *ngFor="let pet of pets">
+      <card-pet [id]="pet._id"
+                [size]="pet.size"
+                [name]="pet.name"
+                [weight]="pet.body"
+                [age]="pet.age"
+                [race]="pet.race"
+                [details]="pet.details"
+                [avatar]="globalProvider.galleryDogsUrl + '/' + pet.avatar">
       </card-pet>
     </article>
-
+    <!--
     <article>
       <card-pet [id]="1"
                 [size]="1"
@@ -39,7 +40,6 @@
                 [avatar]="'assets/imgs/dog2.jpg'">
       </card-pet>
     </article>
-
     <article>
       <card-pet [id]="1"
                 [size]="3"
@@ -50,7 +50,6 @@
                 [avatar]="'assets/imgs/dog3.jpg'">
       </card-pet>
     </article>
-
     <article>
       <card-pet [id]="1"
                 [size]="3"
@@ -61,6 +60,8 @@
                 [avatar]="'assets/imgs/dog4.jpg'">
       </card-pet>
     </article>
+    -->
+
   </div>
 </ion-content>
 

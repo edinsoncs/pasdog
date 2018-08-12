@@ -69,7 +69,7 @@
     <form *ngIf="step2.isFormLoaded" [formGroup]="step2.form" novalidate="novalidate">
       <ion-list [hidden]="step != 2" class="step-2">
 
-        <div class="avatar">
+        <div class="avatar" *ngIf="!formEdit">
           <ion-avatar item-start>
             <img *ngIf="file" [src]="file">
             <div class="profile-image" (click)="takePicture()">

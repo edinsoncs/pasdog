@@ -4,7 +4,7 @@
     <ion-title text-center>Mi mascota</ion-title>
 
     <ion-buttons end no-margin>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="openPage('pet-edit')">
         <ion-icon name="more"></ion-icon>
       </button>
     </ion-buttons>
@@ -16,7 +16,10 @@
 <ion-content>
   <div class="header" padding>
     <ion-avatar item-start>
-      <img [src]="avatar">
+      <div class="image" [ngStyle]="{'background-image' : 'url(' + avatar + ')'}"></div>
+      <div class="profile-image" (click)="takePicture()">
+        <ion-icon name="camera"></ion-icon>
+      </div>
     </ion-avatar>
     <div>
       <h3 class="header__Name" no-margin>{{ name }}</h3>
@@ -51,9 +54,7 @@
 
 
   <div class="body">
-    <div padding>
-      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </div>
+    <div padding [innerHTML]="details"></div>
   </div>
 
 </ion-content>

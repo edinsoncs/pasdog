@@ -20,11 +20,32 @@ export class PetProvider {
     return this.http.post(`${ this._globalProvider.apiUrl }/listdog`, null, options)
   }
 
+  getPetById(formData) {
+    let data = JSON.stringify(formData)
+    let options = this._globalProvider.headersBuilder(true, data)
+
+    return this.http.post(`${ this._globalProvider.apiUrl }/onelist`, data, options)
+  }
+
   setPet(formData) {
     let data = JSON.stringify(formData)
     let options = this._globalProvider.headersBuilder(true, data)
 
     return this.http.post(`${ this._globalProvider.apiUrl }/newdog`, data, options)
+  }
+
+  updatPet(formData) {
+    let data = JSON.stringify(formData)
+    let options = this._globalProvider.headersBuilder(true, data)
+
+    return this.http.post(`${ this._globalProvider.apiUrl }/updatedog`, data, options)
+  }
+
+  deletePet(formData) {
+    let data = JSON.stringify(formData)
+    let options = this._globalProvider.headersBuilder(true, data)
+
+    return this.http.post(`${ this._globalProvider.apiUrl }/deletedog`, data, options)
   }
 
 }

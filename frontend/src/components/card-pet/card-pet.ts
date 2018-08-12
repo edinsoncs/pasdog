@@ -18,7 +18,8 @@ export class CardPetComponent {
   @Input('name') name: string
   @Input('weight') weight: number
   @Input('race') race: string
-  @Input('avatar') avatar: string
+  @Input('avatar') avatar: string = "image.png"
+  @Input('details') details: string
 
   constructor(
     public navCtrl: NavController
@@ -32,7 +33,8 @@ export class CardPetComponent {
       name: this.name,
       weight: this.weight,
       race: this.race,
-      avatar: this.avatar
+      avatar: this.avatar,
+      details: this.details
     }
 
     this.navCtrl.push(PetProfilePage, data)

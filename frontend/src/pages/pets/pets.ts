@@ -5,6 +5,7 @@ import { NavController, NavParams } from 'ionic-angular'
 import { PetAddPage } from '../pet-add/pet-add'
 
 // providers
+import { GlobalProvider } from '../../providers/global/global'
 import { PetProvider } from '../../providers/pet/pet'
 
 
@@ -20,20 +21,23 @@ export class PetsPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public globalProvider: GlobalProvider,
     private _petProvider: PetProvider
   ) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PetsPage')
     this.getPet()
   }
 
   getPet() {
     this._petProvider.getPet().subscribe(
-      (response) => {
+      (response: any) => {
         this.pets = []
 
-        console.log('pets', response)
+        if(response.list)
+          this.pets = response.list
+
+        console.log('pets', this.pets)
       }
     )
   }
