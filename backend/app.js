@@ -7,6 +7,9 @@ const path = require('path');
 const bodyParser  = require('body-parser');
 const cookieParser = require('cookie-parser');
 
+//Import config
+import config from './database/config';
+
 
 let app = express();
 let server = require('http').createServer(app);
@@ -73,7 +76,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-mongoose.connect('mongodb://localhost:27017/pasdog', function(err, res) {
+mongoose.connect(config.db, function(err, res) {
     if (err) throw err;
     console.log('MONGOOSE');
 });
@@ -89,7 +92,7 @@ app.use('/api', api);
 
 
 
-server.listen(3000, () => {
+server.listen(config.port, () => {
 
 	console.log('run server in nodejs -> pasdog');
 

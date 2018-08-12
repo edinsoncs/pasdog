@@ -9,12 +9,13 @@ const path = require('path');
 //NPM MODULES
 let shortid = require('shortid');
 
+let controllers = require('../controllers/initController');
+
 
 let userHandlers = require('../controllers/userController');
 let files = require('../controllers/filesController');
 
 //router.post(userHandlers.register);
-
 
 let socket_conect = require('../socket/init');
 
@@ -31,15 +32,15 @@ let chat = require('../controllers/chatController');
 
 router.post('/newuser', (req, res, next) => {
 
-	return userHandlers.register(req, res, next);
+	return controllers.ctr('register', req, res, next);
 
 });
 
 router.post('/access', (req, res, next) => {
 
-	return userHandlers.access_email(req, res, next);
-
+	return controllers.ctr('login', req, res, next);
 });
+
 
 router.post('/profile', (req, res, next) => {
 
@@ -47,31 +48,12 @@ router.post('/profile', (req, res, next) => {
 
 	if(status) {
 
-		let db = req.db;
-		let user = db.get('users');
-
-		user.findOne({'_id': req.user._id}, (err, data) => {
-			if(err) return err;
-
-			var show = [
-			{'data': 
-			{user_id: data._id,
-		    user_type: data.role, 
-		    name: data.name, 
-		    geolocation: data.geolocation,
-			email: data.email, 
-			date: data.create, 
-			city: data.city,
-			avatar: data.avatar
-			}}]
-
-			res.json(show);
-
-		});
-
+		return controllers.ctr('profile', req, res, next);
 
 	} else {
+
 		return userHandlers.userErr(req, res, next);
+		
 	}
 
 
