@@ -26,6 +26,12 @@ module.exports.ctr = (name, req, res, next) => {
 				require('./roleController')(req, res, next);
 
 			break;
+
+		case  'dog_new':
+
+				require('./dog/newdogController')(req, res, next);
+
+			break;
 		
 		default:
 			break;

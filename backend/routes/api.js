@@ -102,7 +102,10 @@ router.post('/newdog', (req, res, next) => {
 
 		//find if exist dog
 		//create new dog in insert to array in #one
-		return newdog.create(req, res, next);
+		//return newdog.create(req, res, next);
+		return controllers.ctr('dog_new', req, res, next);
+
+
 
 	}  else {
 
