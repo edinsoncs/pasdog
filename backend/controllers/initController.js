@@ -20,6 +20,12 @@ module.exports.ctr = (name, req, res, next) => {
 				require('./profileController')(req, res, next);
 
 			break;
+
+		case  'role':
+
+				require('./roleController')(req, res, next);
+
+			break;
 		
 		default:
 			break;

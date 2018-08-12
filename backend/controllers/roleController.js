@@ -7,8 +7,7 @@ const message = require('../helps/message');
 module.exports.update = (req, res, next) => {
 
 
-	let db = req.db;
-	let user = db.get('users');
+	let user = database.query(req, 'users');
 	let role = req.body.type;
 
 	if(role == 0 || role == 1) {

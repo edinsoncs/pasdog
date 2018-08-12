@@ -53,7 +53,7 @@ router.post('/profile', (req, res, next) => {
 	} else {
 
 		return userHandlers.userErr(req, res, next);
-		
+
 	}
 
 
@@ -64,7 +64,7 @@ router.post('/profile/role', (req, res, next) => {
 	var status = userHandlers.loginRequired(req, res, next);
 
 	if(status) {
-		return role.update(req, res, next);
+		return controllers.ctr('role', req, res, next);
 
 	} else {
 		return userHandlers.userErr(req, res, next);
