@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { NavController, NavParams, ModalController, LoadingController } from 'ionic-angular'
+import { NavController, NavParams, ModalController, LoadingController, Platform } from 'ionic-angular'
 import {
  GoogleMaps,
  GoogleMap,
@@ -40,6 +40,7 @@ export class MapPage {
     public navParams: NavParams,
     public modalCtrl: ModalController,
     public loadingCtrl: LoadingController,
+    public platform: Platform,
     private _geolocation: Geolocation,
     private _socket: Socket,
     public globalProvider: GlobalProvider
@@ -123,6 +124,8 @@ export class MapPage {
     }
 
     this.map = GoogleMaps.create('map', mapOptions)
+    if(!this.platform.is('cordova'))
+      self.loadingSpinner.dismiss()
 
     // Wait the MAP_READY before using any methods.
     this.map.on(GoogleMapsEvent.MAP_READY).subscribe(

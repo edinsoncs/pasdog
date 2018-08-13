@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core'
-import { Nav, Platform } from 'ionic-angular'
+import { App, IonicApp, Nav, Platform, AlertController } from 'ionic-angular'
 import { StatusBar } from '@ionic-native/status-bar'
 import { SplashScreen } from '@ionic-native/splash-screen'
 import { Geolocation } from '@ionic-native/geolocation'
@@ -28,7 +28,10 @@ export class MyApp {
   pages:any
 
   constructor(
+    public app: App,
+    public ionicApp: IonicApp,
     public platform: Platform,
+    public alertCtrl: AlertController,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     private _geolocation: Geolocation,
@@ -90,6 +93,39 @@ export class MyApp {
           this._globalProvider.toast(message)
         }
       )
+
+      // register back button
+      self.platform.registerBackButtonAction(() => {
+        let nav = self.app.getActiveNavs()[0],
+            activePortal = this.ionicApp._loadingPortal.getActive() ||
+
+        this.ionicApp._modalPortal.getActive() ||
+        this.ionicApp._toastPortal.getActive() ||
+        this.ionicApp._overlayPortal.getActive()
+
+        if (activePortal) {
+          activePortal.dismiss()
+        }
+        else {
+          if(nav.canGoBack()) {
+            nav.pop()
+          }
+          else {
+            let alert = this.alertCtrl.create({
+              title: 'Salir',
+              message: '¿Estás seguro que deseas salir de PASDOG?',
+              buttons: [
+                'Cancelar',
+                {
+                  text: 'Si, salir',
+                  handler: () => self.platform.exitApp()
+                }
+              ]
+            })
+            alert.present()
+          }
+        }
+      })
 
     })
 

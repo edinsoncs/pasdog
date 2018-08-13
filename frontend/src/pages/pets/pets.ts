@@ -30,16 +30,24 @@ export class PetsPage {
   }
 
   getPet() {
-    this._petProvider.getPet().subscribe(
-      (response: any) => {
-        this.pets = []
+    const pets = this.globalProvider.getStorage('pets'),
+          isOnline = this.globalProvider.isOnline(true)
 
-        if(response.list)
-          this.pets = response.list
+    if(pets)
+      this.pets = JSON.parse(pets)
 
-        console.log('pets', this.pets)
-      }
-    )
+    if(isOnline)
+      this._petProvider.getPet().subscribe(
+        (response: any) => {
+          this.pets = []
+
+          if(response.list) {
+            this.pets = response.list
+            this.globalProvider.setStorage('pets', JSON.stringify(this.pets))
+          }
+
+        }
+      )
   }
 
   add() {

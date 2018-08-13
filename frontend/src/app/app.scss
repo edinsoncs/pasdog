@@ -57,6 +57,9 @@ ion-header{
   }
   ion-buttons{
     width: 56px;
+    &.translucent {
+      opacity: 0
+    }
     ion-icon{
       color: $gray-4;
     }
@@ -75,6 +78,17 @@ ion-segment.segment-md{
     &:not(.segment-activated){
       border-color: white !important;
       color: $gray-4;
+    }
+  }
+}
+
+ion-action-sheet.action-sheet-md {
+  .action-sheet-group {
+    .action-sheet-title {
+      font-size: 1em
+    }
+    button.action-sheet-button-md {
+      font-size: 1.1em
     }
   }
 }

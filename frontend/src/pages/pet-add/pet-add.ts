@@ -24,6 +24,7 @@ export class PetAddPage {
   step: number = 1
   file: string
   formEdit: any
+  title: string = "Agregar mascota"
 
   step1: any = {
     form: null,
@@ -67,6 +68,7 @@ export class PetAddPage {
     const formEdit = this.formEdit
 
     if(formEdit) {
+      this.title = "Editar mascota"
       this.step1.form.patchValue({
         dogid: formEdit.dogid,
         name: formEdit.name,

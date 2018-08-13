@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { NavController, NavParams } from 'ionic-angular'
+import { NavController, NavParams, AlertController, ActionSheetController } from 'ionic-angular'
 
 // pages
 import { PetAddPage } from '../pet-add/pet-add'
@@ -28,6 +28,8 @@ export class PetProfilePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public alertCtrl: AlertController,
+    public actionSheetCtrl: ActionSheetController,
     public globalProvider: GlobalProvider,
     private _petProvider: PetProvider
   ) { }
@@ -68,7 +70,9 @@ export class PetProfilePage {
   }
 
 
-  openPage(page) {
+  openPage(page, confirm?) {
+    const self = this
+
     switch(page) {
       case 'pet-edit':
         const payload = {
@@ -78,16 +82,49 @@ export class PetProfilePage {
           age: this.age,
           weight: this.weight,
           race: this.race,
-          avatar: this.avatar,
+          description: this.details
         }
         this.navCtrl.push(PetAddPage, {formEdit: payload})
         break
+
       case 'pet-delete':
-        this._petProvider.deletePet({dogid: this.id}).subscribe(
-          (response: any) => {
-            console.log('pet-delete', response)
-          }
-        )
+        if(confirm)
+          this._petProvider.deletePet({dogid: this.id}).subscribe(
+            (response: any) => {
+              console.log('pet-delete', response)
+            }
+          )
+        else {
+          const alert = this.alertCtrl.create({
+            title: 'Confirmar',
+            message: `¿Deseas eliminar a <strong>${ this.name }</strong> de tu lista de mascotas?`,
+            buttons: [
+              'No',
+              {
+                text: 'Eliminar',
+                handler: () => self.openPage('pet-delete', true)
+              }
+            ]
+          })
+          alert.present()
+        }
+        break
+
+      case 'options':
+        const options = this.actionSheetCtrl.create({
+          title: 'Más opciones',
+          buttons: [
+            {
+              text: 'Editar información',
+              handler: () => self.openPage('pet-edit')
+            },{
+              text: 'Eliminar',
+              role: 'destructive',
+              handler: () => self.openPage('pet-delete')
+            }
+          ]
+        })
+        options.present()
         break
     }
   }

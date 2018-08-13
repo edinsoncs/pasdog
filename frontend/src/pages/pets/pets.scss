@@ -16,4 +16,12 @@ page-pets {
       //display: inline-block;
     }
   }
+
+  .loading {
+    width: 100%;
+    ion-spinner {
+      display: block;
+      margin: 0 auto
+    }
+  }
 }
