@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { FormGroup, FormControl, Validators } from '@angular/forms'
-import { NavController, NavParams, LoadingController } from 'ionic-angular'
+import { NavController, NavParams, LoadingController, MenuController } from 'ionic-angular'
 
 // pages
 import { MapPage } from '../map/map'
@@ -24,6 +24,7 @@ export class UserWalkerCompletePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
+    public menuCtrl: MenuController,
     private _globalProvider: GlobalProvider,
     private _userProvider: UserProvider
   ) { }
@@ -43,7 +44,6 @@ export class UserWalkerCompletePage {
     if(this.form.valid) {
 
       let form = this.form,
-          self = this,
           loading = this.loadingCtrl.create({
             content: 'Cargando...'
           })
@@ -61,7 +61,8 @@ export class UserWalkerCompletePage {
                 this._globalProvider.toast(message)
               }
               else {
-                self.navCtrl.setRoot(MapPage)
+                this.navCtrl.setRoot(MapPage)
+                this.menuCtrl.enable(false)
               }
 
             },

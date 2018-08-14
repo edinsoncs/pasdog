@@ -151,12 +151,15 @@ export class SignupPage {
                   email: response.email,
                   geolocation: response.geolocation.length > 1 ? response.geolocation : null,
                   name: response.name,
+                  avatar: response.avatar,
                   user_id: response.user_id,
                   user_type: null
                 }
 
                 this._globalProvider.setStorage('token', response.token)
                 this._globalProvider.setStorage('profile', JSON.stringify(profile))
+                this._globalProvider.profile = profile
+
                 this.navCtrl.setRoot(SignupUserTypePage)
               }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { NavController, NavParams, LoadingController } from 'ionic-angular'
+import { NavController, NavParams, LoadingController, MenuController } from 'ionic-angular'
 
 // pages
 import { MapPage } from '../map/map'
@@ -23,6 +23,7 @@ export class SignupUserTypePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
+    public menuCtrl: MenuController,
     private _globalProvider: GlobalProvider,
     private _userProvider: UserProvider
   ) { }
@@ -35,8 +36,7 @@ export class SignupUserTypePage {
   }
 
   setUserType(type) {
-    let self = this,
-        loading = this.loadingCtrl.create({
+    let loading = this.loadingCtrl.create({
           content: 'Cargando...'
         }),
         data = {
@@ -49,7 +49,7 @@ export class SignupUserTypePage {
 
     else {
       loading.present()
-      
+
       this._userProvider.setUserType(data).subscribe(
         (response: any) => {
           loading.dismiss()
@@ -59,7 +59,8 @@ export class SignupUserTypePage {
               profile.user_type = response.role
 
           this._globalProvider.setStorage('profile', JSON.stringify(profile))
-          self.navCtrl.setRoot(MapPage)
+          this.navCtrl.setRoot(MapPage)
+          this.menuCtrl.enable(false)
         },
         (error) => {
           loading.dismiss()

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { NavController, NavParams, Platform, AlertController, LoadingController } from 'ionic-angular'
+import { NavController, NavParams, Platform, AlertController, LoadingController, ActionSheetController } from 'ionic-angular'
 
 // plugins
 import { Camera, CameraOptions } from '@ionic-native/camera'
@@ -8,6 +8,9 @@ declare var cordova: any
 // providers
 import { GlobalProvider } from '../../providers/global/global'
 import { UserProvider } from '../../providers/user/user'
+
+// pages
+import { HomePage } from '../home/home'
 
 
 @Component({
@@ -33,6 +36,7 @@ export class UserConfigurationPage {
     public platform: Platform,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
+    public actionSheetCtrl: ActionSheetController,
     private _camera: Camera,
     private _globalProvider: GlobalProvider,
     private _userProvider: UserProvider
@@ -136,8 +140,38 @@ export class UserConfigurationPage {
   }
 
 
-  editProfile() {
+  openPage(page, confirm?) {
+    const self = this
 
+    switch(page) {
+      case 'options':
+        const options = this.actionSheetCtrl.create({
+          title: 'Más opciones',
+          buttons: [
+            {
+              text: 'Editar perfil'//,
+              //handler: () => self.openPage('pet-edit')
+            },
+            {
+              text: 'Cerrar sesión',
+              role: 'destructive',
+              handler: () => {
+
+                const loading = self.loadingCtrl.create(),
+                      isOnline = self._globalProvider.isOnline(true)
+
+                if(isOnline) {
+                  self._globalProvider.logout()
+                  self.navCtrl.setRoot(HomePage)
+                }
+
+              }
+            }
+          ]
+        })
+        options.present()
+        break
+    }
   }
 
 }

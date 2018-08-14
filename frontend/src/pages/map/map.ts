@@ -81,20 +81,6 @@ export class MapPage {
   }
 
 
-  click() {
-    // this.updateMakers()
-    let data = {
-      id: 14,
-      name: 'Juan Taboda',
-      avatar: 'https://ta.azureedge.net/p/images/usuarios/l/878872.jpg/300x300cut/?v=2',
-      price: 140,
-      reputation: 4
-    }
-
-    this.userPreview(data)
-  }
-
-
   loadMap(latitude?: number, longitude?: number) {
 
     let self = this

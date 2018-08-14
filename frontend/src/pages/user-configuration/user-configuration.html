@@ -7,7 +7,7 @@
     <ion-title text-center>Configuración</ion-title>
 
     <ion-buttons end no-margin>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="openPage('options')">
         <ion-icon name="more"></ion-icon>
       </button>
     </ion-buttons>
@@ -47,9 +47,9 @@
           <ion-item>
             <ion-icon name="locate"></ion-icon> Ubicación: {{ profile.city }} (ver en mapa)
           </ion-item>
-          <ion-item>
-            <ion-icon name="person"></ion-icon> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </ion-item>
+          <div class="description">
+            <ion-icon name="person"></ion-icon> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
         </ion-list>
       </div>
     </div>

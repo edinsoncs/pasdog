@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { NavController, LoadingController } from 'ionic-angular'
+import { NavController, LoadingController, MenuController } from 'ionic-angular'
 
 // pages
 import { SignupPage } from '../signup/signup'
@@ -22,12 +22,15 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
+    public menuCtrl: MenuController,
     private _globalProvider: GlobalProvider,
     private _userProvider: UserProvider
   ) { }
 
 
   ionViewDidLoad() {
+    this.menuCtrl.enable(false)
+
     let loading = this.loadingCtrl.create({
       content: 'Cargando...'
     })
@@ -44,9 +47,15 @@ export class HomePage {
 
           if(response.user_id) {
             this._globalProvider.setStorage('profile', JSON.stringify(response))
+            this._globalProvider.profile = response
 
-            if(response.user_type != null)
+            if(response.avatar)
+              this._globalProvider.thumbnail = this._globalProvider.galleryUrl + '/' + response.avatar
+
+            if(response.user_type != null) {
               this.navCtrl.setRoot(MapPage)
+              this.menuCtrl.enable(true)
+            }
 
             else
               this.navCtrl.setRoot(SignupUserTypePage)

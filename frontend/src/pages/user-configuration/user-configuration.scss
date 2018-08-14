@@ -66,7 +66,8 @@ page-user-configuration {
       border-bottom: 1px solid $gray-6;
 
       ion-list{
-        ion-item{
+        ion-item,
+        .description {
           color: $gray-4;
           min-height: 0;
           padding: 8px 0;
@@ -75,10 +76,20 @@ page-user-configuration {
             margin: 0;
           }
           .item-inner{
-            border: none !important
+            border: none !important;
           }
           ion-icon{
             margin-right: 10px;
+          }
+        }
+
+        .description {
+          ion-icon {
+            font-size: 1.5em
+          }
+          p {
+            display: inline;
+            font-size: 1.1em
           }
         }
       }

@@ -1,10 +1,11 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { RequestOptions, Headers, Http } from '@angular/http'
 import { Injectable } from '@angular/core'
-import { ToastController, Platform } from 'ionic-angular'
+import { ToastController, Platform, MenuController } from 'ionic-angular'
 
 // plugins
 import { Network } from '@ionic-native/network'
+import { Socket } from 'ng-socket-io'
 
 
 @Injectable()
@@ -25,10 +26,11 @@ export class GlobalProvider {
     name: '',
     city: '',
     email: '',
-    url: '',
+    avatar: '',
     user_id: null,
     user_type: null
   }
+  public thumbnail: string = this.emptyProfile
   public isGeolocated: boolean = false
   public geolocationHasError: boolean = false
 
@@ -36,7 +38,9 @@ export class GlobalProvider {
     public http: HttpClient,
     public platform: Platform,
     public toastCtrl: ToastController,
-    private _network: Network
+    public menuCtrl: MenuController,
+    private _network: Network,
+    private _socket: Socket
   ) { }
 
 
@@ -108,6 +112,13 @@ export class GlobalProvider {
       position: position,
       cssClass: 'custom-toast'
     }).present()
+  }
+
+
+  logout() {
+    this.removeStorage(null, true)
+    this.menuCtrl.enable(false)
+    this._socket.disconnect()
   }
 
 }

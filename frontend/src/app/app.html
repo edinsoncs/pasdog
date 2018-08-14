@@ -1,13 +1,25 @@
 <ion-menu [content]="content">
   <ion-content>
 
-    <img src="assets/imgs/app.jpg" alt="">
+    <div class="user-panel">
+      <div class="user-panel__Background" [ngStyle]="{'background-image' : 'url(assets/imgs/intro.jpg)'}"></div>
+      <div class="user-panel__Profile" (click)="openPage(pages[4])" menuClose>
+        <div class="image" [ngStyle]="{'background-image' : 'url(' + _globalProvider.thumbnail + ')'}"></div>
+        <div class="information">
+          <p>{{ _globalProvider.profile.name }}</p>
+          <a>{{ _globalProvider.profile.email }}</a>
+        </div>
+      </div>
+    </div>
 
     <ion-list>
       <button *ngFor="let data of pages"
                (click)="openPage(data)"
                menuClose ion-item color="light">
         {{ data.title }}
+        <ion-badge item-end color="secondary" *ngIf="data.count">
+          {{ data.count }}
+        </ion-badge>
       </button>
     </ion-list>
 

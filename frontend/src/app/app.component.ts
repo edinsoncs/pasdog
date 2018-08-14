@@ -57,6 +57,11 @@ export class MyApp {
       //   component: MapPage
       // },
       {
+        title: 'Consultas',
+        count: 3,
+        component: PetsPage
+      },
+      {
         title: 'Mis mascotas',
         component: PetsPage
       },
