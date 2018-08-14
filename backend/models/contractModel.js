@@ -9,4 +9,4 @@ var ContractSchema = new Schema({
 	'create': Date
 });
 
-module.exports = mongoose.model('Contract', ContractSchema);
+mongoose.model('Contract', ContractSchema);
