@@ -39,6 +39,12 @@ module.exports.ctr = (name, req, res, next) => {
 				require('./dog/newdogController')(req, res, next);
 
 			break;
+
+		case 'contract_new':
+
+				require('./contractController')(req, res, next);
+
+			break;
 		
 		default:
 			break;

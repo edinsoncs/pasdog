@@ -42,20 +42,7 @@ module.exports.getprofile = (req, res, next) => {
 
 			if(data) {
 
-				var show = [
-				{'data': 
-					{user_id: data._id,
-				    user_type: data.role, 
-				    name: data.name, 
-				    geolocation: data.geolocation,
-					email: data.email, 
-					date: data.create, 
-					city: data.city,
-					avatar: data.avatar
-					}
-				}]
-
-				res.json(show);
+				res.json(data);
 
 			} else {
 				return res.status(200).json({ 

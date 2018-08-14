@@ -284,4 +284,21 @@ router.post('/chat', (req, res, next) => {
 });
 
 
+router.post('/newcontract', (req, res, next) => {
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status) {
+
+		return controllers.ctr('contract_new', req, res, next);
+
+	} else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
+
+});
+
+
 module.exports = router;
