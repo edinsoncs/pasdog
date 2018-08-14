@@ -35,6 +35,13 @@ export class UserProvider {
     return this.http.post(`${ this._globalProvider.apiUrl }/profile`, null, options)
   }
 
+  getProfileById(formData) {
+    let data = JSON.stringify(formData)
+    let options = this._globalProvider.headersBuilder(true)
+
+    return this.http.post(`${ this._globalProvider.apiUrl }/getprofile`, data, options)
+  }
+
   setUserType(formData) {
     let data = JSON.stringify(formData)
     let options = this._globalProvider.headersBuilder(true, data)
@@ -43,6 +50,13 @@ export class UserProvider {
   }
 
   walkerProfile(formData) {
+    let data = JSON.stringify(formData)
+    let options = this._globalProvider.headersBuilder(true, data)
+
+    return this.http.post(`${ this._globalProvider.apiUrl }/profile/paseador`, data, options)
+  }
+
+  walkerProfileById(formData) {
     let data = JSON.stringify(formData)
     let options = this._globalProvider.headersBuilder(true, data)
 

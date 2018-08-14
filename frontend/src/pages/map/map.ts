@@ -229,7 +229,7 @@ export class MapPage {
             self.map.addMarker(marker).then(marker => {
               self.subscriptions.markers = marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
                 let data = {
-                  id: self.walkers[walker].iduser,
+                  id: self.walkers[walker].id,
                   name: self.walkers[walker].name,
                   avatar: self.walkers[walker].avatar
                 }
@@ -250,5 +250,18 @@ export class MapPage {
     let modal = this.modalCtrl.create(UserPreviewPage, data)
         modal.present()
   }
+
+
+/*
+  userPreviewTest() {
+    const data = {
+      id: "5b722b9daedfca72f50fb70e",
+      name: "Beatriz",
+      avatar: "HkJEMRsr7.png"
+    }
+    let modal = this.modalCtrl.create(UserPreviewPage, data)
+        modal.present()
+  }
+*/
 
 }

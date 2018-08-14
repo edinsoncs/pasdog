@@ -94,6 +94,7 @@ ion-action-sheet.action-sheet-md {
 }
 
 ion-footer.call-to-action{
+  background: white;
   button.button-md{
     margin: 0;
     height: 44px;
@@ -132,4 +133,9 @@ ion-alert {
 
     }
   }
+}
+
+// class helps
+.invisible {
+  opacity: 0
 }

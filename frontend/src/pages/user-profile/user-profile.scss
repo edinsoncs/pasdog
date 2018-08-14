@@ -5,10 +5,24 @@ page-user-profile {
     align-items: center;
 
     ion-avatar{
-      img{
-        width: 75px;
-        height: 75px;
+      position: relative;
+      margin-top: 3px !important;
+      margin-right: 3px !important;
+      border-radius: 50%;
+      background: $gray-6;
+      width: 75px;
+      height: 75px;
+
+      .image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         border-radius: 50%;
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
       }
     }
 

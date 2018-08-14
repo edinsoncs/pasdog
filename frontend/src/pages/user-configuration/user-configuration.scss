@@ -8,10 +8,18 @@ page-user-configuration {
       position: relative;
       background-color: $gray-6;
       border-radius: 50%;
-      img{
-        width: 75px;
-        height: 75px;
+      width: 75px;
+      height: 75px;
+      .image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         border-radius: 50%;
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
       }
       .profile-image{
         position: absolute;

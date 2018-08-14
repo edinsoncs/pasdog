@@ -30,14 +30,24 @@ page-user-preview {
       border-radius: 4px;
 
       ion-avatar{
+        position: relative;
         margin-top: 3px !important;
         margin-right: 22px !important;
         border-radius: 50%;
         background: $gray-6;
-        &,
-        img{
-          width: 65px;
-          height: 65px;
+        width: 65px;
+        height: 65px;
+
+        .image {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          overflow: hidden;
+          background-size: cover;
+          background-position: center;
         }
       }
     }
@@ -71,6 +81,20 @@ page-user-preview {
         color: #666 !important;
       }
     }
+
+
+    .loading {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, .75)
+    }
+
   }
 
 }
