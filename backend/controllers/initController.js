@@ -21,6 +21,13 @@ module.exports.ctr = (name, req, res, next) => {
 
 			break;
 
+		case  'getprofile':
+
+
+				require('./profileController').getprofile(req, res, next);
+
+			break;
+
 		case  'role':
 
 				require('./roleController')(req, res, next);
@@ -30,6 +37,12 @@ module.exports.ctr = (name, req, res, next) => {
 		case  'dog_new':
 
 				require('./dog/newdogController')(req, res, next);
+
+			break;
+
+		case 'contract_new':
+
+				require('./contractController')(req, res, next);
 
 			break;
 		

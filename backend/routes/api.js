@@ -47,17 +47,27 @@ router.post('/profile', (req, res, next) => {
 	var status = userHandlers.loginRequired(req, res, next);
 
 	if(status) {
-
 		return controllers.ctr('profile', req, res, next);
-
 	} else {
-
 		return userHandlers.userErr(req, res, next);
-
 	}
 
+});
+
+
+router.post('/getprofile', (req, res, next) => {
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status) {
+		return controllers.ctr('getprofile', req, res, next);
+	} else {
+		return userHandlers.userErr(req, res, next);
+	}
 
 });
+
+
 
 router.post('/profile/role', (req, res, next) => {
 
@@ -264,6 +274,23 @@ router.post('/chat', (req, res, next) => {
 	if(status) {
 
 		return chat.open(req, res, next);
+
+	} else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
+
+});
+
+
+router.post('/newcontract', (req, res, next) => {
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status) {
+
+		return controllers.ctr('contract_new', req, res, next);
 
 	} else {
 

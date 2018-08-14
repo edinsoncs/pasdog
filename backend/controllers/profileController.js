@@ -6,6 +6,7 @@ const database = require('../database/queries');
 const message = require('../helps/message');
 
 const User = mongoose.model('User');
+
 module.exports = (req, res, next) => {
 
 	let user = database.query(req, 'users');
@@ -27,6 +28,29 @@ module.exports = (req, res, next) => {
 			}]
 
 			res.json(show);
+
+	});
+
+}
+
+module.exports.getprofile = (req, res, next) => {
+
+	let user = database.query(req, 'users');
+
+	user.findOne({'_id': req.body.id}, (err, data) => {
+			if(err) return err;
+
+			if(data) {
+
+				res.json(data);
+
+			} else {
+				return res.status(200).json({ 
+					message: message('not_find_id') 
+				});
+			}
+
+			
 
 	});
 
