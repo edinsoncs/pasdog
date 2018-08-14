@@ -22,7 +22,8 @@ module.exports = (type) => {
 		'success_dog_photo_profile': 'Se actualizo la foto',
 		'fail_list_dog_not': 'No tienes ninguna mascota',
 		'fail_remove_dog_not': 'Ocurrio un error, la mascota no se elimina',
-		'success_dog_es_remove': 'Se elimino la mascota'
+		'success_dog_es_remove': 'Se elimino la mascota',
+		'not_find_id': 'No se encontro el usuario'
 	
 	}
 
