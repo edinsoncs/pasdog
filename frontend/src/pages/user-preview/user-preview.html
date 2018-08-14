@@ -7,15 +7,15 @@
 
     <ion-item padding-top>
       <ion-avatar item-start>
-        <img [src]="thumbnail" *ngIf="thumbnail">
+        <div class="image" [ngStyle]="{'background-image' : 'url(' + thumbnail + ')'}" *ngIf="thumbnail"></div>
       </ion-avatar>
       <h2 class="is__Name">{{ name }}</h2>
-      <p class="is__Price">$ {{ price }}</p>
+      <p class="is__Price" [class.invisible]="!price">$ {{ price }}</p>
     </ion-item>
 
     <ion-card-content>
       <ion-row>
-        <ion-col col-8 class="is__Reputation">
+        <ion-col col-8 class="is__Reputation" [class.invisible]="reputation == null">
           <ion-icon [name]="reputation >= 1 ? 'star' : 'star-outline'" color="danger"></ion-icon>
           <ion-icon [name]="reputation >= 2 ? 'star' : 'star-outline'" color="danger"></ion-icon>
           <ion-icon [name]="reputation >= 3 ? 'star' : 'star-outline'" color="danger"></ion-icon>
@@ -29,6 +29,10 @@
         </ion-col>
       </ion-row>
     </ion-card-content>
+
+    <div class="loading" *ngIf="isLoadingProfile">
+      <ion-spinner color="primary"></ion-spinner>
+    </div>
 
   </ion-card>
 

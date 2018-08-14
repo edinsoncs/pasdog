@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { NavController, NavParams, AlertController, ActionSheetController } from 'ionic-angular'
+import { NavController, NavParams, AlertController, LoadingController, ActionSheetController } from 'ionic-angular'
 
 // pages
 import { PetAddPage } from '../pet-add/pet-add'
@@ -29,13 +29,14 @@ export class PetProfilePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController,
     public actionSheetCtrl: ActionSheetController,
     public globalProvider: GlobalProvider,
     private _petProvider: PetProvider
   ) { }
 
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     this.id = this.navParams.get('id')
     this.size = this.navParams.get('size')
     this.age = this.navParams.get('age')
@@ -53,13 +54,13 @@ export class PetProfilePage {
     this._petProvider.getPetById({dogid: this.id}).subscribe(
       (response: any) => {
         if(response) {
-          this.id = response.id
+          this.id = response._id
           this.size = response.size
           this.age = response.age
           this.weight = response.body
           this.name = response.name
           this.race = response.race
-          this.avatar = this.globalProvider.galleryDogsUrl + '/' + response.avatar
+          this.avatar = response.avatar ? (this.globalProvider.galleryDogsUrl + '/' + response.avatar) : this.globalProvider.emptyProfile
           this.details = response.details
         }
       },
@@ -88,12 +89,41 @@ export class PetProfilePage {
         break
 
       case 'pet-delete':
-        if(confirm)
-          this._petProvider.deletePet({dogid: this.id}).subscribe(
-            (response: any) => {
-              console.log('pet-delete', response)
-            }
-          )
+        if(confirm) {
+          const isOnline = this.globalProvider.isOnline(true),
+                loading = this.loadingCtrl.create()
+
+          if(isOnline) {
+            loading.present()
+
+            this._petProvider.deletePet({dogid: this.id}).subscribe(
+              (response: any) => {
+
+                // remove pet from storage pet list
+                let oldPets: any = this.globalProvider.getStorage('pets'),
+                    newPets: any = []
+
+                if(oldPets) {
+                  oldPets = JSON.parse(oldPets)
+                  oldPets.map((pet, index) => {
+                    if(pet._id != this.id)
+                      newPets.push(pet)
+                  })
+                  this.globalProvider.setStorage('pets', JSON.stringify(newPets))
+                }
+
+                this.globalProvider.toast(`${ this.name } fue eliminado de tu lista`)
+                loading.dismiss()
+                this.navCtrl.pop()
+              },
+              (error) => {
+                this.globalProvider.toast(`${ this.name } no pudo eliminarse de tu lista`)
+                loading.dismiss()
+              }
+            )
+          }
+        }
+
         else {
           const alert = this.alertCtrl.create({
             title: 'Confirmar',

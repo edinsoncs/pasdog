@@ -19,10 +19,12 @@ export class UserProfilePage {
 
   id: number
   name: string
-  avatar: string
   thumbnail: string = this._globalProvider.emptyProfile
   price: number
   reputation: number
+  city: string
+  role: number
+  description: string
 
   constructor(
     public navCtrl: NavController,
@@ -34,13 +36,12 @@ export class UserProfilePage {
   ionViewDidLoad() {
     this.id = this.navParams.get('id')
     this.name = this.navParams.get('name')
-    this.avatar = this.navParams.get('avatar')
     this.thumbnail = this.navParams.get('thumbnail')
     this.price = this.navParams.get('price')
     this.reputation = this.navParams.get('reputation')
-
-    if(!this.thumbnail)
-      this.thumbnail = `${ this._globalProvider.galleryUrl }/${ this.avatar }?q=${ this._globalProvider.getStorage('token') }`
+    this.city = this.navParams.get('city')
+    this.role = this.navParams.get('role')
+    this.description = this.navParams.get('description')
   }
 
   agree() {

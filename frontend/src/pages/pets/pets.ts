@@ -25,7 +25,7 @@ export class PetsPage {
     private _petProvider: PetProvider
   ) { }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     this.getPet()
   }
 

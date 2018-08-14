@@ -187,7 +187,6 @@ export class PetAddPage {
           (response: any) => {
             let message = response.message
             this.navCtrl.pop()
-            // this.navCtrl.setRoot(PetsPage)
 
             if(response.message)
               this._globalProvider.toast(response.message)

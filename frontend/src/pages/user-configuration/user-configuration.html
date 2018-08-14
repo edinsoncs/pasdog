@@ -20,7 +20,7 @@
 
   <div class="is__Header" padding>
     <ion-avatar item-start>
-      <img [src]="file">
+      <div class="image" [ngStyle]="{'background-image' : 'url(' + file + ')'}"></div>
       <div class="profile-image" (click)="takePicture()">
         <ion-icon name="camera"></ion-icon>
       </div>
