@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const message = require('../helps/message');
 
-module.exports.update = (req, res, next) => {
+module.exports = (req, res, next) => {
 
 
 	let user = database.query(req, 'users');
