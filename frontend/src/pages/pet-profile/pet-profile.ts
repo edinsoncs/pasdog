@@ -1,6 +1,10 @@
 import { Component } from '@angular/core'
 import { NavController, NavParams, AlertController, LoadingController, ActionSheetController } from 'ionic-angular'
 
+// plugins
+import { Camera, CameraOptions } from '@ionic-native/camera'
+declare var cordova: any
+
 // pages
 import { PetAddPage } from '../pet-add/pet-add'
 
@@ -25,12 +29,20 @@ export class PetProfilePage {
   avatar: string
   details: string
 
+  file: string = this.globalProvider.emptyPetProfile
+  fileUploading: boolean = false
+  fileUploaded: boolean = false
+  fileId: number = null
+  file64: string
+  oldFile: string = null
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     public actionSheetCtrl: ActionSheetController,
+    private _camera: Camera,
     public globalProvider: GlobalProvider,
     private _petProvider: PetProvider
   ) { }
@@ -60,7 +72,7 @@ export class PetProfilePage {
           this.weight = response.body
           this.name = response.name
           this.race = response.race
-          this.avatar = response.avatar ? (this.globalProvider.galleryDogsUrl + '/' + response.avatar) : this.globalProvider.emptyProfile
+          this.file = response.avatar ? (this.globalProvider.galleryDogsUrl + '/' + response.avatar) : this.globalProvider.emptyPetProfile
           this.details = response.details
         }
       },
@@ -68,6 +80,96 @@ export class PetProfilePage {
 
       }
     )
+  }
+
+
+  takePicture(type?: string) {
+
+    let self = this
+
+    if(type){
+      let sourceType
+
+      if(type == 'camera')
+        sourceType = this._camera.PictureSourceType.CAMERA
+      else
+        sourceType = this._camera.PictureSourceType.PHOTOLIBRARY
+
+      let options: CameraOptions = {
+        quality: 100,
+        sourceType: sourceType,
+        destinationType: this._camera.DestinationType.DATA_URL,
+        saveToPhotoAlbum: false,
+        correctOrientation: true,
+        allowEdit: true,
+        targetWidth: 140,
+        targetHeight: 140
+      }
+
+       this._camera.getPicture(options).then(
+         (imageData) => {
+
+           let base64Image = imageData
+           self.uploadFile(base64Image)
+
+         }, (err) => { }
+       )
+
+    }
+
+
+    else{
+      if(!this.fileUploading){
+        let alert = this.alertCtrl.create({
+          title: 'Cambiar foto',
+          message: 'Seleccione una opción',
+          buttons: [
+            {
+              text: 'Galería',
+              cssClass: 'text-normal',
+              handler: () => {
+                this.takePicture('gallery')
+              }
+            },
+            {
+              text: 'Sacar foto',
+              cssClass: 'text-bold',
+              handler: () => {
+                this.takePicture('camera')
+              }
+            }
+          ]
+        })
+        alert.present()
+      }
+      else
+        this.globalProvider.toast('Espera a que termine de cargarse la imagen actual')
+    }
+
+  }
+
+
+  uploadFile(base64Image) {
+
+    let loader = this.loadingCtrl.create({
+      content: "Subiendo..."
+    })
+    loader.present()
+
+    let data = {
+      dogid: this.id,
+      avatar: base64Image
+    }
+    this._petProvider.saveImage(data).subscribe(
+      (response) => {
+        loader.dismiss()
+        this.file = 'data:image/jpeg;base64,' + base64Image
+      },
+      (error) => {
+        loader.dismiss()
+      }
+    )
+
   }
 
 

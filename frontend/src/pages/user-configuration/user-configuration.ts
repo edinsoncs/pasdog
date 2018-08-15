@@ -93,7 +93,7 @@ export class UserConfigurationPage {
           message: 'Seleccione una opción',
           buttons: [
             {
-              text: 'Camera roll',
+              text: 'Galería',
               cssClass: 'text-normal',
               handler: () => {
                 this.takePicture('gallery')

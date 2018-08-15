@@ -18,6 +18,7 @@ export class GlobalProvider {
   public galleryUrl: string = this.baseUrl + '/gallery'
   public galleryDogsUrl: string = this.baseUrl + '/dogs'
   public emptyProfile: string = "assets/imgs/profile.jpg"
+  public emptyPetProfile: string = "assets/imgs/pet.jpg"
   public geolocation: any = {
     latitude: -34.6036845,
     longitude: -58.3816649

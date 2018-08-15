@@ -41,6 +41,13 @@ export class PetProvider {
     return this.http.post(`${ this._globalProvider.apiUrl }/updatedog`, data, options)
   }
 
+  saveImage(formData) {
+    let data = JSON.stringify(formData)
+    let options = this._globalProvider.headersBuilder(true, data)
+
+    return this.http.post(`${ this._globalProvider.apiUrl }/updatedog/photo`, data, options)
+  }
+
   deletePet(formData) {
     let data = JSON.stringify(formData)
     let options = this._globalProvider.headersBuilder(true, data)
