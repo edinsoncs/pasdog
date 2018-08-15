@@ -102,8 +102,8 @@ export class PetProfilePage {
         saveToPhotoAlbum: false,
         correctOrientation: true,
         allowEdit: true,
-        targetWidth: 140,
-        targetHeight: 140
+        targetWidth: 250,
+        targetHeight: 250
       }
 
        this._camera.getPicture(options).then(
@@ -164,9 +164,11 @@ export class PetProfilePage {
       (response) => {
         loader.dismiss()
         this.file = 'data:image/jpeg;base64,' + base64Image
+        this.globalProvider.toast(`Se actualizó la foto de tu mascota`)
       },
       (error) => {
         loader.dismiss()
+        this.globalProvider.toast(`La foto de tu mascota no pudo actualizarse`)
       }
     )
 

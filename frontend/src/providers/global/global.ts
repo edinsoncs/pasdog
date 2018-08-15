@@ -31,6 +31,7 @@ export class GlobalProvider {
     user_id: null,
     user_type: null
   }
+  public role: number
   public thumbnail: string = this.emptyProfile
   public isGeolocated: boolean = false
   public geolocationHasError: boolean = false
