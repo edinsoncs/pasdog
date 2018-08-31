@@ -17,7 +17,8 @@ module.exports = (req, res, next) => {
 
 	var data = {
 		pas_id: req.body.pas,
-		req_id: req.body.client,
+		dog_ids: req.body.client,
+		status: 0,
 		create: new Date()
 	}
 

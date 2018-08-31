@@ -17,7 +17,7 @@ module.exports.ctr = (name, req, res, next) => {
 
 		case  'profile':
 
-				require('./profileController')(req, res, next);
+				require('./profileController').getprimary(req, res, next);
 
 			break;
 

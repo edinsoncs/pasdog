@@ -7,27 +7,52 @@ const message = require('../helps/message');
 
 const User = mongoose.model('User');
 
-module.exports = (req, res, next) => {
+module.exports.getprimary = (req, res, next) => {
 
 	let user = database.query(req, 'users');
 
 	user.findOne({'_id': req.user._id}, (err, data) => {
 			if(err) return err;
 
-			var show = [
-			{'data': 
-				{user_id: data._id,
-			    user_type: data.role, 
-			    name: data.name, 
-			    geolocation: data.geolocation,
-				email: data.email, 
-				date: data.create, 
-				city: data.city,
-				avatar: data.avatar
-				}
-			}]
+			if(data.role == 1) {
 
-			res.json(show);
+				var show = [
+				{'data': 
+					{user_id: data._id,
+				    user_type: data.role, 
+				    name: data.name, 
+				    geolocation: data.geolocation,
+					email: data.email, 
+					date: data.create, 
+					city: data.city,
+					avatar: data.avatar,
+					price: data.price,
+					details: data.details
+					}
+				}]
+
+				res.json(show);
+
+			} else {
+
+				var show = [
+				{'data': 
+					{user_id: data._id,
+				    user_type: data.role, 
+				    name: data.name, 
+				    geolocation: data.geolocation,
+					email: data.email, 
+					date: data.create, 
+					city: data.city,
+					avatar: data.avatar
+					}
+				}]
+
+				res.json(show);
+
+			}
+
+			
 
 	});
 
