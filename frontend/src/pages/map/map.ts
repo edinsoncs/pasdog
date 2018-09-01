@@ -238,7 +238,6 @@ export class MapPage {
   }
 
 
-/*
   userPreviewTest() {
     const data = {
       id: "5b722b9daedfca72f50fb70e",
@@ -248,6 +247,5 @@ export class MapPage {
     let modal = this.modalCtrl.create(UserPreviewPage, data)
         modal.present()
   }
-*/
 
 }

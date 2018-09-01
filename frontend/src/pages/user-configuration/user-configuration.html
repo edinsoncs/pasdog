@@ -27,7 +27,7 @@
     </ion-avatar>
     <div>
       <h3 *ngIf="profile" class="is__Name" no-margin> {{ profile.name }}</h3>
-      <button ion-button (click)="editProfile()">
+      <button ion-button (click)="openPage('user-configuration-edit')">
         Editar perfil
       </button>
     </div>

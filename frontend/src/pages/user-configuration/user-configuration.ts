@@ -11,6 +11,7 @@ import { UserProvider } from '../../providers/user/user'
 
 // pages
 import { HomePage } from '../home/home'
+import { UserConfigurationEditPage } from '../user-configuration-edit/user-configuration-edit'
 
 
 @Component({
@@ -49,7 +50,21 @@ export class UserConfigurationPage {
     if(this.profile.avatar)
       this.file = this._globalProvider.galleryUrl + '/' + this.profile.avatar
 
+    this.getProfile()
   }
+
+
+  getProfile() {
+    this._userProvider.getProfile().subscribe(
+      (response) => {
+        console.log('res', response)
+      },
+      (error) => {
+        console.log('e', error)
+      }
+    )
+  }
+
 
   takePicture(type?: string) {
 
@@ -149,8 +164,8 @@ export class UserConfigurationPage {
           title: 'Más opciones',
           buttons: [
             {
-              text: 'Editar perfil'//,
-              //handler: () => self.openPage('pet-edit')
+              text: 'Editar perfil',
+              handler: () => self.openPage('user-configuration-edit')
             },
             {
               text: 'Cerrar sesión',
@@ -171,6 +186,11 @@ export class UserConfigurationPage {
         })
         options.present()
         break
+
+      case 'user-configuration-edit':
+        this.navCtrl.push(UserConfigurationEditPage)
+        break
+
     }
   }
 
