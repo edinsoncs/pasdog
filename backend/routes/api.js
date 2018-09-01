@@ -102,6 +102,22 @@ router.post('/profile/saveimage', (req, res, next) => {
 });
 
 
+
+router.post('/updateprofile', (req, res, next) => {
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status) {
+		return controllers.ctr('updateprofile', req, res, next);
+	} else {
+		return userHandlers.userErr(req, res, next);
+	}
+
+});
+
+
+
+
 router.post('/newdog', (req, res, next) => {
 
 	//#one => route create new dog in collection "listdog"
@@ -299,6 +315,10 @@ router.post('/newcontract', (req, res, next) => {
 	}
 
 });
+
+
+
+
 
 
 module.exports = router;

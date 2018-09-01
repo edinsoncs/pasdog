@@ -83,4 +83,62 @@ module.exports.getprofile = (req, res, next) => {
 }
 
 
+module.exports.updateprofile = (req, res, next) => {
+
+
+	let user_update = database.query(req, 'users');
+
+
+	if(req.user.role == 0) {
+
+		user_update.findOneAndUpdate({'_id': req.user._id, {
+
+			$set: {
+				city: req.body.city,
+				email: req.body.email,
+				name: req.body.name
+			}
+
+		}, (xhr, success) => {
+
+			if(err) return err;
+
+			return res.status(200).json({ 
+				message: message('success_update_profile')
+			});
+
+		});
+
+
+	} else {
+
+		user_update.findOneAndUpdate({'_id': req.user._id, {
+
+			$set: {
+				city: req.body.city,
+				email: req.body.email,
+				name: req.body.name,
+				price: req.body.price,
+				description: req.body.description
+			}
+
+		}, (xhr, success) => {
+
+			if(err) return err;
+
+			return res.status(200).json({ 
+				message: message('success_update_profile')
+			});
+
+		});
+
+
+	}
+
+
+	
+
+
+
+}
 

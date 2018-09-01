@@ -45,6 +45,14 @@ module.exports.ctr = (name, req, res, next) => {
 				require('./contractController')(req, res, next);
 
 			break;
+
+
+		case 'updateprofile':
+
+
+				require('./profileController').updateprofile(req, res, next);
+
+			break;
 		
 		default:
 			break;
