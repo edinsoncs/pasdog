@@ -114,7 +114,7 @@ module.exports.updateprofile = (req, res, next) => {
 
 	} else {
 
-		user_update.findOneAndUpdate({'_id': req.user._id, {
+		user_update.findOneAndUpdate({'_id': req.user._id}, {
 
 			$set: {
 				city: req.body.city,
