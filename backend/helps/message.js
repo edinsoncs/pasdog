@@ -24,7 +24,9 @@ module.exports = (type) => {
 		'fail_remove_dog_not': 'Ocurrio un error, la mascota no se elimina',
 		'success_dog_es_remove': 'Se elimino la mascota',
 		'not_find_id': 'No se encontro el usuario',
-		'not_insert_contract': 'No se inserto un nuevo contrato'
+		'not_insert_contract': 'No se inserto un nuevo contrato',
+		'success_update_profile': 'Se actualizo el profile',
+		'not_contract_all': 'No se encontro contractos en tu profile'
 	
 	}
 

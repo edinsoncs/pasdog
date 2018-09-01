@@ -17,7 +17,7 @@ module.exports.ctr = (name, req, res, next) => {
 
 		case  'profile':
 
-				require('./profileController')(req, res, next);
+				require('./profileController').getprimary(req, res, next);
 
 			break;
 
@@ -42,9 +42,25 @@ module.exports.ctr = (name, req, res, next) => {
 
 		case 'contract_new':
 
-				require('./contractController')(req, res, next);
+				require('./contractController').newcontract(req, res, next);
 
 			break;
+
+		case 'listcontract':
+
+				require('./contractController').listcontract(req, res, next);
+
+			break;
+
+
+		case 'updateprofile':
+
+
+				require('./profileController').updateprofile(req, res, next);
+
+			break;
+
+
 		
 		default:
 			break;
