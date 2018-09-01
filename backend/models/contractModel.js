@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 var ContractSchema = new Schema({
 	'pas_id': [{ type: Schema.Types.ObjectId, ref: 'User' }],
-	//'req_id': [{ type: Schema.Types.ObjectId, ref: 'User' }],
+	'user_id': [{ type: Schema.Types.ObjectId, ref: 'User' }],
 	'dog_ids': Array(),
 
 

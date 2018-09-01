@@ -317,6 +317,23 @@ router.post('/newcontract', (req, res, next) => {
 });
 
 
+router.post('/listcontract', (req, res, next) => {
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status) {
+
+		return controllers.ctr('listcontract', req, res, next);
+
+	} else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
+
+});
+
+
 
 
 

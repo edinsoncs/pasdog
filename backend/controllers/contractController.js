@@ -12,12 +12,13 @@ require('../models/contractModel');
 const User = mongoose.model('User');
 const Contract = mongoose.model('Contract');
 
-module.exports = (req, res, next) => {
+module.exports.newcontract = (req, res, next) => {
 
 
 	var data = {
 		pas_id: req.body.pas,
-		dog_ids: req.body.client,
+		user_id: req.user._id,
+		dog_ids: req.body.ids,
 		status: 0,
 		create: new Date()
 	}
@@ -40,6 +41,29 @@ module.exports = (req, res, next) => {
 			});
 		}
 
+
+	});
+
+}
+
+module.exports.listcontract = (req, res, next) => {
+
+	let contracts = database.query(req, 'Contract');
+
+	contracts.find({'_id': req.user._id}, (err, data) => {
+			if(err) return err;
+
+			if(data) {
+
+				res.json(data);
+
+			} else {
+				return res.status(200).json({ 
+					message: message('not_contract_all') 
+				});
+			}
+
+			
 
 	});
 
