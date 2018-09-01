@@ -101,7 +101,7 @@ module.exports.updateprofile = (req, res, next) => {
 				name: req.body.name
 			}
 
-		}, (xhr, success) => {
+		}, (err, success) => {
 
 			if(err) return err;
 
@@ -124,7 +124,7 @@ module.exports.updateprofile = (req, res, next) => {
 				description: req.body.description
 			}
 
-		}, (xhr, success) => {
+		}, (err, success) => {
 
 			if(err) return err;
 
