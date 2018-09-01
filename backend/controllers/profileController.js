@@ -91,7 +91,9 @@ module.exports.updateprofile = (req, res, next) => {
 
 	if(req.user.role == 0) {
 
-		user_update.findOneAndUpdate({'_id': req.user._id, {
+
+
+		user_update.findOneAndUpdate({'_id': req.user._id}, {
 
 			$set: {
 				city: req.body.city,
