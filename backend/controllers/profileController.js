@@ -27,7 +27,7 @@ module.exports.getprimary = (req, res, next) => {
 					city: data.city,
 					avatar: data.avatar,
 					price: data.price,
-					details: data.details
+					details: data.description
 					}
 				}]
 
