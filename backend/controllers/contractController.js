@@ -16,9 +16,9 @@ module.exports.newcontract = (req, res, next) => {
 
 
 	var data = {
-		pas_id: req.body.pas,
+		pas_id: req.body.pas_id,
 		user_id: req.user._id,
-		dog_ids: req.body.ids,
+		dog_ids: req.body.dog_ids,
 		status: 0,
 		create: new Date()
 	}

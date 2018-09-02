@@ -17,6 +17,7 @@ This api in Nodejs - use framework expressjs - jwt - mongoose - monk - mongodb -
 | `8. http://localhost:3000/api/listdog` | `POST` | Return list´s dog´s|
 | `9. http://localhost:3000/api/updatedog` | `POST` | Return update |
 | `10. http://localhost:3000/api/updatedog/photo` | `POST` | Return update photo dog |
+| `11. http://localhost:3000/api/newcontract` | `POST` | Return contract  |
 
 
 ### Example: Body of the request
@@ -125,6 +126,20 @@ Method 10. update photo dog return success
   "Authorization": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkaW5zb25jb2RlQGhvdG1haWwuY29tIiwibmFtZSI6IkVkaW5zb24gQ2FycmFuemEiLCJfaWQiOiI1YTY0YWY3Mjk0MWE0YTgzMWFlNDlhZWQiLCJpYXQiOjE1MTY1NTM1NzV9.y3ltGB-WehYZ2Ylc-yY70bCWrqf4Nqe4YwIeqGpWeWc",
   "dogid": "5acc1b989d48db0ca9875243",
   "avatar": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gA8Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcgSlBFRyB2NjI..."
+  
+    
+}
+```
+
+
+Method 11. update photo dog return success
+```json
+{
+  "Authorization": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkaW5zb25jb2RlQGhvdG1haWwuY29tIiwibmFtZSI6IkVkaW5zb24gQ2FycmFuemEiLCJfaWQiOiI1YTY0YWY3Mjk0MWE0YTgzMWFlNDlhZWQiLCJpYXQiOjE1MTY1NTM1NzV9.y3ltGB-WehYZ2Ylc-yY70bCWrqf4Nqe4YwIeqGpWeWc",
+  
+  "pas_id": ["5b8c64924a753e5a7eccaf46"],
+  "user_id": ["5b89ced1c508cf4a4ecda3f5"],
+  "dog_ids": ["5b8c647c4a753e5a7eccaf43", "5b8c647e4a753e5a7eccaf44"]
   
     
 }

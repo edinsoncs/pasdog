@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 var ContractSchema = new Schema({
 	'pas_id': [{ type: Schema.Types.ObjectId, ref: 'User' }],
 	'user_id': [{ type: Schema.Types.ObjectId, ref: 'User' }],
-	'dog_ids': Array(),
+	'dog_ids': [ Schema.Types.ObjectId ],
 
 
 	/** Status in contract */
@@ -16,9 +16,11 @@ var ContractSchema = new Schema({
 	//2 => inactive
 	//3 => cancel
 	//4 => finish
-	'status': Boolean
+	'status': Number,
 	
 	'create': Date
 });
+
+
 
 mongoose.model('Contract', ContractSchema);
