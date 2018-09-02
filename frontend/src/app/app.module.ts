@@ -23,6 +23,7 @@ import { UserPreviewPage } from '../pages/user-preview/user-preview'
 import { UserProfilePage } from '../pages/user-profile/user-profile'
 import { UserAgreedPage } from '../pages/user-agreed/user-agreed'
 import { UserConfigurationPage } from '../pages/user-configuration/user-configuration'
+import { UserConfigurationEditPage } from '../pages/user-configuration-edit/user-configuration-edit'
 import { ListHistoryPage } from '../pages/list-history/list-history'
 import { ListAgreedPage } from '../pages/list-agreed/list-agreed'
 import { AgreePage } from '../pages/agree/agree'
@@ -51,6 +52,7 @@ const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', option
     UserProfilePage,
     UserAgreedPage,
     UserConfigurationPage,
+    UserConfigurationEditPage,
     ListHistoryPage,
     ListAgreedPage,
     AgreePage,
@@ -79,6 +81,7 @@ const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', option
     UserProfilePage,
     UserAgreedPage,
     UserConfigurationPage,
+    UserConfigurationEditPage,
     ListHistoryPage,
     ListAgreedPage,
     AgreePage,
