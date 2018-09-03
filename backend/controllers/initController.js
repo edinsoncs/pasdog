@@ -52,6 +52,13 @@ module.exports.ctr = (name, req, res, next) => {
 
 			break;
 
+		case 'opencontract':
+
+
+				require('./contractController').opencontract(req, res, next);
+
+			break;
+
 
 		case 'updateprofile':
 
@@ -61,7 +68,20 @@ module.exports.ctr = (name, req, res, next) => {
 			break;
 
 
-		
+		case 'savechat':
+
+
+				require('./chat/chatController').newmessage(req, res, next);
+
+			break;
+
+
+		case 'listchat':
+
+				require('./chat/chatController').listmessage(req, res, next);
+
+			break;
+
 		default:
 			break;
 	}

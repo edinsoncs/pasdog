@@ -333,6 +333,57 @@ router.post('/listcontract', (req, res, next) => {
 
 });
 
+router.post('/opencontract', (req, res, next) => {
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status) {
+
+		return controllers.ctr('opencontract', req, res, next);
+
+	} else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
+
+});
+
+
+router.post('/savechat', (req, res, next) => {
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status) {
+
+		return controllers.ctr('savechat', req, res, next);
+
+	} else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
+
+});
+
+
+
+router.post('/listchat', (req, res, next) => {
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status) {
+
+		return controllers.ctr('listchat', req, res, next);
+
+	} else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
+
+});
+
 
 
 

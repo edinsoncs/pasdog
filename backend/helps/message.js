@@ -26,7 +26,10 @@ module.exports = (type) => {
 		'not_find_id': 'No se encontro el usuario',
 		'not_insert_contract': 'No se inserto un nuevo contrato',
 		'success_update_profile': 'Se actualizo el profile',
-		'not_contract_all': 'No se encontro contractos en tu profile'
+		'not_contract_all': 'No se encontro contractos en tu profile',
+
+		//Chat text open
+		'success_new_contract_open_chat': 'Se abrio el chat'
 	
 	}
 

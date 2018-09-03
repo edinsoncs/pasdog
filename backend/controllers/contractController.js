@@ -12,6 +12,7 @@ require('../models/contractModel');
 
 const User = mongoose.model('User');
 const Contract = mongoose.model('Contract');
+const OpenChat = require('./chat/openChat');
 
 module.exports.newcontract = (req, res, next) => {
 
@@ -33,7 +34,25 @@ module.exports.newcontract = (req, res, next) => {
 		
 		if(success) {
 
-			return res.json(success);
+			//Open chat
+
+			var chat_status = OpenChat(req, res, next, success); 
+
+			if(chat_status) {
+
+				return res.json(success);
+
+			} else {
+
+				//Not chat open
+
+				return res.status(200).json({ 
+						message: message('not_insert_contract') 
+				});
+
+			}
+
+			
 
 
 		} else {
@@ -41,7 +60,6 @@ module.exports.newcontract = (req, res, next) => {
 					message: message('not_insert_contract') 
 			});
 		}
-
 
 	});
 
@@ -65,5 +83,27 @@ module.exports.listcontract = (req, res, next) => {
 				});
 			}
 	});
+
+}
+
+module.exports.opencontract = (req, res, next) => {
+
+
+	let contracts = database.query(req, 'contracts');
+
+	contracts.findOne({'id': ObjectId(req.body.idcontract) }, (err, data) => {
+			if(err) return err;
+
+			if(data) {
+
+				res.json(data);
+
+			} else {
+				return res.status(200).json({ 
+					message: message('not_contract_all') 
+				});
+			}
+	});
+
 
 }
