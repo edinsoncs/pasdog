@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const database = require('../database/queries');
 const message = require('../helps/message');
+var ObjectId = require('mongodb').ObjectId; 
 
 require('../models/contractModel');
 
@@ -48,9 +49,10 @@ module.exports.newcontract = (req, res, next) => {
 
 module.exports.listcontract = (req, res, next) => {
 
-	let contracts = database.query(req, 'Contract');
 
-	contracts.find({'_id': req.user._id}, (err, data) => {
+	let contracts = database.query(req, 'contracts');
+
+	contracts.find({'user_id': ObjectId(req.user._id) }, (err, data) => {
 			if(err) return err;
 
 			if(data) {
@@ -62,9 +64,6 @@ module.exports.listcontract = (req, res, next) => {
 					message: message('not_contract_all') 
 				});
 			}
-
-			
-
 	});
 
 }

@@ -18,6 +18,7 @@ This api in Nodejs - use framework expressjs - jwt - mongoose - monk - mongodb -
 | `9. http://localhost:3000/api/updatedog` | `POST` | Return update |
 | `10. http://localhost:3000/api/updatedog/photo` | `POST` | Return update photo dog |
 | `11. http://localhost:3000/api/newcontract` | `POST` | Return contract  |
+| `12. http://localhost:3000/api/listcontract` | `POST` | Return history all contract  |
 
 
 ### Example: Body of the request
@@ -142,6 +143,15 @@ Method 11. update photo dog return success
   "dog_ids": ["5b8c647c4a753e5a7eccaf43", "5b8c647e4a753e5a7eccaf44"]
   
     
+}
+```
+
+
+Method 12. request to return history contracts
+```json
+{
+  "Authorization": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkaW5zb25jb2RlQGhvdG1haWwuY29tIiwibmFtZSI6IkVkaW5zb24gQ2FycmFuemEiLCJfaWQiOiI1YTY0YWY3Mjk0MWE0YTgzMWFlNDlhZWQiLCJpYXQiOjE1MTY1NTM1NzV9.y3ltGB-WehYZ2Ylc-yY70bCWrqf4Nqe4YwIeqGpWeWc"
+  
 }
 ```
 
