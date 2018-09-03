@@ -142,7 +142,6 @@ Method 11. update photo dog return success
   "Authorization": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkaW5zb25jb2RlQGhvdG1haWwuY29tIiwibmFtZSI6IkVkaW5zb24gQ2FycmFuemEiLCJfaWQiOiI1YTY0YWY3Mjk0MWE0YTgzMWFlNDlhZWQiLCJpYXQiOjE1MTY1NTM1NzV9.y3ltGB-WehYZ2Ylc-yY70bCWrqf4Nqe4YwIeqGpWeWc",
   
   "pas_id": ["5b8c64924a753e5a7eccaf46"],
-  "user_id": ["5b89ced1c508cf4a4ecda3f5"],
   "dog_ids": ["5b8c647c4a753e5a7eccaf43", "5b8c647e4a753e5a7eccaf44"]
   
     
