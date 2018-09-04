@@ -158,13 +158,13 @@ Method 12. request to return history contracts
 ```
 
 
-Method 13. request to return history contracts
+Method 13. request to return one contract
 ```json
 {
   "Authorization": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkaW5zb25jb2RlQGhvdG1haWwuY29tIiwibmFtZSI6IkVkaW5zb24gQ2FycmFuemEiLCJfaWQiOiI1YTY0YWY3Mjk0MWE0YTgzMWFlNDlhZWQiLCJpYXQiOjE1MTY1NTM1NzV9.y3ltGB-WehYZ2Ylc-yY70bCWrqf4Nqe4YwIeqGpWeWc",
 
-  "contract": "id contract",
-  "message": "hola buenas tardes necesito este servicio"
+  "idcontract": "id contract"
+ 
   
 }
 ```
@@ -174,7 +174,10 @@ Method 14. request to return history contracts
 ```json
 {
   "Authorization": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkaW5zb25jb2RlQGhvdG1haWwuY29tIiwibmFtZSI6IkVkaW5zb24gQ2FycmFuemEiLCJfaWQiOiI1YTY0YWY3Mjk0MWE0YTgzMWFlNDlhZWQiLCJpYXQiOjE1MTY1NTM1NzV9.y3ltGB-WehYZ2Ylc-yY70bCWrqf4Nqe4YwIeqGpWeWc",
-  "idcontract": "id contract"
+
+  "contract": "id contract",
+  "message": "text"
+  
   
 }
 ```
