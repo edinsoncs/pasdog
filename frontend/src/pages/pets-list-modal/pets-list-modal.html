@@ -1,0 +1,57 @@
+<ion-content padding>
+  <div class="dismisser" (click)="dismiss()"></div>
+
+  <ion-card [hidden]="step != 1">
+    <p class="title">Elegí las mascotas</p>
+
+    <div class="pets">
+      <div class="pet" *ngFor="let pet of pets; let i = index" [class.pet--checked]="check.value">
+        <ion-checkbox #check></ion-checkbox>
+        <div class="pet__Avatar" (click)="check.value = check.value ? false : true; pets[i].check = check.value">
+          <div class="image"
+               [ngStyle]="{'background-image' : 'url(' + globalProvider.galleryDogsUrl + '/' + pet.avatar + ')' }">
+          </div>
+        </div>
+        <div class="pet__Name" (click)="check.value = check.value ? false : true; pets[i].check = check.value">
+          <p>{{ pet.name }}</p>
+        </div>
+      </div>
+
+      <div class="pet pet--add" (click)="add()" *ngIf="!isPageLoading">
+        <ion-checkbox></ion-checkbox>
+        <div class="pet__Avatar">
+          <div class="image">
+          </div>
+        </div>
+        <div class="pet__Name">
+          <p>Agregar mascota</p>
+        </div>
+      </div>
+
+      <div padding margin-top text-center class="loading" *ngIf="isPageLoading">
+        <ion-spinner color="primary"></ion-spinner>
+      </div>
+    </div>
+
+
+    <button ion-button clear class="next" (click)="nextStep()">
+      Continuar
+    </button>
+  </ion-card>
+
+
+  <ion-card [hidden]="step != 2">
+    <p class="title">Información adicional</p>
+    <p>
+      ¿El paseador puede realizar el paseo junto con otras mascotas?
+    </p>
+    <br><br>
+    <button ion-button clear class="next" (click)="agree(0)">
+      Si puede
+    </button>
+    <button ion-button clear class="next" (click)="agree(1)">
+      No
+    </button>
+  </ion-card>
+
+</ion-content>

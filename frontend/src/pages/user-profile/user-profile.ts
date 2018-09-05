@@ -1,11 +1,13 @@
 import { Component } from '@angular/core'
-import { NavController, NavParams, LoadingController } from 'ionic-angular'
+import { NavController, NavParams, LoadingController, ModalController } from 'ionic-angular'
 
 // pages
 import { AgreePage } from '../agree/agree'
+import { PetsListModalPage } from '../pets-list-modal/pets-list-modal'
 
 // providers
 import { GlobalProvider } from '../../providers/global/global'
+import { ContractProvider } from '../../providers/contract/contract'
 
 
 @Component({
@@ -30,7 +32,9 @@ export class UserProfilePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
-    private _globalProvider: GlobalProvider
+    public modalCtrl: ModalController,
+    private _globalProvider: GlobalProvider,
+    private _contractProvider: ContractProvider
   ) { }
 
   ionViewDidLoad() {
@@ -44,20 +48,57 @@ export class UserProfilePage {
     this.description = this.navParams.get('description')
   }
 
-  agree() {
-    let self = this
+  preAgree() {
+    const self = this,
+          modal = this.modalCtrl.create(PetsListModalPage, {}, {cssClass: 'custom-modal'})
 
-    let loading = this.loadingCtrl.create({
-      content: 'Cargando...'
+    modal.present()
+
+    modal.onDidDismiss((params) => {
+      if(params)
+        self.agree(params)
     })
+  }
+
+
+  agree(data) {
+    const isOnline = this._globalProvider.isOnline(true),
+          loading = this.loadingCtrl.create({
+            content: 'Cargando...'
+          })
+
     loading.present()
 
-    setTimeout(
-      () => {
-        self.navCtrl.push(AgreePage)
-        loading.dismiss()
-      }, 1000
-    )
+    const payload = {
+      pas_id: this.id,
+      dog_ids: data.petsChecked,
+      exclusive: data.exclusive
+    }
+
+    if(isOnline)
+      this._contractProvider.newContract(payload).subscribe(
+        (response: any) => {
+
+          // create
+          // dog_ids
+          // pas_id
+          // status
+          // user_id
+          loading.dismiss()
+
+          if(response.create) {
+            this.navCtrl.setRoot(AgreePage, {name: this.name, walkerId: this.id, contractId: response._id})
+          }
+
+          else
+            this._globalProvider.toast('Ocurrió un problema al crear el contrato')
+
+        },
+        (error) => {
+          loading.dismiss()
+          this._globalProvider.toast('Ocurrió un problema al crear el contrato. Por favor intentalo nuevamente')
+        }
+      )
   }
 
 }

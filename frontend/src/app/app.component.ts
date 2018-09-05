@@ -6,7 +6,6 @@ import { Geolocation } from '@ionic-native/geolocation'
 
 import { HomePage } from '../pages/home/home'
 import { MapPage } from '../pages/map/map'
-import { ListAgreedPage } from '../pages/list-agreed/list-agreed'
 import { ListHistoryPage } from '../pages/list-history/list-history'
 import { UserConfigurationPage } from '../pages/user-configuration/user-configuration'
 import { PetsPage } from '../pages/pets/pets'
@@ -44,12 +43,8 @@ export class MyApp {
         title: 'Inicio',
         component: MapPage
       },
-      // {
-      //   title: 'Contratados',
-      //   component: ListAgreedPage
-      // },
       {
-        title: 'Historial',
+        title: 'Mis paseos',
         component: ListHistoryPage
       },
       // {

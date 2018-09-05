@@ -3,14 +3,14 @@
   <ion-icon name="checkmark-circle" color="primary" margin-top></ion-icon>
 
   <h2>¡Genial!</h2>
-  <p>Has contratado a <strong>Carla Rodríguez</strong></p>
+  <p>Has contratado a <strong>{{ name }}</strong></p>
 
   <div padding margin-top>
-    <button ion-button color="primary" margin-top>
+    <button ion-button color="primary" margin-top (click)="openPage('chat')">
       Escribirle un mensaje
     </button>
     <button ion-button clear (click)="openPage('list-agreed')">
-      Ir a Contratados
+      Ir a Mis Paseos
     </button>
   </div>
 </ion-content>

@@ -47,8 +47,13 @@
           <ion-item>
             <ion-icon name="locate"></ion-icon> Ubicación base: {{ profile.city }}
           </ion-item>
-          <div class="description">
-            <ion-icon name="person"></ion-icon> <p>{{ profile.details ? profile.details : '-' }}</p>
+          <div *ngIf="profile.user_type == 1">
+            <ion-item>
+              <ion-icon name="logo-usd"></ion-icon> Valor hora: AR$ {{ profile.price }}
+            </ion-item>
+            <div class="description">
+              <ion-icon name="person"></ion-icon> <p>{{ profile.details ? profile.details : '-' }}</p>
+            </div>
           </div>
         </ion-list>
       </div>

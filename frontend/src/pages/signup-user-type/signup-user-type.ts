@@ -60,7 +60,7 @@ export class SignupUserTypePage {
 
           this._globalProvider.setStorage('profile', JSON.stringify(profile))
           this.navCtrl.setRoot(MapPage)
-          this.menuCtrl.enable(false)
+          this.menuCtrl.enable(true)
         },
         (error) => {
           loading.dismiss()

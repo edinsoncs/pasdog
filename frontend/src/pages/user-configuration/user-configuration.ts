@@ -43,7 +43,7 @@ export class UserConfigurationPage {
     private _userProvider: UserProvider
   ) { }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     let profile = this._globalProvider.getStorage('profile')
         this.profile = JSON.parse(profile)
 
@@ -57,7 +57,7 @@ export class UserConfigurationPage {
   getProfile() {
     this._userProvider.getProfile().subscribe(
       (response) => {
-        console.log('res', response)
+        this.profile = response[0].data
       },
       (error) => {
         console.log('e', error)
