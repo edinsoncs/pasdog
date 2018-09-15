@@ -48,6 +48,7 @@ export class HomePage {
           if(response.user_id) {
             this._globalProvider.setStorage('profile', JSON.stringify(response))
             this._globalProvider.profile = response
+            this._globalProvider.role = response.user_type
 
             if(response.avatar)
               this._globalProvider.thumbnail = this._globalProvider.galleryUrl + '/' + response.avatar

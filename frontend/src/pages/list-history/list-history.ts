@@ -15,6 +15,7 @@ import { ContractProvider } from '../../providers/contract/contract'
 export class ListHistoryPage {
 
   contracts: any
+  userType: number
 
   constructor(
     public navCtrl: NavController,
@@ -25,6 +26,7 @@ export class ListHistoryPage {
 
   ionViewDidLoad() {
     this.getContracts()
+    this.userType = this.globalProvider.role
   }
 
 

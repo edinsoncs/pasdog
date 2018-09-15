@@ -82,7 +82,6 @@ export class MapPage {
     })
 
     this.events.subscribe('nav', (params) => {
-
       switch(params.page) {
         case 'list-history':
           self.navCtrl.setRoot(ListHistoryPage)
@@ -132,29 +131,28 @@ export class MapPage {
         self.updateMakers(true)
         self.loadingSpinner.dismiss()
         self.loadingSpinner = null
-      }
-    )
 
-    // move map to actual position
-    this._geolocation.getCurrentPosition().then(
-      (res) => {
+        // move map to actual position
+        this._geolocation.getCurrentPosition().then(
+          (res) => {
+            let position = {
+              target: new LatLng(res.coords.latitude, res.coords.longitude),
+              zoom: 15,
+              tilt: 30
+            }
+            self.map.moveCamera(position)
+            self.globalProvider.geolocation.latitude = res.coords.latitude
+            self.globalProvider.geolocation.longitude = res.coords.longitude
+            self.globalProvider.isGeolocated = true
+            self.globalProvider.geolocationHasError = false
+          },
+          (err) => {
+            console.log(err)
+            self.globalProvider.toast('Ocurrió un problema al geolocalizar')
+            self.globalProvider.geolocationHasError = true
+          }
+        )
 
-        let position = {
-          target: new LatLng(res.coords.latitude, res.coords.longitude),
-          zoom: 15,
-          tilt: 30
-        }
-        self.map.moveCamera(position)
-
-        self.globalProvider.geolocation.latitude = res.coords.latitude
-        self.globalProvider.geolocation.longitude = res.coords.longitude
-        self.globalProvider.isGeolocated = true
-        self.globalProvider.geolocationHasError = false
-      },
-      (err) => {
-        console.log(err)
-        self.globalProvider.toast('Ocurrió un problema al geolocalizar')
-        self.globalProvider.geolocationHasError = true
       }
     )
 
@@ -165,9 +163,10 @@ export class MapPage {
     let self = this,
         watch = this._geolocation.watchPosition(),
         profile = JSON.parse(this.globalProvider.getStorage('profile'))
-
+console.log('1- watching')
     watch.subscribe(
       (data) => {
+        console.log('2- subscribed')
         // data can be a set of coordinates, or an error (if an error occurred).
         // data.coords.latitude
         // data.coords.longitude
@@ -187,7 +186,8 @@ export class MapPage {
           name: profile.name,
           avatar: profile.avatar,
           latitude:  self.globalProvider.geolocation.latitude,
-          longitude:  self.globalProvider.geolocation.longitude
+          longitude:  self.globalProvider.geolocation.longitude,
+          user_type: profile.user_type
         })
       }
     )
@@ -250,7 +250,6 @@ export class MapPage {
   }
 
 
-  /*
   userPreviewTest() {
     const data = {
       id: "5b8f0dcf277eb62aa82660ea",
@@ -260,6 +259,5 @@ export class MapPage {
     let modal = this.modalCtrl.create(UserPreviewPage, data)
         modal.present()
   }
-  */
 
 }
