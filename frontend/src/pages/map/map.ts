@@ -226,38 +226,71 @@ console.log('1- watching')
         // clean subscriptions
         self.walkersQty = 0
         self.subscriptions.markers ? self.subscriptions.markers.unsubscribe() : null
+        const userType = profile.user_type
 
+        // end user type 1
+        if(userType == 1)
+          for(let walker in this.walkers) {
+            self.walkersQty++
 
-        for(let walker in this.walkers) {
-
-          self.walkersQty++
-
-          if(self.walkers[walker].id != profile.user_id) {
-            let marker: MarkerOptions = {
-              icon: {
-                url: 'http://maps.google.com/mapfiles/ms/icons/red.png'
-              },
-              animation: animation ? 'DROP' : null,
-              position: {
-                lat: self.walkers[walker].latitude,
-                lng: self.walkers[walker].longitude,
+            if(self.walkers[walker].id != profile.user_id) {
+              let marker: MarkerOptions = {
+                icon: {
+                  url: '../assets/imgs/dog.png'
+                },
+                animation: animation ? 'DROP' : null,
+                position: {
+                  lat: self.walkers[walker].latitude,
+                  lng: self.walkers[walker].longitude,
+                }
               }
+              // Now you can use all methods safely.
+              self.map.addMarker(marker).then(marker => {
+                self.subscriptions.markers = marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+                  let data = {
+                    id: self.walkers[walker].id,
+                    name: self.walkers[walker].name,
+                    avatar: self.walkers[walker].avatar
+                  }
+                  self.userPreview(data)
+                })
+              })
             }
 
-            // Now you can use all methods safely.
-            self.map.addMarker(marker).then(marker => {
-              self.subscriptions.markers = marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-                let data = {
-                  id: self.walkers[walker].id,
-                  name: self.walkers[walker].name,
-                  avatar: self.walkers[walker].avatar
-                }
-                self.userPreview(data)
-              })
-            })
           }
 
-        }
+        // end user type 1
+
+        else
+          for(let walker in this.walkers) {
+            self.walkersQty++
+
+            if(self.walkers[walker].id != profile.user_id) {
+              let marker: MarkerOptions = {
+                icon: {
+                  url: '../assets/imgs/person.png'
+                },
+                animation: animation ? 'DROP' : null,
+                position: {
+                  lat: self.walkers[walker].latitude,
+                  lng: self.walkers[walker].longitude,
+                }
+              }
+              // Now you can use all methods safely.
+              self.map.addMarker(marker).then(marker => {
+                self.subscriptions.markers = marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+                  let data = {
+                    id: self.walkers[walker].id,
+                    name: self.walkers[walker].name,
+                    avatar: self.walkers[walker].avatar
+                  }
+                  self.userPreview(data)
+                })
+              })
+            }
+
+          }
+
 
       }
     )
