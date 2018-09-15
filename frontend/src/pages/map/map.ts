@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { NavController, NavParams, ModalController, LoadingController, Platform } from 'ionic-angular'
+import { NavController, NavParams, ModalController, LoadingController, Platform, Events } from 'ionic-angular'
 import {
  GoogleMaps,
  GoogleMap,
@@ -13,6 +13,7 @@ import { Socket } from 'ng-socket-io'
 
 // pages
 import { UserPreviewPage } from '../user-preview/user-preview'
+import { ListHistoryPage } from '../list-history/list-history'
 
 // providers
 import { GlobalProvider } from '../../providers/global/global'
@@ -41,6 +42,7 @@ export class MapPage {
     public modalCtrl: ModalController,
     public loadingCtrl: LoadingController,
     public platform: Platform,
+    public events: Events,
     private _geolocation: Geolocation,
     private _socket: Socket,
     public globalProvider: GlobalProvider
@@ -78,6 +80,16 @@ export class MapPage {
          console.log('No socket data')
        }
     })
+
+    this.events.subscribe('nav', (params) => {
+
+      switch(params.page) {
+        case 'list-history':
+          self.navCtrl.setRoot(ListHistoryPage)
+          break
+      }
+    })
+
   }
 
 
@@ -238,14 +250,16 @@ export class MapPage {
   }
 
 
+  /*
   userPreviewTest() {
     const data = {
-      id: "5b722b9daedfca72f50fb70e",
-      name: "Beatriz",
-      avatar: "HkJEMRsr7.png"
+      id: "5b8f0dcf277eb62aa82660ea",
+      name: "Paseador Nico",
+      avatar: null
     }
     let modal = this.modalCtrl.create(UserPreviewPage, data)
         modal.present()
   }
+  */
 
 }

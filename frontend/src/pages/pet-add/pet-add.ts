@@ -25,6 +25,7 @@ export class PetAddPage {
   file: string
   formEdit: any
   title: string = "Agregar mascota"
+  preventRoot: boolean = false
 
   step1: any = {
     form: null,
@@ -82,6 +83,8 @@ export class PetAddPage {
         description: formEdit.description
       })
     }
+
+    this.preventRoot = this.navParams.get('preventRoot')
   }
 
 
@@ -202,7 +205,9 @@ export class PetAddPage {
           (response: any) => {
             let message = response.message
             this.navCtrl.pop()
-            this.navCtrl.setRoot(PetsPage)
+
+            if(!this.preventRoot)
+              this.navCtrl.setRoot(PetsPage)
 
             if(response.message)
               this._globalProvider.toast(response.message)

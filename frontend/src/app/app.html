@@ -15,7 +15,9 @@
     <ion-list>
       <button *ngFor="let data of pages"
                (click)="openPage(data)"
-               menuClose ion-item color="light">
+               menuClose ion-item color="light"
+               [hidden]="_globalProvider.profile && _globalProvider.profile.user_type == 1 && data.title == 'Mis mascotas'"
+               [hidden]="_globalProvider.profile && _globalProvider.profile.user_type == 0 && data.title == 'Consultas'">
         {{ data.title }}
         <ion-badge item-end color="secondary" *ngIf="data.count">
           {{ data.count }}

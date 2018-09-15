@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component } from '@angular/core'
+import { NavController, NavParams, Events } from 'ionic-angular'
 
 // pages
-import { ListAgreedPage } from '../list-agreed/list-agreed';
+import { ListHistoryPage } from '../list-history/list-history'
 
 
 @Component({
@@ -12,20 +12,32 @@ import { ListAgreedPage } from '../list-agreed/list-agreed';
 
 export class AgreePage {
 
+  name: string
+  walkerId: string
+  contractId: string
+
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams
+    public navParams: NavParams,
+    public events: Events
   ) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AgreePage');
+    this.name = this.navParams.get('name')
+    this.walkerId = this.navParams.get('walkerId')
+    this.contractId = this.navParams.get('contractId')
   }
 
   openPage(page) {
     switch(page) {
+      case 'chat':
+        // this.navCtrl.setRoot(ChatPage, {id: this.contractId })
+        break
       case 'list-agreed':
-        this.navCtrl.setRoot(ListAgreedPage);
-        break;
+        this.navCtrl.pop()
+        // this.navCtrl.setRoot(ListHistoryPage)
+        this.events.publish('nav', {page: 'list-history'})
+        break
     }
   }
 

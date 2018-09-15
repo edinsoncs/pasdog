@@ -64,7 +64,9 @@ export class SigninPage {
             city: response.city,
             avatar: response.avatar,
             user_id: response.user_id,
-            user_type: response.user_type
+            user_type: response.user_type,
+            price: response.price,
+            description: response.description
           }
           let token = response.token
 

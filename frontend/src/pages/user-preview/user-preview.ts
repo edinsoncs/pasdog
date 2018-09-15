@@ -100,7 +100,7 @@ export class UserPreviewPage {
       role: this.role,
       description: this.description
     }
-    //this.dismiss();
+  //   this.dismiss()
     this.navCtrl.push(UserProfilePage, data)
   }
 }

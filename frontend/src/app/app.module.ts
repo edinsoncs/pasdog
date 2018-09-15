@@ -25,7 +25,6 @@ import { UserAgreedPage } from '../pages/user-agreed/user-agreed'
 import { UserConfigurationPage } from '../pages/user-configuration/user-configuration'
 import { UserConfigurationEditPage } from '../pages/user-configuration-edit/user-configuration-edit'
 import { ListHistoryPage } from '../pages/list-history/list-history'
-import { ListAgreedPage } from '../pages/list-agreed/list-agreed'
 import { AgreePage } from '../pages/agree/agree'
 import { SignupPage } from '../pages/signup/signup'
 import { SignupUserTypePage } from '../pages/signup-user-type/signup-user-type'
@@ -35,10 +34,12 @@ import { PetsPage } from '../pages/pets/pets'
 import { PetProfilePage } from '../pages/pet-profile/pet-profile'
 import { PetAddPage } from '../pages/pet-add/pet-add'
 import { UserWalkerCompletePage } from '../pages/user-walker-complete/user-walker-complete'
+import { PetsListModalPage } from '../pages/pets-list-modal/pets-list-modal'
 
 import { GlobalProvider } from '../providers/global/global'
 import { UserProvider } from '../providers/user/user'
 import { PetProvider } from '../providers/pet/pet'
+import { ContractProvider } from '../providers/contract/contract'
 
 const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', options: {} }
 
@@ -54,7 +55,6 @@ const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', option
     UserConfigurationPage,
     UserConfigurationEditPage,
     ListHistoryPage,
-    ListAgreedPage,
     AgreePage,
     SignupPage,
     SignupUserTypePage,
@@ -63,7 +63,8 @@ const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', option
     PetsPage,
     PetProfilePage,
     PetAddPage,
-    UserWalkerCompletePage
+    UserWalkerCompletePage,
+    PetsListModalPage
   ],
   imports: [
     BrowserModule,
@@ -83,7 +84,6 @@ const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', option
     UserConfigurationPage,
     UserConfigurationEditPage,
     ListHistoryPage,
-    ListAgreedPage,
     AgreePage,
     SignupPage,
     SignupUserTypePage,
@@ -92,7 +92,8 @@ const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', option
     PetsPage,
     PetProfilePage,
     PetAddPage,
-    UserWalkerCompletePage
+    UserWalkerCompletePage,
+    PetsListModalPage
   ],
   providers: [
     StatusBar,
@@ -109,7 +110,8 @@ const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', option
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GlobalProvider,
     UserProvider,
-    PetProvider
+    PetProvider,
+    ContractProvider
   ]
 })
 export class AppModule {}
