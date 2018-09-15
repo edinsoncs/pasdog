@@ -66,19 +66,24 @@ export class MapPage {
     this._socket.connect()
 
     this._socket.on('connect', (data) => {
+      console.log('ON CONNECT')
+      alert('ON CONNECT')
       self.watchGeolocation()
     })
 
     this._socket.on('listmap', (data) => {
-       if(data){
-         console.log('SOCKET DATA!', data)
-         self.walkers = data
-         self.updateMakers()
-       }
-       else {
-         self.walkers = {}
-         console.log('No socket data')
-       }
+      if(data){
+        alert('ON LISTMAP - SOCKET DATA')
+
+        console.log('SOCKET DATA!', data)
+        self.walkers = data
+        self.updateMakers()
+      }
+      else {
+        self.walkers = {}
+        alert('ON LISTMAP - NO DATA')
+        console.log('No socket data')
+      }
     })
 
     this.events.subscribe('nav', (params) => {
@@ -164,6 +169,24 @@ export class MapPage {
         watch = this._geolocation.watchPosition(),
         profile = JSON.parse(this.globalProvider.getStorage('profile'))
 console.log('1- watching')
+
+    alert('1- WATCH')
+
+    setInterval(() => {
+      self._socket.emit('set-nickname', {
+        idsocket: self._socket.ioSocket.id,
+        id: profile.user_id,
+        name: profile.name,
+        avatar: profile.avatar,
+        latitude:  self.globalProvider.geolocation.latitude,
+        longitude:  self.globalProvider.geolocation.longitude,
+        user_type: profile.user_type
+      })
+    }, 3000)
+
+
+
+
     watch.subscribe(
       (data) => {
         console.log('2- subscribed')
@@ -179,7 +202,7 @@ console.log('1- watching')
         else {
           self.globalProvider.geolocationHasError = true
         }
-
+        /*
         self._socket.emit('set-nickname', {
           idsocket: self._socket.ioSocket.id,
           id: profile.user_id,
@@ -189,6 +212,7 @@ console.log('1- watching')
           longitude:  self.globalProvider.geolocation.longitude,
           user_type: profile.user_type
         })
+        */
       }
     )
 
