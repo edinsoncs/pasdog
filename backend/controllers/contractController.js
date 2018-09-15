@@ -78,7 +78,7 @@ module.exports.listcontract = (req, res, next) => {
 	//Find contracts is Array return array
 	contracts.find({'user_id': ObjectId(req.user._id) }, 
 
-		{"sort" : ['create', 'DESC']}, 
+		{"sort" : ['create', 'ASC']}, 
 
 		(err, data) => {
 			if(err) return err;
