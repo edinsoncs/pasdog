@@ -33,6 +33,11 @@
       <ion-spinner color="primary"></ion-spinner>
     </div>
   </div>
+
+  <div class="text-empty-state" *ngIf="pets && pets.length == 0">
+    <p>Aún no tienes paseos ¡Crea uno ahora!</p>
+  </div>
+
 </ion-content>
 
 

@@ -14,6 +14,7 @@ export class GlobalProvider {
 
   public onDevice: boolean = this.platform.is('cordova')
   public baseUrl: string = "http://46.101.73.97:3000"
+  // public baseUrl: string = "http://192.168.1.55:3000"
   public apiUrl: string = this.baseUrl + "/api"
   public galleryUrl: string = this.baseUrl + '/gallery'
   public galleryDogsUrl: string = this.baseUrl + '/dogs'
