@@ -63,24 +63,24 @@ export class MapPage {
 
 
     // socket.io
-
+    this._socket.connect()
+    /*
     this._socket.on('connection', (data) => {
       console.log('ON CONNECT')
       alert('ON CONNECT')
-      self.watchGeolocation()
     })
+    */
+
+    self.watchGeolocation()
 
     this._socket.on('listmap', (data) => {
       if(data){
-        alert('ON LISTMAP - SOCKET DATA')
-
         console.log('SOCKET DATA!', data)
         self.walkers = data
         self.updateMakers()
       }
       else {
         self.walkers = {}
-        alert('ON LISTMAP - NO DATA')
         console.log('No socket data')
       }
     })
@@ -168,8 +168,6 @@ export class MapPage {
         watch = this._geolocation.watchPosition(),
         profile = JSON.parse(this.globalProvider.getStorage('profile'))
 console.log('1- watching')
-
-    alert('1- WATCH')
 
     setInterval(() => {
       self._socket.emit('set-nickname', {

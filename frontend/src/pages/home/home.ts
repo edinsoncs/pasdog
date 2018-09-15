@@ -1,6 +1,5 @@
 import { Component } from '@angular/core'
 import { NavController, LoadingController, MenuController } from 'ionic-angular'
-import { Socket } from 'ng-socket-io'
 
 // pages
 import { SignupPage } from '../signup/signup'
@@ -21,7 +20,6 @@ import { UserProvider } from '../../providers/user/user'
 export class HomePage {
 
   constructor(
-    private _socket: Socket,
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
     public menuCtrl: MenuController,
@@ -56,7 +54,6 @@ export class HomePage {
               this._globalProvider.thumbnail = this._globalProvider.galleryUrl + '/' + response.avatar
 
             if(response.user_type != null) {
-              this._socket.connect()
               this.navCtrl.setRoot(MapPage)
               this.menuCtrl.enable(true)
             }
