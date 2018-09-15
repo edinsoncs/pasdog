@@ -48,7 +48,7 @@ export class MapPage {
     public globalProvider: GlobalProvider
   ) { }
 
-  ionViewDidEnter() {
+  ionViewDidLoad() {
 
     let self = this,
         geolocation = this.globalProvider.geolocation
@@ -63,7 +63,6 @@ export class MapPage {
 
 
     // socket.io
-    this._socket.connect()
 
     this._socket.on('connect', (data) => {
       console.log('ON CONNECT')
