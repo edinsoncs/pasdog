@@ -233,7 +233,7 @@ console.log('1- watching')
           for(let walker in this.walkers) {
             self.walkersQty++
 
-            if(self.walkers[walker].id != profile.user_id) {
+            if(self.walkers[walker].id != profile.user_id && self.walkers[walker].user_type != userType) {
               let marker: MarkerOptions = {
                 icon: {
                   url: '../assets/imgs/dog.png'
@@ -265,7 +265,7 @@ console.log('1- watching')
           for(let walker in this.walkers) {
             self.walkersQty++
 
-            if(self.walkers[walker].id != profile.user_id) {
+            if(self.walkers[walker].id != profile.user_id && self.walkers[walker].user_type != userType) {
               let marker: MarkerOptions = {
                 icon: {
                   url: '../assets/imgs/person.png'
