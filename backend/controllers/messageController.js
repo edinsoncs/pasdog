@@ -39,8 +39,21 @@ module.exports.newmessage = (req, res, next) => {
 
 module.exports.listmessage = (req, res, next) => {
 
+	let comments = database.query(req, 'comment');
 
-	
+	comments.find({'pas': ObjectId(req.body.idpas) }, (err, data) => {
+			if(err) return err;
+
+			if(data) {
+
+				res.json(data);
+
+			} else {
+				return res.status(200).json({ 
+					message: message('not_contract_all') 
+				});
+			}
+	});
 
 }
 

@@ -21,6 +21,8 @@ module.exports.newcontract = (req, res, next) => {
 		pas_id: req.body.pas_id,
 		user_id: req.user._id,
 		dog_ids: req.body.dog_ids,
+		exclusive: req.body.exclusive,
+		price: req.body.price,
 		status: 0,
 		create: new Date()
 	}
