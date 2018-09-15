@@ -92,7 +92,7 @@ app.use('/api', api);
 
 
 
-server.listen(config.port, '192.168.1.55'  ,() => {
+server.listen(config.port, () => {
 
 	console.log('run server in nodejs -> pasdog');
 
