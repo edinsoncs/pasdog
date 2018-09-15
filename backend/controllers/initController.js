@@ -88,6 +88,12 @@ module.exports.ctr = (name, req, res, next) => {
 
 			break;
 
+		case 'listmessage':
+
+				require('./messageController').listmessage(req, res, next);
+
+			break;
+
 		default:
 			break;
 	}

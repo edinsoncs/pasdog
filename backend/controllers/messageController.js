@@ -37,7 +37,12 @@ module.exports.newmessage = (req, res, next) => {
 
 }
 
+module.exports.listmessage = (req, res, next) => {
 
+
+	
+
+}
 
 
 
