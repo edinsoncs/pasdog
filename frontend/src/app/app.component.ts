@@ -9,6 +9,7 @@ import { MapPage } from '../pages/map/map'
 import { ListHistoryPage } from '../pages/list-history/list-history'
 import { UserConfigurationPage } from '../pages/user-configuration/user-configuration'
 import { PetsPage } from '../pages/pets/pets'
+import { UserCommentsPage } from '../pages/user-comments/user-comments'
 
 import { GlobalProvider } from '../providers/global/global'
 
@@ -47,18 +48,16 @@ export class MyApp {
         title: 'Mis paseos',
         component: ListHistoryPage
       },
-      // {
-      //   title: 'Mis pagos',
-      //   component: MapPage
-      // },
       {
         title: 'Consultas',
         count: 3,
-        component: PetsPage
+        component: UserCommentsPage,
+        user_type: 1
       },
       {
         title: 'Mis mascotas',
-        component: PetsPage
+        component: PetsPage,
+        user_type: 0
       },
       {
         title: 'Configuración',

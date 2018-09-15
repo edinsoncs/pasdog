@@ -24,7 +24,13 @@
     </div>
 
     <div class="text-empty-state" *ngIf="contracts && contracts.length == 0">
-      <p>Aún no tienes paseos ¡Crea uno ahora!</p>
+      <p>
+        Aún no tienes paseos
+        <span *ngIf="!userType; else userTypeWalker">¡Crea uno ahora!</span>
+        <ng-template #userTypeWalker>
+          <span>¡Postulate a uno ahora!</span>
+        </ng-template>
+      </p>
     </div>
 
     <div *ngFor="let contract of contracts">

@@ -48,6 +48,20 @@ export class PetProfilePage {
   ) { }
 
 
+  ionViewDidLoad() {
+    this.id = this.navParams.get('id')
+    this.size = this.navParams.get('size')
+    this.age = this.navParams.get('age')
+    this.weight = this.navParams.get('weight')
+    this.name = this.navParams.get('name')
+    this.race = this.navParams.get('race')
+    this.avatar = this.navParams.get('avatar')
+    this.details = this.navParams.get('details')
+
+    this.file = this.avatar
+  }
+
+
   ionViewDidEnter() {
     this.id = this.navParams.get('id')
     this.size = this.navParams.get('size')
@@ -63,23 +77,26 @@ export class PetProfilePage {
 
 
   update() {
-    this._petProvider.getPetById({dogid: this.id}).subscribe(
-      (response: any) => {
-        if(response) {
-          this.id = response._id
-          this.size = response.size
-          this.age = response.age
-          this.weight = response.body
-          this.name = response.name
-          this.race = response.race
-          this.file = response.avatar ? (this.globalProvider.galleryDogsUrl + '/' + response.avatar) : this.globalProvider.emptyPetProfile
-          this.details = response.details
-        }
-      },
-      (error) => {
+    const isOnline = this.globalProvider.isOnline()
 
-      }
-    )
+    if(isOnline)
+      this._petProvider.getPetById({dogid: this.id}).subscribe(
+        (response: any) => {
+          if(response) {
+            this.id = response._id
+            this.size = response.size
+            this.age = response.age
+            this.weight = response.body
+            this.name = response.name
+            this.race = response.race
+            this.file = response.avatar ? (this.globalProvider.galleryDogsUrl + '/' + response.avatar) : this.globalProvider.emptyPetProfile
+            this.details = response.details
+          }
+        },
+        (error) => {
+
+        }
+      )
   }
 
 

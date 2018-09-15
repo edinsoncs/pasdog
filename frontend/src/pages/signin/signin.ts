@@ -75,6 +75,7 @@ export class SigninPage {
             this._globalProvider.setStorage('profile', JSON.stringify(profile))
             this._globalProvider.setStorage('token', token)
             this._globalProvider.profile = profile
+            this._globalProvider.role = profile.user_type
 
             if(profile.avatar)
               this._globalProvider.thumbnail = this._globalProvider.galleryUrl + '/' + profile.avatar
