@@ -48,7 +48,7 @@ export class MapPage {
     public globalProvider: GlobalProvider
   ) { }
 
-  ionViewDidEnter() {
+  ionViewDidLoad() {
 
     let self = this,
         geolocation = this.globalProvider.geolocation
@@ -64,21 +64,25 @@ export class MapPage {
 
     // socket.io
     this._socket.connect()
-
-    this._socket.on('connect', (data) => {
-      self.watchGeolocation()
+    /*
+    this._socket.on('connection', (data) => {
+      console.log('ON CONNECT')
+      alert('ON CONNECT')
     })
+    */
+
+    self.watchGeolocation()
 
     this._socket.on('listmap', (data) => {
-       if(data){
-         console.log('SOCKET DATA!', data)
-         self.walkers = data
-         self.updateMakers()
-       }
-       else {
-         self.walkers = {}
-         console.log('No socket data')
-       }
+      if(data){
+        console.log('SOCKET DATA!', data)
+        self.walkers = data
+        self.updateMakers()
+      }
+      else {
+        self.walkers = {}
+        console.log('No socket data')
+      }
     })
 
     this.events.subscribe('nav', (params) => {
@@ -164,6 +168,22 @@ export class MapPage {
         watch = this._geolocation.watchPosition(),
         profile = JSON.parse(this.globalProvider.getStorage('profile'))
 console.log('1- watching')
+
+    setInterval(() => {
+      self._socket.emit('set-nickname', {
+        idsocket: self._socket.ioSocket.id,
+        id: profile.user_id,
+        name: profile.name,
+        avatar: profile.avatar,
+        latitude:  self.globalProvider.geolocation.latitude,
+        longitude:  self.globalProvider.geolocation.longitude,
+        user_type: profile.user_type
+      })
+    }, 3000)
+
+
+
+
     watch.subscribe(
       (data) => {
         console.log('2- subscribed')
@@ -179,7 +199,7 @@ console.log('1- watching')
         else {
           self.globalProvider.geolocationHasError = true
         }
-
+        /*
         self._socket.emit('set-nickname', {
           idsocket: self._socket.ioSocket.id,
           id: profile.user_id,
@@ -189,6 +209,7 @@ console.log('1- watching')
           longitude:  self.globalProvider.geolocation.longitude,
           user_type: profile.user_type
         })
+        */
       }
     )
 
@@ -205,16 +226,16 @@ console.log('1- watching')
         // clean subscriptions
         self.walkersQty = 0
         self.subscriptions.markers ? self.subscriptions.markers.unsubscribe() : null
+        const userType = profile.user_type
 
 
         for(let walker in this.walkers) {
-
           self.walkersQty++
 
-          if(self.walkers[walker].id != profile.user_id) {
+          if(self.walkers[walker].id != profile.user_id && self.walkers[walker].user_type != userType) {
             let marker: MarkerOptions = {
               icon: {
-                url: 'http://maps.google.com/mapfiles/ms/icons/red.png'
+                url: `http://maps.google.com/mapfiles/ms/icons/${ userType ? 'red ' : 'yellow' }.png`
               },
               animation: animation ? 'DROP' : null,
               position: {
@@ -222,7 +243,6 @@ console.log('1- watching')
                 lng: self.walkers[walker].longitude,
               }
             }
-
             // Now you can use all methods safely.
             self.map.addMarker(marker).then(marker => {
               self.subscriptions.markers = marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
@@ -237,6 +257,7 @@ console.log('1- watching')
           }
 
         }
+
 
       }
     )
