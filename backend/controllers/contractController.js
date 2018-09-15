@@ -99,7 +99,7 @@ module.exports.opencontract = (req, res, next) => {
 
 	let contracts = database.query(req, 'contracts');
 
-	contracts.findOne({'id': ObjectId(req.body.idcontract) }, (err, data) => {
+	contracts.findOne({'user_id': ObjectId(req.body.idcontract) }, (err, data) => {
 			if(err) return err;
 
 			if(data) {

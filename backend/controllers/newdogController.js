@@ -67,6 +67,44 @@ module.exports.list = (req, res, next) => {
 }
 
 
+module.exports.all = (req, res, next) => {
+
+	let db = req.db;
+	let dog = db.get('listdog');
+
+	dog.find({
+	    '_id': { $in: 
+	       req.body.dogs
+	    }
+	}, (err, doc) => {
+
+		if(doc) {
+			return res.status(200).json({doc});
+		} else {
+			return res.status(400).json({
+			message: message('fail_all_dogs')
+		})
+		}
+
+
+	});
+
+
+	/*dog.find({'id': id}).then((doc) => {
+
+		if(doc) {
+			return res.status(200).json({ list: doc });
+
+		} else {
+			return res.status(200).json({ message: message('fail_list_dog_not') });
+		}
+
+	});*/
+
+
+}
+
+
 module.exports.update = (req, res, next) => {
 
 	let db = req.db;
