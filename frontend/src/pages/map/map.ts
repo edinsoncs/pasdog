@@ -64,7 +64,7 @@ export class MapPage {
 
     // socket.io
 
-    this._socket.on('connect', (data) => {
+    this._socket.on('connection', (data) => {
       console.log('ON CONNECT')
       alert('ON CONNECT')
       self.watchGeolocation()
