@@ -162,6 +162,26 @@ router.post('/listdog', (req, res, next) => {
 });
 
 
+router.post('/alldog', (req, res, next) => {
+
+	//#one => route create list dog in collection "listdog"
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status){
+
+		//list dog in user related collections
+		return newdog.all(req, res, next);
+
+	}  else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
+
+});
+
+
 router.post('/updatedog', (req, res, next) => {
 
 	/**
