@@ -1,9 +1,14 @@
 'use strict'
 
+
+require('../models/commentsModel');
+
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 const Comment = mongoose.model('Comment');
+
+
 
 //NPM MODULES
 let shortid = require('shortid');
