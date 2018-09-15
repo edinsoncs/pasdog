@@ -65,12 +65,22 @@ module.exports.newcontract = (req, res, next) => {
 
 }
 
+
+
+//Show all contracts
 module.exports.listcontract = (req, res, next) => {
 
 
 	let contracts = database.query(req, 'contracts');
+	let user = database.query(req, 'User');
 
-	contracts.find({'user_id': ObjectId(req.user._id) }, (err, data) => {
+
+	//Find contracts is Array return array
+	contracts.find({'user_id': ObjectId(req.user._id) }, 
+
+		{"sort" : ['create', 'DESC']}, 
+
+		(err, data) => {
 			if(err) return err;
 
 			if(data) {
