@@ -84,7 +84,7 @@ module.exports.listcontract = (req, res, next) => {
 	populate('pas_id', 'name email avatar').
 	exec(function (err, user) {
 		if (err){
-			
+			return err;
 		}
 					
 		res.json(user.reverse());
