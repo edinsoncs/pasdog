@@ -37,6 +37,7 @@ import { UserWalkerCompletePage } from '../pages/user-walker-complete/user-walke
 import { PetsListModalPage } from '../pages/pets-list-modal/pets-list-modal'
 import { UserCommentsPage } from '../pages/user-comments/user-comments'
 import { ContractDetailPage } from '../pages/contract-detail/contract-detail'
+import { ChatPage } from '../pages/chat/chat'
 
 import { GlobalProvider } from '../providers/global/global'
 import { UserProvider } from '../providers/user/user'
@@ -68,7 +69,8 @@ const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', option
     UserWalkerCompletePage,
     PetsListModalPage,
     UserCommentsPage,
-    ContractDetailPage
+    ContractDetailPage,
+    ChatPage
   ],
   imports: [
     BrowserModule,
@@ -99,7 +101,8 @@ const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', option
     UserWalkerCompletePage,
     PetsListModalPage,
     UserCommentsPage,
-    ContractDetailPage
+    ContractDetailPage,
+    ChatPage
   ],
   providers: [
     StatusBar,

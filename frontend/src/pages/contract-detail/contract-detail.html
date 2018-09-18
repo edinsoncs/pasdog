@@ -1,18 +1,81 @@
-<!--
-  Generated template for the ContractDetailPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>contract-detail</ion-title>
-  </ion-navbar>
 
+    <ion-title text-center>Contrato</ion-title>
+
+    <ion-buttons end no-margin>
+      <button ion-button icon-only>
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+
+  <div class="avatar">
+    <div class="image" [ngStyle]="{'background-image':'url(' + file + ')'}"></div>
+  </div>
+
+
+  <ion-segment [(ngModel)]="tab">
+    <ion-segment-button value="tab1" (tap)="tab = 'tab1'">
+      Estado
+    </ion-segment-button>
+    <ion-segment-button value="tab2" (tap)="tab = 'tab2'">
+      Mascotas
+    </ion-segment-button>
+  </ion-segment>
+
+
+  <div [ngSwitch]="tab" class="is__Body">
+    <div *ngSwitchCase="'tab1'" padding>
+      <p>
+        <strong>Fecha:</strong> {{ payload.contractDate }}
+      </p>
+      <p>
+        <strong>Valor:</strong> $ {{ payload.price }}
+      </p>
+      <p>
+        <strong>Estado:</strong>
+        <span *ngIf="payload.status == 0" class="status-0">Pendiente</span>
+        <span *ngIf="payload.status == 1" class="status-1">Cancelado</span>
+        <span *ngIf="payload.status == 2" class="status-2">Finalizado</span>
+        <span *ngIf="payload.status == 3" class="status-3">Aprobado</span>
+        <span *ngIf="payload.status == 4" class="status-4">Rechazado</span>
+        <span *ngIf="payload.status == 5" class="status-5">Fuera de tiempo</span>
+      </p>
+    </div>
+
+
+    <div *ngSwitchCase="'tab2'">
+      <div class="pets">
+        <div class="pet" *ngFor="let pet of pets">
+          <div class="pet__Avatar">
+            <div class="image"
+                 [ngStyle]="{'background-image' : 'url(' + globalProvider.galleryDogsUrl + '/' + pet.avatar + ')' }">
+            </div>
+          </div>
+          <div class="pet__Name">
+            <p>{{ pet.name }}</p>
+          </div>
+        </div>
+        <div padding margin-top text-center class="loading" *ngIf="isPageLoading">
+          <ion-spinner color="primary"></ion-spinner>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
 
 </ion-content>
+
+
+<ion-footer class="call-to-action">
+  <button ion-button full color="secondary" no-margin (click)="openPage('chat')">
+    Abrir chat
+  </button>
+</ion-footer>

@@ -15,6 +15,15 @@ page-list-history {
       display: flex;
       box-shadow: 0 3px 6px rgba(0,0,0,.15);
       margin-top: -1px;
+      background: white;
+
+      &.status-1 {
+        opacity: .5;
+      }
+
+      ion-item {
+        background: none
+      }
       .item-inner{
         border: none !important;
         ion-label{

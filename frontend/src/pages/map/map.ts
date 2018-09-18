@@ -14,6 +14,7 @@ import { Socket } from 'ng-socket-io'
 // pages
 import { UserPreviewPage } from '../user-preview/user-preview'
 import { ListHistoryPage } from '../list-history/list-history'
+import { ChatPage } from '../chat/chat'
 
 // providers
 import { GlobalProvider } from '../../providers/global/global'
@@ -89,6 +90,9 @@ export class MapPage {
       switch(params.page) {
         case 'list-history':
           self.navCtrl.setRoot(ListHistoryPage)
+          break
+        case 'chat':
+          self.navCtrl.push(ChatPage, params.payload)
           break
       }
     })

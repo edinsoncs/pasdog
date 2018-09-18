@@ -72,7 +72,8 @@ export class UserProfilePage {
     const payload = {
       pas_id: this.id,
       dog_ids: data.petsChecked,
-      exclusive: data.exclusive
+      exclusive: data.exclusive,
+      price: this.price
     }
 
     if(isOnline)
