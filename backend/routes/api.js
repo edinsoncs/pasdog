@@ -405,6 +405,41 @@ router.post('/listchat', (req, res, next) => {
 });
 
 
+router.post('/newmessage', (req, res, next) => {
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status) {
+
+		return controllers.ctr('message', req, res, next);
+
+	} else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
+
+});
+
+
+
+router.post('/listmessage', (req, res, next) => {
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status) {
+
+		return controllers.ctr('listmessage', req, res, next);
+
+	} else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
+
+});
+
+
 
 
 

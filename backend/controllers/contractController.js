@@ -21,6 +21,8 @@ module.exports.newcontract = (req, res, next) => {
 		pas_id: req.body.pas_id,
 		user_id: req.user._id,
 		dog_ids: req.body.dog_ids,
+		exclusive: req.body.exclusive,
+		price: req.body.price,
 		status: 0,
 		create: new Date()
 	}
@@ -65,6 +67,7 @@ module.exports.newcontract = (req, res, next) => {
 
 }
 
+	var paseadores = [];
 
 
 //Show all contracts
@@ -72,25 +75,25 @@ module.exports.listcontract = (req, res, next) => {
 
 
 	let contracts = database.query(req, 'contracts');
-	let user = database.query(req, 'User');
+	let user = database.query(req, 'users');
+
 
 
 	//Find contracts is Array return array
-	contracts.find({'user_id': ObjectId(req.user._id) }, 
-
-		(err, data) => {
-			if(err) return err;
-
-			if(data) {
-
-				res.json(data.reverse());
-
-			} else {
-				return res.status(200).json({ 
-					message: message('not_contract_all') 
-				});
-			}
+	Contract.find({'user_id': ObjectId(req.user._id)}).
+	populate('pas_id', 'name email avatar').
+	exec(function (err, user) {
+		if (err){
+			return err;
+		}
+					
+		res.json(user.reverse());
 	});
+
+
+
+
+
 
 }
 

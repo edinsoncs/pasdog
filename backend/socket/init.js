@@ -27,8 +27,6 @@ module.exports.connect = (io) => {
 	io.on('connection', (client, username) => {
         
 		client.on('set-nickname', (user) => {
-			console.log('conectado');
-
 			client.handshake.name = user.name;
 			users[user.name] = user;
 			updateClients();
@@ -44,9 +42,6 @@ module.exports.connect = (io) => {
 
 		
 		function updateClients() {	
-
-			console.log(users);
-
 	        io.sockets.emit('listmap', users);
 	    }
 		

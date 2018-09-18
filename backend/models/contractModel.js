@@ -17,6 +17,8 @@ var ContractSchema = new Schema({
 	//3 => cancel
 	//4 => finish
 	'status': Number,
+	'exclusive': Number,
+	'price': Number,
 	
 	'create': Date
 });
