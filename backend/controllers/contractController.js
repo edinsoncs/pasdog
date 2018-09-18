@@ -78,18 +78,45 @@ module.exports.listcontract = (req, res, next) => {
 	let user = database.query(req, 'users');
 
 
-
-	//Find contracts is Array return array
-	Contract.find({'user_id': ObjectId(req.user._id)}).
-	populate('pas_id', 'name email avatar').
-	exec(function (err, user) {
-		if (err){
-			return err;
-		}
-					
-		res.json(user.reverse());
+	User.findOne({"_id": req.user._id}).exec((err, data)=> {
+		continueList(data.role);
 	});
 
+	function continueList(type) {
+
+
+		if(type) {
+
+			//Find contracts is Array return array
+			Contract.find({'pas_id': ObjectId(req.user._id)}).
+			populate('dog_ids').
+			exec(function (err, dog) {
+				if (err){
+					return err; 
+				}
+							
+				res.json(dog.reverse());
+			});
+
+
+
+		} else {
+
+			//Find contracts is Array return array
+			Contract.find({'user_id': ObjectId(req.user._id)}).
+			populate('pas_id', 'name email avatar').
+			exec(function (err, user) {
+				if (err){
+					return err; 
+				}
+							
+				res.json(user.reverse());
+			});
+
+		}
+
+
+	}
 
 
 
