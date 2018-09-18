@@ -227,19 +227,21 @@ console.log('1- watching')
     this.map.clear().then(
       () => {
 
+        console.log('clear!')
+
         // clean subscriptions
         self.walkersQty = 0
         self.subscriptions.markers ? self.subscriptions.markers.unsubscribe() : null
         const userType = profile.user_type
 
+        if(self.walkers.length)
+          self.walkersQty = self.walkers.length
 
         for(let walker in this.walkers) {
-          self.walkersQty++
-
-          if(self.walkers[walker].id != profile.user_id && self.walkers[walker].user_type != userType) {
+          if(self.walkers[walker].id != profile.user_id && Number(self.walkers[walker].user_type) == 1) {
             let marker: MarkerOptions = {
               icon: {
-                url: `http://maps.google.com/mapfiles/ms/icons/${ userType ? 'red ' : 'yellow' }.png`
+                url: `http://maps.google.com/mapfiles/ms/icons/yellow.png`
               },
               animation: animation ? 'DROP' : null,
               position: {
@@ -261,6 +263,8 @@ console.log('1- watching')
           }
 
         }
+
+        console.log('List complete', self.walkers)
 
 
       }
