@@ -316,8 +316,35 @@ console.log('1- watching')
         const walkerId = this.walkers[walkerName].id
 
         if(!this.walkersParsed[walkerId])
-          if(walkerId != profile.user_id)
+          if(walkerId != profile.user_id) {
             console.log('agrega este walker acá y al mapa (' + walkerId + ')')
+
+            let marker = {
+              icon: {
+                url: `http://maps.google.com/mapfiles/ms/icons/yellow.png`
+              },
+              animation: null,
+              position: {
+                lat: self.walkersParsed[walkerId].latitude,
+                lng: self.walkersParsed[walkerId].longitude,
+              }
+            }
+
+            // Now you can use all methods safely.
+            self.map.addMarker(marker).then(mkr => {
+              self.subscriptions.markers[walkerId] = mkr
+
+              self.subscriptions.subscriptions[walkerId] = self.subscriptions.markers[walkerId].on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+                let data = {
+                  id: self.walkersParsed[walkerId].id,
+                  name: self.walkersParsed[walkerId].name,
+                  avatar: self.walkersParsed[walkerId].avatar
+                }
+                self.userPreview(data)
+              })
+            })
+
+          }
       }
 
 
