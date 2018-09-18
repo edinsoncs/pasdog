@@ -2,6 +2,9 @@ import { Component } from '@angular/core'
 import { NavController, NavParams } from 'ionic-angular'
 import * as moment from 'moment'
 
+// pages
+import { ContractDetailPage } from '../contract-detail/contract-detail'
+
 // providers
 import { GlobalProvider } from '../../providers/global/global'
 import { ContractProvider } from '../../providers/contract/contract'
@@ -55,10 +58,15 @@ export class ListHistoryPage {
               const date = (contract.create).substring(0, 10)
               this.contracts[i].visible_date = moment(date, 'YYYY-MM-DD').format('DD/MM/YYYY')
 
+              this.contracts[i].walker = {
+                avatar: contract.pas_id[0].avatar ? this.globalProvider.galleryUrl + '/' + contract.pas_id[0].avatar : this.globalProvider.emptyProfile,
+                name: contract.pas_id[0].name
+              }
+
               if(prevDate != date) {
                 prevDate = date
                 this.contracts[i].showDate = true
-                const diff = moment(date, 'YYYY-MM-DD').diff(actualDate, 'days')
+                const diff = Math.abs(moment(date, 'YYYY-MM-DD').diff(actualDate, 'days'))
 
                 if(diff == 0)
                   this.contracts[i].visible_date = 'hoy'
@@ -66,11 +74,13 @@ export class ListHistoryPage {
                 else if(diff == 1)
                   this.contracts[i].visible_date = 'hace 1 día'
 
-                else if(diff > 1 && diff < 7)
-                  this.contracts[i].visible_date = `hace ${ diff } días`
+                else if(diff > 1 && diff < 21) {
+                  if(diff == 7)
+                    this.contracts[i].visible_date = 'hace 1 semana'
+                  else
+                    this.contracts[i].visible_date = `hace ${ diff } días`
+                }
 
-                else if(diff >= 7 && diff < 14)
-                  this.contracts[i].visible_date = 'hace 1 semana'
               }
 
             })
@@ -84,6 +94,17 @@ export class ListHistoryPage {
           console.log('err', error)
         }
       )
+  }
+
+
+  openPage(page, payload?) {
+    console.log(payload)
+    switch(page) {
+      case 'contract-detail':
+        this.navCtrl.push(ContractDetailPage, {id: payload._id, payload: payload})
+        break
+
+    }
   }
 
 }

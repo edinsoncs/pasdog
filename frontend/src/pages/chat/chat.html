@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-navbar>
+
+    <ion-title text-center>Mensajes</ion-title>
+
+    <ion-buttons end no-margin class="translucent">
+      <button ion-button icon-only>
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <!--
+    MENSAJES
+
+      /newmessage
+      pas: String (paseador)
+      message: String (texto)
+
+      /listmessage
+      id_pas: String (paseador)
+    -->
+
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <div class="message-wrap">
+    <div *ngFor="let msg of msgList">
+
+      <div class="date-message" *ngIf="msg.showDate && msg.userId && msg.userId != []">
+        <p>{{ msg.showDate }}</p>
+      </div>
+
+      <div class="message"
+           [class.message--left]=" msg.userId === toUser.id "
+           [class.message--right]=" msg.userId === user.id "
+           [class.message--center]=" !msg.userId || msg.userId == [] "
+           [class.message--hide-user]="!msg.showUser">
+
+        <div class="message__header" *ngIf="msg.userId && msg.userId != []">
+          <div class="image" [ngStyle]="{'background-image' : 'url(' + msg.userAvatar + ')'}"></div>
+          <div>
+            <p>
+              {{msg.userName}}
+            </p>
+          </div>
+        </div>
+
+        <div class="message__detail" *ngIf="msg.userId && msg.userId != []; else systemMessage">
+          <ion-spinner *ngIf="msg.status === 'pending'"></ion-spinner>
+          <div class="msg-detail">
+            <div class="msg-content" [class.loading]="msg.status == 'pending'">
+              <span class="triangle"></span>
+              <p class="line-breaker ">{{ msg.text }}</p>
+              <p class="time">{{ msg.createdAt }}</p>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #systemMessage>
+          <div class="system-message">
+            <p>{{ msg.text }}</p>
+          </div>
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+
+</ion-content>
+
+
+
+<ion-footer no-border>
+  <div class="input-wrap">
+    <input #chat_input
+          placeholder="Escribi un mensaje"
+          [(ngModel)]="editorMsg"
+          (keyup.enter)="sendMsg()"
+          (focusin)="onFocus()">
+    <button ion-button clear icon-only item-right (click)="sendMsg()">
+      <ion-icon name="ios-send" ios="ios-send" md="md-send"></ion-icon>
+    </button>
+  </div>
+</ion-footer>

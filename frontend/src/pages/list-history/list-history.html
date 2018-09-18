@@ -33,21 +33,21 @@
       </p>
     </div>
 
-    <div *ngFor="let contract of contracts">
+    <div *ngFor="let contract of contracts" (click)="openPage('contract-detail', contract)">
       <ion-row *ngIf="contract.showDate">
         <ion-col col-12 text-center>
           <ion-note>{{ contract.visible_date }}</ion-note>
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col col-12 class="is__History__Item">
+        <ion-col col-12 class="is__History__Item status-{{ contract.status }}">
           <ion-item>
             <ion-avatar item-start>
-              <img src="https://ta.azureedge.net/p/images/usuarios/l/878872.jpg/300x300cut/?v=2">
+              <img [src]="contract.walker.avatar">
             </ion-avatar>
             <ion-row>
               <ion-col col-8>
-                <h2 class="is__Name" m-0>Carla Rodríguez</h2>
+                <h2 class="is__Name" m-0>{{ contract.walker.name }}</h2>
                 <ion-col col-8 class="is__Reputation" p-0>
                   <ion-icon name="star" color="danger"></ion-icon>
                   <ion-icon name="star" color="danger"></ion-icon>
@@ -57,7 +57,7 @@
                 </ion-col>
               </ion-col>
               <ion-col col-4 text-right class="is__Price">
-                <p>$ 140</p>
+                <p>$ {{ contract.price ? contract.price : '-' }}</p>
               </ion-col>
             </ion-row>
           </ion-item>

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core'
 import { NavController, NavParams, Events } from 'ionic-angular'
 
-// pages
-import { ListHistoryPage } from '../list-history/list-history'
+// providers
+import { ContractProvider } from '../../providers/contract/contract'
 
 
 @Component({
@@ -19,7 +19,8 @@ export class AgreePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public events: Events
+    public events: Events,
+    private _contractProvider: ContractProvider
   ) { }
 
   ionViewDidLoad() {
@@ -29,13 +30,14 @@ export class AgreePage {
   }
 
   openPage(page) {
+    this.navCtrl.pop()
+
     switch(page) {
       case 'chat':
-        // this.navCtrl.setRoot(ChatPage, {id: this.contractId })
+        const payload = {id: this.contractId, walkerId: this.walkerId}
+        this.events.publish('nav', {page: 'chat', payload: payload})
         break
       case 'list-agreed':
-        this.navCtrl.pop()
-        // this.navCtrl.setRoot(ListHistoryPage)
         this.events.publish('nav', {page: 'list-history'})
         break
     }
