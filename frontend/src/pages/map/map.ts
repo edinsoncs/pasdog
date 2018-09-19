@@ -305,8 +305,15 @@ console.log('1- watching')
           delete self.walkersParsed[walkerId]
         }
 
-        else
+        else {
           console.log('calcula posición de este walker para ver si hay que actualizarla (' + walkerId + ')')
+          self.walkersParsed[walkerId] = this.walkers[walkerName]
+          self.subscriptions[walkerId].setPosition({
+            lat: self.walkersParsed[walkerId].latitude,
+            lng: self.walkersParsed[walkerId].longitude,
+          })
+          console.log('set Position')
+        }
 
       }
 
