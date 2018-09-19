@@ -317,6 +317,9 @@ console.log('1- watching')
 
         if(!this.walkersParsed[walkerId])
           if(walkerId != profile.user_id) {
+
+            this.walkersQty ++
+            this.walkersParsed[walkerId] = this.walkers[walkerName]
             console.log('agrega este walker acá y al mapa (' + walkerId + ')')
 
             let marker = {
