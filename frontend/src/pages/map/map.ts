@@ -308,10 +308,47 @@ console.log('1- watching')
         else {
           console.log('calcula posición de este walker para ver si hay que actualizarla (' + walkerId + ')')
           self.walkersParsed[walkerId] = this.walkers[walkerName]
+          /*
           self.subscriptions[walkerId].setPosition({
             lat: self.walkersParsed[walkerId].latitude,
             lng: self.walkersParsed[walkerId].longitude,
           })
+          */
+
+
+
+
+          self.subscriptions.markers[walkerId].remove()
+
+          let marker = {
+            icon: {
+              url: `http://maps.google.com/mapfiles/ms/icons/orange.png`
+            },
+            animation: animation ? 'DROP' : null,
+            position: {
+              lat: self.walkersParsed[walkerId].latitude,
+              lng: self.walkersParsed[walkerId].longitude,
+            }
+          }
+
+          // Now you can use all methods safely.
+          self.map.addMarker(marker).then(mkr => {
+            self.subscriptions.markers[walkerId] = mkr
+
+            self.subscriptions.subscriptions[walkerId] = self.subscriptions.markers[walkerId].on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+              let data = {
+                id: self.walkersParsed[walkerId].id,
+                name: self.walkersParsed[walkerId].name,
+                avatar: self.walkersParsed[walkerId].avatar
+              }
+              self.userPreview(data)
+            })
+          })
+
+
+
+
+
           console.log('set Position')
         }
 
