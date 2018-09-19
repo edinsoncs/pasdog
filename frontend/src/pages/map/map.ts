@@ -307,7 +307,9 @@ console.log('1- watching')
 
         else {
           console.log('calcula posición de este walker para ver si hay que actualizarla (' + walkerId + ')')
-          self.walkersParsed[walkerId] = this.walkers[walkerName]
+          delete self.walkersParsed[walkerId]
+          self.walkersParsed[walkerId] = self.walkers[walkerName]
+          self.subscriptions.markers[walkerId].remove()
           /*
           self.subscriptions[walkerId].setPosition({
             lat: self.walkersParsed[walkerId].latitude,
@@ -318,38 +320,36 @@ console.log('1- watching')
 
 
 
-          self.subscriptions.markers[walkerId].remove().then(
-            () => {
+setTimeout(() => {
 
-              let marker = {
-                icon: {
-                  url: `http://maps.google.com/mapfiles/ms/icons/blue.png`
-                },
-                animation: animation ? 'DROP' : null,
-                position: {
-                  lat: self.walkersParsed[walkerId].latitude,
-                  lng: self.walkersParsed[walkerId].longitude,
-                }
-              }
-
-              // Now you can use all methods safely.
-              self.map.addMarker(marker).then(mkr => {
-                self.subscriptions.markers[walkerId] = mkr
-
-                self.subscriptions.subscriptions[walkerId] = self.subscriptions.markers[walkerId].on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-                  let data = {
-                    id: self.walkersParsed[walkerId].id,
-                    name: self.walkersParsed[walkerId].name,
-                    avatar: self.walkersParsed[walkerId].avatar
-                  }
-                  self.userPreview(data)
-                })
-              })
-
-              console.log('set Position')
+          let marker = {
+            icon: {
+              url: `http://maps.google.com/mapfiles/ms/icons/blue.png`
+            },
+            animation: animation ? 'DROP' : null,
+            position: {
+              lat: self.walkersParsed[walkerId].latitude,
+              lng: self.walkersParsed[walkerId].longitude,
             }
-          )
+          }
 
+          // Now you can use all methods safely.
+          self.map.addMarker(marker).then(mkr => {
+            self.subscriptions.markers[walkerId] = mkr
+
+            self.subscriptions.subscriptions[walkerId] = self.subscriptions.markers[walkerId].on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+              let data = {
+                id: self.walkersParsed[walkerId].id,
+                name: self.walkersParsed[walkerId].name,
+                avatar: self.walkersParsed[walkerId].avatar
+              }
+              self.userPreview(data)
+            })
+          })
+
+          console.log('set Position')
+
+}, 1)
 
 
 
