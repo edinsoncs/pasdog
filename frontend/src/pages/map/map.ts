@@ -133,15 +133,13 @@ export class MapPage {
     }
 
     this.map = GoogleMaps.create('map', mapOptions)
-    if(!this.platform.is('cordova'))
-      self.loadingSpinner.dismiss()
+    setTimeout(() => self.loadingSpinner.dismiss(), 1000)
 
     // Wait the MAP_READY before using any methods.
     this.map.on(GoogleMapsEvent.MAP_READY).subscribe(
       () => {
         self.isMapReady = true
         self.updateMakers(true)
-        self.loadingSpinner.dismiss()
         self.loadingSpinner = null
 
         // move map to actual position
@@ -173,11 +171,11 @@ export class MapPage {
 
   watchGeolocation() {
     let self = this,
-        watch = this._geolocation.watchPosition(),
+        watch = this._geolocation.watchPosition({maximumAge: 10000}),
         profile = JSON.parse(this.globalProvider.getStorage('profile'))
-console.log('1- watching')
+        console.log('1- watching')
 
-    setInterval(() => {
+    // setInterval(() => {
       self._socket.emit('set-nickname', {
         idsocket: self._socket.ioSocket.id,
         id: profile.user_id,
@@ -187,7 +185,7 @@ console.log('1- watching')
         longitude:  self.globalProvider.geolocation.longitude,
         user_type: profile.user_type
       })
-    }, 10000)
+    //}, 10000)
 
 
 
@@ -203,21 +201,20 @@ console.log('1- watching')
           self.globalProvider.geolocation.longitude = data.coords.longitude
           self.globalProvider.isGeolocated = true
           self.globalProvider.geolocationHasError = false
+
+          self._socket.emit('set-nickname', {
+            idsocket: self._socket.ioSocket.id,
+            id: profile.user_id,
+            name: profile.name,
+            avatar: profile.avatar,
+            latitude:  self.globalProvider.geolocation.latitude,
+            longitude:  self.globalProvider.geolocation.longitude,
+            user_type: profile.user_type
+          })
         }
         else {
           self.globalProvider.geolocationHasError = true
         }
-        /*
-        self._socket.emit('set-nickname', {
-          idsocket: self._socket.ioSocket.id,
-          id: profile.user_id,
-          name: profile.name,
-          avatar: profile.avatar,
-          latitude:  self.globalProvider.geolocation.latitude,
-          longitude:  self.globalProvider.geolocation.longitude,
-          user_type: profile.user_type
-        })
-        */
       }
     )
 
@@ -309,18 +306,12 @@ console.log('1- watching')
           console.log('calcula posición de este walker para ver si hay que actualizarla (' + walkerId + ')')
           delete self.walkersParsed[walkerId]
           self.walkersParsed[walkerId] = self.walkers[walkerName]
-          self.subscriptions.markers[walkerId].remove()
-          /*
-          self.subscriptions[walkerId].setPosition({
-            lat: self.walkersParsed[walkerId].latitude,
-            lng: self.walkersParsed[walkerId].longitude,
-          })
-          */
-
-
-
-
-setTimeout(() => {
+          try {
+            self.subscriptions.markers[walkerId].remove()
+          }
+          catch(e) {
+            console.log('no se pudo eliminar el marker')
+          }
 
           let marker = {
             icon: {
@@ -346,10 +337,6 @@ setTimeout(() => {
               self.userPreview(data)
             })
           })
-
-          console.log('set Position')
-
-}, 1)
 
 
 
