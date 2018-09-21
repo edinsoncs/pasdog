@@ -246,6 +246,7 @@ export class MapPage {
     // only first
     if(this.isEmpty(this.walkersParsed)) {
       this.walkersQty = 0
+      let count = 0
 
       for(let walkerName in this.walkers) {
         if(this.walkers[walkerName].id != profile.user_id && Number(this.walkers[walkerName].user_type) == 1) {
@@ -255,6 +256,8 @@ export class MapPage {
       }
 
       for(let walkerId in this.walkersParsed) {
+        count++
+
         // construct map
         let marker = {
           icon: {
@@ -281,7 +284,9 @@ export class MapPage {
             self.userPreview(data)
           })
 
-          self.isMapWorking = false
+          if(count == self.walkersQty)
+            self.isMapWorking = false
+
         })
         // construct map
       }
@@ -294,6 +299,8 @@ export class MapPage {
     else {
       // FIXME: falta verificar el user_type = 1
       // busca walkers para eliminar/actualizar
+      let count = 0
+
       for(let walkerId in this.walkersParsed) {
         const walkerName = this.walkersParsed[walkerId].name
 
@@ -308,9 +315,11 @@ export class MapPage {
           delete self.walkersParsed[walkerId]
           self.isMapWorking = false
           self.walkersQty --
+          count--
         }
 
         else {
+          count++
           console.log('calcula posición de este walker para ver si hay que actualizarla (' + walkerId + ')')
           delete self.walkersParsed[walkerId]
           self.walkersParsed[walkerId] = self.walkers[walkerName]
@@ -348,7 +357,9 @@ export class MapPage {
                 self.userPreview(data)
               })
 
-              self.isMapWorking = false
+              if(count == self.walkersQty)
+                self.isMapWorking = false
+
             })
           }
           // end validation is map working
