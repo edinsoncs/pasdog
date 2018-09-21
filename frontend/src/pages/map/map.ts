@@ -307,6 +307,7 @@ export class MapPage {
           }
           delete self.walkersParsed[walkerId]
           self.isMapWorking = false
+          self.walkersQty --
         }
 
         else {
@@ -476,6 +477,7 @@ export class MapPage {
           }
           delete self.walkersParsed[walkerId]
           self.isMapWorking = false
+          self.walkersQty --
         }
 
         else {
