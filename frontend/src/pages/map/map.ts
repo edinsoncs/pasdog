@@ -226,19 +226,21 @@ export class MapPage {
     let self = this,
         profile = JSON.parse(this.globalProvider.getStorage('profile'))
 
-    switch(Number(profile.user_type)) {
-      case 0:
-        this.updateMarkersWalkers(animation)
-        break
-      case 1:
-        this.updateMarkersUsers(animation)
-        break
-    }
+    if(!this.isMapWorking)
+      switch(Number(profile.user_type)) {
+        case 0:
+          this.updateMarkersWalkers(animation)
+          break
+        case 1:
+          this.updateMarkersUsers(animation)
+          break
+      }
   }
 
 
   updateMarkersWalkers(animation?) {
     console.log('update markers for walkers', this.walkersParsed)
+    this.isMapWorking = true
 
     let self = this,
         profile = JSON.parse(this.globalProvider.getStorage('profile'))
@@ -246,7 +248,6 @@ export class MapPage {
     // only first
     if(this.isEmpty(this.walkersParsed)) {
       this.walkersQty = 0
-      let count = 0
 
       for(let walkerName in this.walkers) {
         if(this.walkers[walkerName].id != profile.user_id && Number(this.walkers[walkerName].user_type) == 1) {
@@ -255,9 +256,12 @@ export class MapPage {
         }
       }
 
-      for(let walkerId in this.walkersParsed) {
-        count++
 
+      if(this.isEmpty(this.walkersParsed))
+        this.isMapWorking = false
+
+
+      for(let walkerId in this.walkersParsed) {
         // construct map
         let marker = {
           icon: {
@@ -284,9 +288,7 @@ export class MapPage {
             self.userPreview(data)
           })
 
-          if(count == self.walkersQty)
-            self.isMapWorking = false
-
+          self.isMapWorking = false
         })
         // construct map
       }
@@ -299,7 +301,6 @@ export class MapPage {
     else {
       // FIXME: falta verificar el user_type = 1
       // busca walkers para eliminar/actualizar
-      let count = 0
 
       for(let walkerId in this.walkersParsed) {
         const walkerName = this.walkersParsed[walkerId].name
@@ -315,11 +316,9 @@ export class MapPage {
           delete self.walkersParsed[walkerId]
           self.isMapWorking = false
           self.walkersQty --
-          count--
         }
 
         else {
-          count++
           console.log('calcula posición de este walker para ver si hay que actualizarla (' + walkerId + ')')
           delete self.walkersParsed[walkerId]
           self.walkersParsed[walkerId] = self.walkers[walkerName]
@@ -331,37 +330,35 @@ export class MapPage {
           }
 
           // validation is map working
-          if(!this.isMapWorking) {
-            let marker = {
-              icon: {
-                url: 'https://cdn.emojidex.com/emoji/px32/person_with_blond_hair%28p%29.png'
-                // url: `http://maps.google.com/mapfiles/ms/icons/blue.png`
-              },
-              animation: animation ? 'DROP' : null,
-              position: {
-                lat: self.walkersParsed[walkerId].latitude,
-                lng: self.walkersParsed[walkerId].longitude,
-              }
+
+          let marker = {
+            icon: {
+              url: 'https://cdn.emojidex.com/emoji/px32/person_with_blond_hair%28p%29.png'
+              // url: `http://maps.google.com/mapfiles/ms/icons/blue.png`
+            },
+            animation: animation ? 'DROP' : null,
+            position: {
+              lat: self.walkersParsed[walkerId].latitude,
+              lng: self.walkersParsed[walkerId].longitude,
             }
-
-            // Now you can use all methods safely.
-            self.map.addMarker(marker).then(mkr => {
-              self.subscriptions.markers[walkerId] = mkr
-
-              self.subscriptions.subscriptions[walkerId] = self.subscriptions.markers[walkerId].on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-                let data = {
-                  id: self.walkersParsed[walkerId].id,
-                  name: self.walkersParsed[walkerId].name,
-                  avatar: self.walkersParsed[walkerId].avatar
-                }
-                self.userPreview(data)
-              })
-
-              if(count == self.walkersQty)
-                self.isMapWorking = false
-
-            })
           }
+
+          // Now you can use all methods safely.
+          self.map.addMarker(marker).then(mkr => {
+            self.subscriptions.markers[walkerId] = mkr
+
+            self.subscriptions.subscriptions[walkerId] = self.subscriptions.markers[walkerId].on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+              let data = {
+                id: self.walkersParsed[walkerId].id,
+                name: self.walkersParsed[walkerId].name,
+                avatar: self.walkersParsed[walkerId].avatar
+              }
+              self.userPreview(data)
+            })
+
+            self.isMapWorking = false
+          })
+
           // end validation is map working
 
         }
@@ -375,6 +372,7 @@ export class MapPage {
 
         if(!this.walkersParsed[walkerId])
           if(walkerId != profile.user_id) {
+            this.isMapWorking = true
 
             this.walkersQty ++
             this.walkersParsed[walkerId] = this.walkers[walkerName]
