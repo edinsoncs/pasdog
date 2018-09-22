@@ -226,7 +226,7 @@ export class MapPage {
     let self = this,
         profile = JSON.parse(this.globalProvider.getStorage('profile'))
 
-    if(!this.isMapWorking)
+    //if(!this.isMapWorking)
       switch(Number(profile.user_type)) {
         case 0:
           this.updateMarkersWalkers(animation)
@@ -302,88 +302,43 @@ export class MapPage {
       // FIXME: falta verificar el user_type = 1
       // busca walkers para eliminar/actualizar
 
-      for(let walkerId in this.walkersParsed) {
-        const walkerName = this.walkersParsed[walkerId].name
 
-        if(!this.walkers[walkerName]) {
-          console.log('elimina este walker de acá y del mapa (' + walkerId + ')')
-          try {
-            self.subscriptions.markers[walkerId].remove()
-          }
-          catch(e) {
-            console.log('no se pudo eliminar el marker')
-          }
-          delete self.walkersParsed[walkerId]
-          self.isMapWorking = false
-          self.walkersQty --
-        }
+      self.map.clear().then(() => {
+        for(let walkerId in this.walkersParsed) {
+          const walkerName = this.walkersParsed[walkerId].name
 
-        else {
-          console.log('calcula posición de este walker para ver si hay que actualizarla (' + walkerId + ')')
-          delete self.walkersParsed[walkerId]
-          self.walkersParsed[walkerId] = self.walkers[walkerName]
-          try {
-            self.subscriptions.markers[walkerId].remove()
-          }
-          catch(e) {
-            console.log('no se pudo eliminar el marker')
-          }
-
-          // validation is map working
-
-          let marker = {
-            icon: {
-              url: 'https://cdn.emojidex.com/emoji/px32/person_with_blond_hair%28p%29.png'
-              // url: `http://maps.google.com/mapfiles/ms/icons/blue.png`
-            },
-            animation: animation ? 'DROP' : null,
-            position: {
-              lat: self.walkersParsed[walkerId].latitude,
-              lng: self.walkersParsed[walkerId].longitude,
+          if(!this.walkers[walkerName]) {
+            console.log('elimina este walker de acá y del mapa (' + walkerId + ')')
+            try {
+              self.subscriptions.markers[walkerId].remove()
             }
+            catch(e) {
+              console.log('no se pudo eliminar el marker')
+            }
+            delete self.walkersParsed[walkerId]
+            self.isMapWorking = false
+            self.walkersQty --
           }
 
-          // Now you can use all methods safely.
-          self.map.addMarker(marker).then(mkr => {
-            self.subscriptions.markers[walkerId] = mkr
+          else {
+            console.log('calcula posición de este walker para ver si hay que actualizarla (' + walkerId + ')')
+            delete self.walkersParsed[walkerId]
+            self.walkersParsed[walkerId] = self.walkers[walkerName]
+            try {
+              self.subscriptions.markers[walkerId].remove()
+            }
+            catch(e) {
+              console.log('no se pudo eliminar el marker')
+            }
 
-            self.subscriptions.subscriptions[walkerId] = self.subscriptions.markers[walkerId].on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-              let data = {
-                id: self.walkersParsed[walkerId].id,
-                name: self.walkersParsed[walkerId].name,
-                avatar: self.walkersParsed[walkerId].avatar
-              }
-              self.userPreview(data)
-            })
-
-            self.isMapWorking = false
-          })
-
-          // end validation is map working
-
-        }
-
-      }
-
-
-      // busca walkers para agregar
-      for(let walkerName in this.walkers) {
-        const walkerId = this.walkers[walkerName].id
-
-        if(!this.walkersParsed[walkerId])
-          if(walkerId != profile.user_id) {
-            this.isMapWorking = true
-
-            this.walkersQty ++
-            this.walkersParsed[walkerId] = this.walkers[walkerName]
-            console.log('agrega este walker acá y al mapa (' + walkerId + ')')
+            // validation is map working
 
             let marker = {
               icon: {
                 url: 'https://cdn.emojidex.com/emoji/px32/person_with_blond_hair%28p%29.png'
-                // url: `http://maps.google.com/mapfiles/ms/icons/yellow.png`
+                // url: `http://maps.google.com/mapfiles/ms/icons/blue.png`
               },
-              animation: null,
+              animation: animation ? 'DROP' : null,
               position: {
                 lat: self.walkersParsed[walkerId].latitude,
                 lng: self.walkersParsed[walkerId].longitude,
@@ -405,12 +360,58 @@ export class MapPage {
 
               self.isMapWorking = false
             })
+            // end validation is map working
 
           }
-          else
-            self.isMapWorking = false
+        }
 
-      }
+
+        // busca walkers para agregar
+        for(let walkerName in this.walkers) {
+          const walkerId = this.walkers[walkerName].id
+
+          if(!this.walkersParsed[walkerId])
+            if(walkerId != profile.user_id && this.walkers[walkerName].user_type == 1) {
+              this.isMapWorking = true
+
+              this.walkersQty ++
+              this.walkersParsed[walkerId] = this.walkers[walkerName]
+              console.log('agrega este walker acá y al mapa (' + walkerId + ')')
+
+              let marker = {
+                icon: {
+                  url: 'https://cdn.emojidex.com/emoji/px32/person_with_blond_hair%28p%29.png'
+                  // url: `http://maps.google.com/mapfiles/ms/icons/yellow.png`
+                },
+                animation: null,
+                position: {
+                  lat: self.walkersParsed[walkerId].latitude,
+                  lng: self.walkersParsed[walkerId].longitude,
+                }
+              }
+
+              // Now you can use all methods safely.
+              self.map.addMarker(marker).then(mkr => {
+                self.subscriptions.markers[walkerId] = mkr
+
+                self.subscriptions.subscriptions[walkerId] = self.subscriptions.markers[walkerId].on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+                  let data = {
+                    id: self.walkersParsed[walkerId].id,
+                    name: self.walkersParsed[walkerId].name,
+                    avatar: self.walkersParsed[walkerId].avatar
+                  }
+                  self.userPreview(data)
+                })
+
+                self.isMapWorking = false
+              })
+
+            }
+            else
+              self.isMapWorking = false
+
+        }
+      })
 
     }
 
@@ -419,6 +420,9 @@ export class MapPage {
 
   updateMarkersUsers(animation?) {
     console.log('update markers for users', this.walkersParsed)
+
+    // `http://packrat.wdfiles.com/local--files/packrat-best-in-show/buddy-the-dog_small.gif`
+    this.isMapWorking = true
 
     let self = this,
         profile = JSON.parse(this.globalProvider.getStorage('profile'))
@@ -434,11 +438,17 @@ export class MapPage {
         }
       }
 
+
+      if(this.isEmpty(this.walkersParsed))
+        this.isMapWorking = false
+
+
       for(let walkerId in this.walkersParsed) {
         // construct map
         let marker = {
           icon: {
-            url: `http://packrat.wdfiles.com/local--files/packrat-best-in-show/buddy-the-dog_small.gif`
+            url: 'http://packrat.wdfiles.com/local--files/packrat-best-in-show/buddy-the-dog_small.gif'
+            // url: `http://maps.google.com/mapfiles/ms/icons/yellow.png`
           },
           animation: animation ? 'DROP' : null,
           position: {
@@ -465,7 +475,7 @@ export class MapPage {
         // construct map
       }
 
-      console.log('walker parsed: ', this.walkersParsed)
+      console.log('users parsed: ', this.walkersParsed)
     }
 
 
@@ -473,38 +483,42 @@ export class MapPage {
     else {
       // FIXME: falta verificar el user_type = 1
       // busca walkers para eliminar/actualizar
-      for(let walkerId in this.walkersParsed) {
-        const walkerName = this.walkersParsed[walkerId].name
 
-        if(!this.walkers[walkerName]) {
-          console.log('elimina este walker de acá y del mapa (' + walkerId + ')')
-          try {
-            self.subscriptions.markers[walkerId].remove()
-          }
-          catch(e) {
-            console.log('no se pudo eliminar el marker')
-          }
-          delete self.walkersParsed[walkerId]
-          self.isMapWorking = false
-          self.walkersQty --
-        }
 
-        else {
-          console.log('calcula posición de este walker para ver si hay que actualizarla (' + walkerId + ')')
-          delete self.walkersParsed[walkerId]
-          self.walkersParsed[walkerId] = self.walkers[walkerName]
-          try {
-            self.subscriptions.markers[walkerId].remove()
-          }
-          catch(e) {
-            console.log('no se pudo eliminar el marker')
+      self.map.clear().then(() => {
+        for(let walkerId in this.walkersParsed) {
+          const walkerName = this.walkersParsed[walkerId].name
+
+          if(!this.walkers[walkerName]) {
+            console.log('elimina este user de acá y del mapa (' + walkerId + ')')
+            try {
+              self.subscriptions.markers[walkerId].remove()
+            }
+            catch(e) {
+              console.log('no se pudo eliminar el user')
+            }
+            delete self.walkersParsed[walkerId]
+            self.isMapWorking = false
+            self.walkersQty --
           }
 
-          // validation is map working
-          if(!this.isMapWorking) {
+          else {
+            console.log('calcula posición de este user para ver si hay que actualizarla (' + walkerId + ')')
+            delete self.walkersParsed[walkerId]
+            self.walkersParsed[walkerId] = self.walkers[walkerName]
+            try {
+              self.subscriptions.markers[walkerId].remove()
+            }
+            catch(e) {
+              console.log('no se pudo eliminar el marker')
+            }
+
+            // validation is map working
+
             let marker = {
               icon: {
-                url: `http://packrat.wdfiles.com/local--files/packrat-best-in-show/buddy-the-dog_small.gif`
+                url: 'http://packrat.wdfiles.com/local--files/packrat-best-in-show/buddy-the-dog_small.gif'
+                // url: `http://maps.google.com/mapfiles/ms/icons/blue.png`
               },
               animation: animation ? 'DROP' : null,
               position: {
@@ -528,57 +542,58 @@ export class MapPage {
 
               self.isMapWorking = false
             })
-          }
-          // end validation is map working
+            // end validation is map working
 
+          }
         }
 
-      }
 
+        // busca walkers para agregar
+        for(let walkerName in this.walkers) {
+          const walkerId = this.walkers[walkerName].id
 
-      // busca walkers para agregar
-      for(let walkerName in this.walkers) {
-        const walkerId = this.walkers[walkerName].id
+          if(!this.walkersParsed[walkerId])
+            if(walkerId != profile.user_id && this.walkers[walkerName].user_type == 0) {
+              this.isMapWorking = true
 
-        if(!this.walkersParsed[walkerId])
-          if(walkerId != profile.user_id) {
+              this.walkersQty ++
+              this.walkersParsed[walkerId] = this.walkers[walkerName]
+              console.log('agrega este walker acá y al mapa (' + walkerId + ')')
 
-            this.walkersQty ++
-            this.walkersParsed[walkerId] = this.walkers[walkerName]
-            console.log('agrega este walker acá y al mapa (' + walkerId + ')')
-
-            let marker = {
-              icon: {
-                url: `http://packrat.wdfiles.com/local--files/packrat-best-in-show/buddy-the-dog_small.gif`
-              },
-              animation: null,
-              position: {
-                lat: self.walkersParsed[walkerId].latitude,
-                lng: self.walkersParsed[walkerId].longitude,
-              }
-            }
-
-            // Now you can use all methods safely.
-            self.map.addMarker(marker).then(mkr => {
-              self.subscriptions.markers[walkerId] = mkr
-
-              self.subscriptions.subscriptions[walkerId] = self.subscriptions.markers[walkerId].on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-                let data = {
-                  id: self.walkersParsed[walkerId].id,
-                  name: self.walkersParsed[walkerId].name,
-                  avatar: self.walkersParsed[walkerId].avatar
+              let marker = {
+                icon: {
+                  url: 'http://packrat.wdfiles.com/local--files/packrat-best-in-show/buddy-the-dog_small.gif'
+                  // url: `http://maps.google.com/mapfiles/ms/icons/yellow.png`
+                },
+                animation: null,
+                position: {
+                  lat: self.walkersParsed[walkerId].latitude,
+                  lng: self.walkersParsed[walkerId].longitude,
                 }
-                self.userPreview(data)
+              }
+
+              // Now you can use all methods safely.
+              self.map.addMarker(marker).then(mkr => {
+                self.subscriptions.markers[walkerId] = mkr
+
+                self.subscriptions.subscriptions[walkerId] = self.subscriptions.markers[walkerId].on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+                  let data = {
+                    id: self.walkersParsed[walkerId].id,
+                    name: self.walkersParsed[walkerId].name,
+                    avatar: self.walkersParsed[walkerId].avatar
+                  }
+                  self.userPreview(data)
+                })
+
+                self.isMapWorking = false
               })
 
+            }
+            else
               self.isMapWorking = false
-            })
 
-          }
-          else
-            self.isMapWorking = false
-
-      }
+        }
+      })
 
     }
 
