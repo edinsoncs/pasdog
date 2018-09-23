@@ -29,7 +29,8 @@ module.exports = (type) => {
 		'not_contract_all': 'No se encontro contractos en tu profile',
 		//Chat text open
 		'success_new_contract_open_chat': 'Se abrio el chat',
-		'fail_all_dogs': 'No se encontro ningun perro en su cuenta'
+		'fail_all_dogs': 'No se encontro ningun perro en su cuenta',
+		'user_contract_update': 'Se actualizo el contracto'
 	
 	}
 

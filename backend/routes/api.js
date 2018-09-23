@@ -369,6 +369,22 @@ router.post('/opencontract', (req, res, next) => {
 
 });
 
+router.post('/updatecontract', (req, res, next) => {
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status) {
+
+		return controllers.ctr('updatecontract', req, res, next);
+
+	} else {
+
+		return userHandlers.userErr(req, res, next);
+
+	}
+
+});
+
 
 router.post('/savechat', (req, res, next) => {
 

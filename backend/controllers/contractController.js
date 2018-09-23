@@ -145,3 +145,27 @@ module.exports.opencontract = (req, res, next) => {
 
 
 }
+
+
+module.pexorts.contractController = (req ,res, next) => {
+
+
+	let contracts = database.query(req, 'contracts');
+
+	contracts.findOneAndUpdate({'_id': req.body.idcontract}, {
+
+			$set: {
+				status: req.body.status
+			}
+
+		}, (err, success) => {
+			if(err) return err;
+
+			res.status(200).
+			send({
+				message: message('user_contract_update')
+			});
+
+		});
+
+}

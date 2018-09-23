@@ -94,6 +94,12 @@ module.exports.ctr = (name, req, res, next) => {
 
 			break;
 
+		case 'updatecontract':
+
+				require('./contractController').updatecontract(req, res, next);
+
+			break;
+
 		default:
 			break;
 	}

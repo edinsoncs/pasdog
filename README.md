@@ -22,6 +22,9 @@ This api in Nodejs - use framework expressjs - jwt - mongoose - monk - mongodb -
 | `13. http://localhost:3000/api/opencontract` | `POST` | Return one contract  |
 | `14. http://localhost:3000/api/savechat` | `POST` | Return chat save  |
 | `15. http://localhost:3000/api/listchat` | `POST` | Return all chats  |
+| `16. http://localhost:3000/api/updatecontract` | `POST` | Return update contract  |
+
+
 
 
 ### Example: Body of the request
@@ -189,6 +192,18 @@ Method 15. return all chats => contract
   "Authorization": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkaW5zb25jb2RlQGhvdG1haWwuY29tIiwibmFtZSI6IkVkaW5zb24gQ2FycmFuemEiLCJfaWQiOiI1YTY0YWY3Mjk0MWE0YTgzMWFlNDlhZWQiLCJpYXQiOjE1MTY1NTM1NzV9.y3ltGB-WehYZ2Ylc-yY70bCWrqf4Nqe4YwIeqGpWeWc",
   
   "idcontract": "id contract"
+  
+}
+```
+
+
+Method 15. return all chats => contract
+```json
+{
+  "Authorization": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkaW5zb25jb2RlQGhvdG1haWwuY29tIiwibmFtZSI6IkVkaW5zb24gQ2FycmFuemEiLCJfaWQiOiI1YTY0YWY3Mjk0MWE0YTgzMWFlNDlhZWQiLCJpYXQiOjE1MTY1NTM1NzV9.y3ltGB-WehYZ2Ylc-yY70bCWrqf4Nqe4YwIeqGpWeWc",
+  
+  "idcontract": "id contract",
+  "status": number
   
 }
 ```
