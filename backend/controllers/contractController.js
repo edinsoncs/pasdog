@@ -147,7 +147,7 @@ module.exports.opencontract = (req, res, next) => {
 }
 
 
-module.pexorts.contractController = (req ,res, next) => {
+module.exports.contractController = (req ,res, next) => {
 
 
 	let contracts = database.query(req, 'contracts');
