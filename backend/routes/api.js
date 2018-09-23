@@ -54,6 +54,18 @@ router.post('/profile', (req, res, next) => {
 
 });
 
+router.post('/viewprofiledog', (req, res, next) => {
+
+	var status = userHandlers.loginRequired(req, res, next);
+
+	if(status) {
+		return controllers.ctr('viewprofiledog', req, res, next);
+	} else {
+		return userHandlers.userErr(req, res, next);
+	}
+
+});
+
 
 router.post('/getprofile', (req, res, next) => {
 

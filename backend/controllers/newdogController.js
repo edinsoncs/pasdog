@@ -1,13 +1,10 @@
 'use strict'
 
-require('../models/contractModel');
-
-
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 const Dog = mongoose.model('Dog');
-const Contract = mongoose.model('Contract');
+
 
 
 //NPM MODULES
@@ -56,40 +53,16 @@ module.exports.list = (req, res, next) => {
 
 	var id = String(req.user._id);
 
-	var role = req.user.role;
+	dog.find({user: id}).then((doc) => {
 
-	if(role == 0) {
+		if(doc) {
+			return res.status(200).json({ list: doc });
 
-		dog.find({user: id}).then((doc) => {
+		} else {
+			return res.status(200).json({ message: message('fail_list_dog_not') });
+		}
 
-			if(doc) {
-				return res.status(200).json({ list: doc });
-
-			} else {
-				return res.status(200).json({ message: message('fail_list_dog_not') });
-			}
-
-		});
-
-	} else {
-
-
-		Contract.find({'pas_id': ObjectId(req.user._id)}).
-			populate('dog_ids').
-			exec(function (err, dog) {
-				if (err){
-					return err; 
-				}
-							
-			res.json(dog.reverse());
-		});
-
-
-
-	}
-
-
-	
+	});
 
 }
 
