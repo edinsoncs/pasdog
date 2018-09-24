@@ -13,7 +13,7 @@
       <p class="is__Price" [class.invisible]="!price">$ {{ price }}</p>
     </ion-item>
 
-    <ion-card-content>
+    <ion-card-content *ngIf="role == 1; else commonUserCard">
       <ion-row>
         <ion-col col-8 class="is__Reputation" [class.invisible]="reputation == null">
           <ion-icon [name]="reputation >= 1 ? 'star' : 'star-outline'" color="danger"></ion-icon>
@@ -29,6 +29,21 @@
         </ion-col>
       </ion-row>
     </ion-card-content>
+
+    <ng-template #commonUserCard>
+      <ion-card-content>
+        <ion-row>
+          <ion-col col-8 class="is__Reputation">
+            <p>{{ '${ pets }' }} mascotas</p>
+          </ion-col>
+          <ion-col col-4>
+            <button ion-button clear small (click)="openProfile()">
+              Ver perfil
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ng-template>
 
     <div class="loading" *ngIf="isLoadingProfile">
       <ion-spinner color="primary"></ion-spinner>

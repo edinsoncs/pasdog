@@ -1,13 +1,16 @@
 import { Component } from '@angular/core'
-import { NavController, NavParams } from 'ionic-angular'
+import { NavController, NavParams, LoadingController, ActionSheetController, AlertController } from 'ionic-angular'
 import * as moment from 'moment'
 
 // pages
 import { ChatPage } from '../chat/chat'
+import { WalkerProfilePage } from '../walker-profile/walker-profile'
+import { UserProfilePage } from '../user-profile/user-profile'
 
 // services
 import { GlobalProvider } from '../../providers/global/global'
 import { ContractProvider } from '../../providers/contract/contract'
+import { UserProvider } from '../../providers/user/user'
 
 
 @Component({
@@ -27,8 +30,12 @@ export class ContractDetailPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public loadingCtrl: LoadingController,
+    public actionSheetCtrl: ActionSheetController,
+    public alertCtrl: AlertController,
     public globalProvider: GlobalProvider,
-    private _contractProvider: ContractProvider
+    private _contractProvider: ContractProvider,
+    private _userProvider: UserProvider
   ) { }
 
   ionViewDidLoad() {
@@ -40,7 +47,11 @@ export class ContractDetailPage {
   }
 
   getContract() {
-    this.file = this.payload.walker.avatar
+    if(this.globalProvider.role == 0)
+      this.file = this.payload.walker.avatar
+    else
+      this.file = this.payload.user.avatar
+
     this.walker = this.payload.pas_id[0]
     this.payload.contractDate = moment(this.payload.create).format('DD/MM/YYYY')
     this.payload.currency = 'AR$'
@@ -61,18 +72,155 @@ export class ContractDetailPage {
   }
 
 
+  openProfile() {
+    const self = this,
+          isOnline = self.globalProvider.isOnline(true),
+          loading = self.loadingCtrl.create(),
+          id = self.globalProvider.role == 1 ? self.payload.user.id : self.payload.walker.id
+
+
+    if(isOnline) {
+      loading.present()
+
+      this._userProvider.getProfileById({
+        id: id
+      }).subscribe(
+
+        (response: any) => {
+          loading.dismiss()
+
+          if(response) {
+            const payload: any = {
+              id: id,
+              name: response.name,
+              thumbnail: response.avatar ? self.globalProvider.galleryUrl + '/' + response.avatar : self.globalProvider.emptyProfile,
+              role: response.role
+            }
+
+            if(self.globalProvider.role == 1)
+              self.navCtrl.push(UserProfilePage, payload)
+
+            else {
+              payload.price = response.price
+              payload.city = response.city
+              payload.description = response.description
+              console.log('PL', payload)
+
+              self.navCtrl.push(WalkerProfilePage, payload)
+            }
+
+          }
+        },
+
+        (error) => {
+          loading.dismiss()
+          self.globalProvider.toast('Ocurrió un problema al obtener el perfil del usuario')
+        }
+
+      )
+    }
+
+  }
+
+
   openPage(page) {
+    const self = this
+
     switch(page) {
       case 'chat':
-
         const payload = {
           id: this.id,
           walker: this.walker
         }
 
-        this.navCtrl.push(ChatPage, payload)
+        if(this.payload.status == 0 || this.payload.status == 3) {
+          if(this.payload.status == 0)
+            this.alertCtrl.create({
+              title: 'Atención',
+              message: 'El paseo aún está pendiente. Recordá que tu paseador no verá lo que escribas acá hasta que lo apruebe',
+              buttons: ['Ok']
+            }).present()
+
+          this.navCtrl.push(ChatPage, payload)
+        }
         break
+
+      case 'options':
+        const options = this.actionSheetCtrl.create({
+          title: 'Más opciones',
+          buttons: [
+            {
+              text: 'Ver perfil',
+              handler: () => self.openProfile()
+            },
+            {
+              text: self.globalProvider.role == 1 ? 'Rechazar paseo' : 'Cancelar paseo',
+              role: 'destructive',
+              handler: () => this.changeStatus(4)
+            }
+          ]
+        })
+        options.present()
+        break
+
     }
+  }
+
+
+  changeStatus(status, confirm?) {
+    status = Number(status)
+
+    const self = this,
+          isOnline = this.globalProvider.isOnline(true),
+          loading = this.loadingCtrl.create(),
+          payload = {
+            idcontract: this.id,
+            status: status
+          }
+
+
+    if(status == 4 && !confirm) {
+      const alert = this.alertCtrl.create({
+        title: 'Atención',
+        message: '¿Deseas cancelar el paseo? esta acción no se puede deshacer',
+        buttons: [
+          'No',
+          {
+            text: 'Si, cancelar',
+            handler: () => self.changeStatus(4, true)
+          }
+        ]
+      })
+      alert.present()
+    }
+
+    else
+      confirm = true
+
+
+    if(isOnline)
+      if(confirm) {
+        loading.present()
+
+        this._contractProvider.updateStatus(payload).subscribe(
+          (response) => {
+
+            loading.dismiss()
+
+            if(status == 4)
+              self.navCtrl.pop()
+
+            else
+              this.payload.status = status
+
+          },
+          (error) => {
+            loading.dismiss()
+            self.globalProvider.toast('Ocurrió un problema al modificar el estado del paseo')
+          }
+        )
+      }
+
   }
 
 }

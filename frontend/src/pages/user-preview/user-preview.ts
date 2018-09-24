@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { NavController, NavParams, ViewController } from 'ionic-angular'
 
 // pages
+import { WalkerProfilePage } from '../walker-profile/walker-profile'
 import { UserProfilePage } from '../user-profile/user-profile'
 
 // providers
@@ -40,9 +41,9 @@ export class UserPreviewPage {
     this.id = this.navParams.get('id')
     this.name = this.navParams.get('name')
     this.avatar = this.navParams.get('avatar')
+    this.role = this.navParams.get('user_type')
     this.price = 0
     this.reputation = 0
-    this.role = null
     this.description = null
 
     if(this.avatar)
@@ -100,7 +101,14 @@ export class UserPreviewPage {
       role: this.role,
       description: this.description
     }
-  //   this.dismiss()
-    this.navCtrl.push(UserProfilePage, data)
+    // this.dismiss()
+    switch(Number(this.role)) {
+      case 0:
+        this.navCtrl.push(UserProfilePage, data)
+        break
+      case 1:
+        this.navCtrl.push(WalkerProfilePage, data)
+        break
+    }
   }
 }

@@ -58,4 +58,11 @@ export class ContractProvider {
     return this.http.post(`${ this._globalProvider.apiUrl }/savechat`, data, options)
   }
 
+  updateStatus(data) {
+    data = JSON.stringify(data)
+    let options = this._globalProvider.headersBuilder(true, data)
+
+    return this.http.post(`${ this._globalProvider.apiUrl }/updatecontract`, data, options)
+  }
+
 }

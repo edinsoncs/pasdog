@@ -1,5 +1,21 @@
 page-list-history {
 
+  ion-segment {
+    border-bottom: 1px solid #F1F1F1;
+
+    ion-segment-button {
+      position: relative;
+
+      ion-badge {
+        position: absolute;
+        top: 0;
+        right: 12px;
+        margin-top: 12px;
+        border-radius: 15px !important;
+      }
+    }
+  }
+
   ion-note{
     display: block;
     margin: 16px 0 3px;
@@ -16,10 +32,6 @@ page-list-history {
       box-shadow: 0 3px 6px rgba(0,0,0,.15);
       margin-top: -1px;
       background: white;
-
-      &.status-1 {
-        opacity: .5;
-      }
 
       ion-item {
         background: none
@@ -53,6 +65,16 @@ page-list-history {
         ion-icon{
           font-size: 1.3em;
           margin-right: 6px;
+        }
+      }
+      .status {
+        margin-top: 3px;
+
+        &--0 {
+          color: rgb(241, 184, 98)
+        }
+        &--4 {
+          color: color($colors, secondary)
         }
       }
     }

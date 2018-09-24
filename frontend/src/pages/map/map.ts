@@ -29,11 +29,11 @@ export class MapPage {
 
   map: GoogleMap
   isMapReady: boolean = false
-  isMapWorking: boolean = false
 
   walkersParsed: any = {}
   walkers: any = {}
   walkersQty: number = 0
+  mapIcon: string
 
   subscriptions: any = {
     subscriptions: {},
@@ -177,8 +177,6 @@ export class MapPage {
         latitude = self.globalProvider.geolocation.latitude,
         longitude = self.globalProvider.geolocation.longitude
 
-    console.log('1- watching geolocation')
-
     self._socket.emit('set-nickname', {
       idsocket: self._socket.ioSocket.id,
       id: profile.user_id,
@@ -189,10 +187,17 @@ export class MapPage {
       user_type: profile.user_type
     })
 
+    switch(Number(profile.user_type)) {
+      case 0:
+        this.mapIcon = this.globalProvider.walkerIcon
+        break
+      case 1:
+        this.mapIcon = this.globalProvider.userIcon
+        break
+    }
+
     watch.subscribe(
       (data) => {
-        console.log('2- watch subscription emit')
-
         // data can be a set of coordinates, or an error (if an error occurred).
         // data.coords.latitude
         // data.coords.longitude
@@ -215,7 +220,6 @@ export class MapPage {
 
         else
           self.globalProvider.geolocationHasError = true
-
       }
     )
 
@@ -226,7 +230,6 @@ export class MapPage {
     let self = this,
         profile = JSON.parse(this.globalProvider.getStorage('profile'))
 
-    //if(!this.isMapWorking)
       switch(Number(profile.user_type)) {
         case 0:
           this.updateMarkersWalkers(animation)
@@ -240,7 +243,6 @@ export class MapPage {
 
   updateMarkersWalkers(animation?) {
     console.log('update markers for walkers', this.walkersParsed)
-    this.isMapWorking = true
 
     let self = this,
         profile = JSON.parse(this.globalProvider.getStorage('profile'))
@@ -256,17 +258,11 @@ export class MapPage {
         }
       }
 
-
-      if(this.isEmpty(this.walkersParsed))
-        this.isMapWorking = false
-
-
       for(let walkerId in this.walkersParsed) {
         // construct map
         let marker = {
           icon: {
             url: 'https://cdn.emojidex.com/emoji/px32/person_with_blond_hair%28p%29.png'
-            // url: `http://maps.google.com/mapfiles/ms/icons/yellow.png`
           },
           animation: animation ? 'DROP' : null,
           position: {
@@ -283,12 +279,11 @@ export class MapPage {
             let data = {
               id: self.walkersParsed[walkerId].id,
               name: self.walkersParsed[walkerId].name,
-              avatar: self.walkersParsed[walkerId].avatar
+              avatar: self.walkersParsed[walkerId].avatar,
+              user_type: self.walkersParsed[walkerId].user_type
             }
             self.userPreview(data)
           })
-
-          self.isMapWorking = false
         })
         // construct map
       }
@@ -316,7 +311,6 @@ export class MapPage {
               console.log('no se pudo eliminar el marker')
             }
             delete self.walkersParsed[walkerId]
-            self.isMapWorking = false
             self.walkersQty --
           }
 
@@ -353,12 +347,11 @@ export class MapPage {
                 let data = {
                   id: self.walkersParsed[walkerId].id,
                   name: self.walkersParsed[walkerId].name,
-                  avatar: self.walkersParsed[walkerId].avatar
+                  avatar: self.walkersParsed[walkerId].avatar,
+                  user_type: self.walkersParsed[walkerId].user_type
                 }
                 self.userPreview(data)
               })
-
-              self.isMapWorking = false
             })
             // end validation is map working
 
@@ -372,8 +365,6 @@ export class MapPage {
 
           if(!this.walkersParsed[walkerId])
             if(walkerId != profile.user_id && this.walkers[walkerName].user_type == 1) {
-              this.isMapWorking = true
-
               this.walkersQty ++
               this.walkersParsed[walkerId] = this.walkers[walkerName]
               console.log('agrega este walker acá y al mapa (' + walkerId + ')')
@@ -398,17 +389,14 @@ export class MapPage {
                   let data = {
                     id: self.walkersParsed[walkerId].id,
                     name: self.walkersParsed[walkerId].name,
-                    avatar: self.walkersParsed[walkerId].avatar
+                    avatar: self.walkersParsed[walkerId].avatar,
+                    user_type: self.walkersParsed[walkerId].user_type
                   }
                   self.userPreview(data)
                 })
-
-                self.isMapWorking = false
               })
 
             }
-            else
-              self.isMapWorking = false
 
         }
       })
@@ -422,8 +410,6 @@ export class MapPage {
     console.log('update markers for users', this.walkersParsed)
 
     // `http://packrat.wdfiles.com/local--files/packrat-best-in-show/buddy-the-dog_small.gif`
-    this.isMapWorking = true
-
     let self = this,
         profile = JSON.parse(this.globalProvider.getStorage('profile'))
 
@@ -437,10 +423,6 @@ export class MapPage {
           this.walkersParsed[this.walkers[walkerName].id] = this.walkers[walkerName]
         }
       }
-
-
-      if(this.isEmpty(this.walkersParsed))
-        this.isMapWorking = false
 
 
       for(let walkerId in this.walkersParsed) {
@@ -465,12 +447,11 @@ export class MapPage {
             let data = {
               id: self.walkersParsed[walkerId].id,
               name: self.walkersParsed[walkerId].name,
-              avatar: self.walkersParsed[walkerId].avatar
+              avatar: self.walkersParsed[walkerId].avatar,
+              user_type: self.walkersParsed[walkerId].user_type
             }
             self.userPreview(data)
           })
-
-          self.isMapWorking = false
         })
         // construct map
       }
@@ -498,7 +479,6 @@ export class MapPage {
               console.log('no se pudo eliminar el user')
             }
             delete self.walkersParsed[walkerId]
-            self.isMapWorking = false
             self.walkersQty --
           }
 
@@ -535,12 +515,11 @@ export class MapPage {
                 let data = {
                   id: self.walkersParsed[walkerId].id,
                   name: self.walkersParsed[walkerId].name,
-                  avatar: self.walkersParsed[walkerId].avatar
+                  avatar: self.walkersParsed[walkerId].avatar,
+                  user_type: self.walkersParsed[walkerId].user_type
                 }
                 self.userPreview(data)
               })
-
-              self.isMapWorking = false
             })
             // end validation is map working
 
@@ -554,8 +533,6 @@ export class MapPage {
 
           if(!this.walkersParsed[walkerId])
             if(walkerId != profile.user_id && this.walkers[walkerName].user_type == 0) {
-              this.isMapWorking = true
-
               this.walkersQty ++
               this.walkersParsed[walkerId] = this.walkers[walkerName]
               console.log('agrega este walker acá y al mapa (' + walkerId + ')')
@@ -580,17 +557,14 @@ export class MapPage {
                   let data = {
                     id: self.walkersParsed[walkerId].id,
                     name: self.walkersParsed[walkerId].name,
-                    avatar: self.walkersParsed[walkerId].avatar
+                    avatar: self.walkersParsed[walkerId].avatar,
+                    user_type: self.walkersParsed[walkerId].user_type
                   }
                   self.userPreview(data)
                 })
-
-                self.isMapWorking = false
               })
 
             }
-            else
-              self.isMapWorking = false
 
         }
       })
@@ -601,17 +575,41 @@ export class MapPage {
 
 
   userPreview(data) {
-    console.log('data received: ', data)
-    let modal = this.modalCtrl.create(UserPreviewPage, data)
-        modal.present()
+    let modal
+    switch(data.user_type) {
+      case 0:
+        this.modalCtrl.create(UserPreviewPage, data)
+        break
+      case 1:
+        this.modalCtrl.create(UserPreviewPage, data)
+        break
+      default:
+        this.globalProvider.toast('No se puede ver el usuario seleccionado')
+        break
+    }
+
+    modal.present()
   }
 
 
   userPreviewTest() {
     const data = {
+      id: "5a7e5d228b606e0bb3b9a05b",
+      name: "Nico",
+      avatar: "HkJEMRsr7.png",
+      user_type: 0
+    }
+    let modal = this.modalCtrl.create(UserPreviewPage, data)
+        modal.present()
+  }
+
+
+  walkerPreviewTest() {
+    const data = {
       id: "5b8f0dcf277eb62aa82660ea",
       name: "Paseador Nico",
-      avatar: null
+      avatar: null,
+      user_type: 1
     }
     let modal = this.modalCtrl.create(UserPreviewPage, data)
         modal.present()

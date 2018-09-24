@@ -1,10 +1,10 @@
 <ion-header>
   <ion-navbar>
 
-    <ion-title text-center>Contrato</ion-title>
+    <ion-title text-center>Detalles</ion-title>
 
     <ion-buttons end no-margin>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="openPage('options')">
         <ion-icon name="more"></ion-icon>
       </button>
     </ion-buttons>
@@ -15,7 +15,7 @@
 
 <ion-content>
 
-  <div class="avatar">
+  <div class="avatar" (click)="openProfile()">
     <div class="image" [ngStyle]="{'background-image':'url(' + file + ')'}"></div>
   </div>
 
@@ -40,12 +40,22 @@
       </p>
       <p>
         <strong>Estado:</strong>
-        <span *ngIf="payload.status == 0" class="status-0">Pendiente</span>
-        <span *ngIf="payload.status == 1" class="status-1">Cancelado</span>
-        <span *ngIf="payload.status == 2" class="status-2">Finalizado</span>
-        <span *ngIf="payload.status == 3" class="status-3">Aprobado</span>
-        <span *ngIf="payload.status == 4" class="status-4">Rechazado</span>
-        <span *ngIf="payload.status == 5" class="status-5">Fuera de tiempo</span>
+        <span *ngIf="payload.status == 0" class="status--0">Pendiente</span>
+        <span *ngIf="payload.status == 1" class="status--1">Cancelado</span>
+        <span *ngIf="payload.status == 2" class="status--2">Finalizado</span>
+        <span *ngIf="payload.status == 3" class="status--3">Aprobado</span>
+        <span *ngIf="payload.status == 4" class="status--4">Rechazado</span>
+        <span *ngIf="payload.status == 5" class="status--5">Fuera de tiempo</span>
+      </p>
+      <p>
+        <strong>Paseo exclusivo: </strong> {{ payload.exclusive == 1 ? 'Si' : 'No' }}
+      </p>
+
+      <p class="exclusive" *ngIf="globalProvider.role == 0 && payload.exclusive == 1">
+        Atención: Marcaste este paseo como exclusivo, esto significa que tu paseador al aceptar tu paseo se comprometerte a pasear exclusivamente a tu(s) mascota(s) sin compañía de otras.
+      </p>
+      <p class="exclusive" *ngIf="globalProvider.role == 1 && payload.exclusive == 1">
+        Atención: Si aceptas este paseo debes comprometerte a pasear exclusivamente a esta(s) mascota(s) sin compañía de otras.
       </p>
     </div>
 
@@ -75,7 +85,24 @@
 
 
 <ion-footer class="call-to-action">
-  <button ion-button full color="secondary" no-margin (click)="openPage('chat')">
-    Abrir chat
-  </button>
+
+  <div *ngIf="payload">
+    <div *ngIf="payload.status == 0 && globalProvider.role == 1; else defaultCta">
+      <div class="approve-or-reprobate">
+        <button ion-button full color="secondary" no-margin (click)="changeStatus(4)">
+          <ion-icon name="close"></ion-icon>
+        </button>
+        <button ion-button full color="primary" no-margin (click)="changeStatus(3)">
+          <ion-icon name="checkmark"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <ng-template #defaultCta>
+      <button ion-button full color="secondary" no-margin (click)="openPage('chat')" [disabled]="payload.status != 0 && payload.status != 3">
+        Abrir chat
+      </button>
+    </ng-template>
+  </div>
+
 </ion-footer>

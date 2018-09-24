@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-navbar>
+
+    <ion-title text-center>Paseador</ion-title>
+
+    <ion-buttons end no-margin class="translucent">
+      <button ion-button icon-only>
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <div class="is__Header" padding>
+    <ion-avatar item-start>
+      <div class="image" [ngStyle]="{'background-image' : 'url(' + thumbnail + ')'}" *ngIf="thumbnail"></div>
+    </ion-avatar>
+    <h3 class="is__Name" no-margin>{{ name }}</h3>
+  </div>
+
+  <ion-grid class="is__Reputation" no-padding>
+    <ion-row>
+      <ion-col col-6>
+        <ion-icon [name]="reputation >= 1 ? 'star' : 'star-outline'" color="danger"></ion-icon>
+        <ion-icon [name]="reputation >= 2 ? 'star' : 'star-outline'" color="danger"></ion-icon>
+        <ion-icon [name]="reputation >= 3 ? 'star' : 'star-outline'" color="danger"></ion-icon>
+        <ion-icon [name]="reputation >= 4 ? 'star' : 'star-outline'" color="danger"></ion-icon>
+        <ion-icon [name]="reputation >= 5 ? 'star' : 'star-outline'" color="danger"></ion-icon>
+        <span>{{ reputation }} en 138 votos</span>
+        <!-- TODO: total votes -->
+      </ion-col>
+      <ion-col col-6 text-center>
+        <p class="is__Price" no-margin>
+          $ {{ price }}
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-segment [(ngModel)]="tab">
+    <ion-segment-button value="tab1" (tap)="tab = 'tab1'">
+      Información
+    </ion-segment-button>
+    <ion-segment-button value="tab2" (tap)="tab = 'tab2'">
+      Comentarios
+    </ion-segment-button>
+  </ion-segment>
+
+
+  <div [ngSwitch]="tab" class="is__Body">
+    <div *ngSwitchCase="'tab1'" padding>
+      {{ description }}
+    </div>
+
+    <div *ngSwitchCase="'tab2'">
+
+    </div>
+  </div>
+
+</ion-content>
+
+
+<ion-footer class="call-to-action">
+  <button ion-button full color="secondary" no-margin (click)="preAgree()">
+    Contratar
+  </button>
+</ion-footer>

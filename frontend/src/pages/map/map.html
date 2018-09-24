@@ -24,12 +24,13 @@
 </div>
 
 <div class="map-data map-data--walkers">
-  <ion-icon name="pin"></ion-icon>
+  <div class="icon" [ngStyle]="{'background-image' : 'url(' + mapIcon + ')'}"></div>
   <span>
     {{ walkersQty }}
   </span>
 </div>
 
+<button ion-button style="position:fixed;top:50%;left:0;" color="primary" (click)="walkerPreviewTest()"></button>
 <!--
-<button ion-button style="position:fixed;top:50%;left:0;" (click)="userPreviewTest()"></button>
+<button ion-button style="position:fixed;top:50%;left:0;" color="secondary" (click)="userPreviewTest()"></button>
 -->

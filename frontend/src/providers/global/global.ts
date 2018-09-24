@@ -20,6 +20,8 @@ export class GlobalProvider {
   public galleryDogsUrl: string = this.baseUrl + '/dogs'
   public emptyProfile: string = "assets/imgs/profile.jpg"
   public emptyPetProfile: string = "assets/imgs/pet.jpg"
+  public walkerIcon: string = "https://cdn.emojidex.com/emoji/px32/person_with_blond_hair%28p%29.png"
+  public userIcon: string = "http://packrat.wdfiles.com/local--files/packrat-best-in-show/buddy-the-dog_small.gif"
   public geolocation: any = {
     latitude: -34.6036845,
     longitude: -58.3816649

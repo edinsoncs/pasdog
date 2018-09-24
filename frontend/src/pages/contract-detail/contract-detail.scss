@@ -19,8 +19,21 @@ page-contract-detail {
     }
   }
 
+  .status {
+    &--0 {
+      color: rgb(241, 184, 98)
+    }
+    &--4 {
+      color: color($colors, secondary)
+    }
+  }
+
+  .exclusive {
+    font-weight: 300
+  }
+
   ion-segment{
-    border-top: 1px solid #DDD
+    border-bottom: 1px solid #F1F1F1
   }
 
   .pets {
@@ -82,5 +95,13 @@ page-contract-detail {
     [ion-button] {
       padding-left: 0;
     }
+  }
+}
+
+.approve-or-reprobate {
+  display: flex;
+
+  button {
+    width: 50%;
   }
 }

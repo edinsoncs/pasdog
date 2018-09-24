@@ -63,8 +63,10 @@ page-map {
 
     &--walkers {
       right: 0;
-      ion-icon {
-        color: color($colors, secondary, base)
+      .icon {
+        width: 25px;
+        height: 25px;
+        background-size: cover;
       }
       span {
         margin-left: .85em

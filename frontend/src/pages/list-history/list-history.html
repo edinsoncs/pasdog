@@ -6,17 +6,28 @@
 
     <ion-title text-center>Mis paseos</ion-title>
 
-    <ion-buttons end no-margin>
+    <ion-buttons end no-margin class="translucent">
       <button ion-button icon-only>
         <ion-icon name="more"></ion-icon>
       </button>
     </ion-buttons>
-
   </ion-navbar>
+
+  <ion-segment [(ngModel)]="tab">
+    <ion-segment-button value="tab1" (tap)="tab = 'tab1'">
+      Activos
+      <ion-badge *ngIf="activeContracts.length" color="secondary">{{ activeContracts.length }}</ion-badge>
+    </ion-segment-button>
+    <ion-segment-button value="tab2" (tap)="tab = 'tab2'">
+      Inactivos
+      <ion-badge *ngIf="inactiveContracts.length" color="light">{{ inactiveContracts.length }}</ion-badge>
+    </ion-segment-button>
+  </ion-segment>
 </ion-header>
 
 
 <ion-content>
+
   <ion-grid class="is__History">
 
     <div padding margin-top text-center class="loading" *ngIf="!contracts">
@@ -33,38 +44,175 @@
       </p>
     </div>
 
-    <div *ngFor="let contract of contracts" (click)="openPage('contract-detail', contract)">
-      <ion-row *ngIf="contract.showDate">
-        <ion-col col-12 text-center>
-          <ion-note>{{ contract.visible_date }}</ion-note>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-12 class="is__History__Item status-{{ contract.status }}">
-          <ion-item>
-            <ion-avatar item-start>
-              <img [src]="contract.walker.avatar">
-            </ion-avatar>
-            <ion-row>
-              <ion-col col-8>
-                <h2 class="is__Name" m-0>{{ contract.walker.name }}</h2>
-                <ion-col col-8 class="is__Reputation" p-0>
-                  <ion-icon name="star" color="danger"></ion-icon>
-                  <ion-icon name="star" color="danger"></ion-icon>
-                  <ion-icon name="star" color="danger"></ion-icon>
-                  <ion-icon name="star" color="danger"></ion-icon>
-                  <ion-icon name="star" color="danger"></ion-icon>
-                </ion-col>
-              </ion-col>
-              <ion-col col-4 text-right class="is__Price">
-                <p>$ {{ contract.price ? contract.price : '-' }}</p>
-              </ion-col>
-            </ion-row>
-          </ion-item>
-        </ion-col>
-      </ion-row>
+
+    <div *ngIf="globalProvider.role == 0">
+
+      <!-- active contracts -->
+      <div *ngIf="tab == 'tab1'">
+        <div *ngFor="let contract of activeContracts" (click)="openPage('contract-detail', contract)">
+          <ion-row *ngIf="contract.showDate">
+            <ion-col col-12 text-center>
+              <ion-note>{{ contract.visible_date }}</ion-note>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-12 class="is__History__Item status-{{ contract.status }}">
+              <ion-item>
+                <ion-avatar item-start>
+                  <img [src]="contract.walker.avatar">
+                </ion-avatar>
+                <ion-row>
+                  <ion-col col-8>
+                    <h2 class="is__Name" m-0>{{ contract.walker.name }}</h2>
+                    <!--
+                    <ion-col col-8 class="is__Reputation" p-0>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                    </ion-col>
+                    -->
+                    <p class="status status--{{ contract.status }}">
+                      {{ contract.statusText }}
+                    </p>
+                  </ion-col>
+                  <ion-col col-4 text-right class="is__Price">
+                    <p>$ {{ contract.price ? contract.price : '-' }}</p>
+                  </ion-col>
+                </ion-row>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+
+      <!-- inactive contracts -->
+      <div *ngIf="tab == 'tab2'">
+        <div *ngFor="let contract of inactiveContracts" (click)="openPage('contract-detail', contract)">
+          <ion-row *ngIf="contract.showDate">
+            <ion-col col-12 text-center>
+              <ion-note>{{ contract.visible_date }}</ion-note>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-12 class="is__History__Item status-{{ contract.status }}">
+              <ion-item>
+                <ion-avatar item-start>
+                  <img [src]="contract.walker.avatar">
+                </ion-avatar>
+                <ion-row>
+                  <ion-col col-8>
+                    <h2 class="is__Name" m-0>{{ contract.walker.name }}</h2>
+                    <!--
+                    <ion-col col-8 class="is__Reputation" p-0>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                    </ion-col>
+                    -->
+                    <p class="status status--{{ contract.status }}">
+                      {{ contract.statusText }}
+                    </p>
+                  </ion-col>
+                  <ion-col col-4 text-right class="is__Price">
+                    <p>$ {{ contract.price ? contract.price : '-' }}</p>
+                  </ion-col>
+                </ion-row>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+
     </div>
 
+
+    <div *ngIf="globalProvider.role == 1">
+
+      <!-- active contracts -->
+      <div *ngIf="tab == 'tab1'">
+        <div *ngFor="let contract of activeContracts" (click)="openPage('contract-detail', contract)">
+          <ion-row *ngIf="contract.showDate">
+            <ion-col col-12 text-center>
+              <ion-note>{{ contract.visible_date }}</ion-note>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-12 class="is__History__Item status-{{ contract.status }}">
+              <ion-item>
+                <ion-avatar item-start>
+                  <img [src]="contract.user.avatar">
+                </ion-avatar>
+                <ion-row>
+                  <ion-col col-8>
+                    <h2 class="is__Name" m-0>{{ contract.user.name }}</h2>
+                    <!--
+                    <ion-col col-8 class="is__Reputation" p-0>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                    </ion-col>
+                    -->
+                    <p class="status status--{{ contract.status }}">
+                      {{ contract.statusText }}
+                    </p>
+                  </ion-col>
+                  <ion-col col-4 text-right class="is__Price">
+                    <p>$ {{ contract.price ? contract.price : '-' }}</p>
+                  </ion-col>
+                </ion-row>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+
+      <!-- active contracts -->
+      <div *ngIf="tab == 'tab2'">
+        <div *ngFor="let contract of inactiveContracts" (click)="openPage('contract-detail', contract)">
+          <ion-row *ngIf="contract.showDate">
+            <ion-col col-12 text-center>
+              <ion-note>{{ contract.visible_date }}</ion-note>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-12 class="is__History__Item status-{{ contract.status }}">
+              <ion-item>
+                <ion-avatar item-start>
+                  <img [src]="contract.user.avatar">
+                </ion-avatar>
+                <ion-row>
+                  <ion-col col-8>
+                    <h2 class="is__Name" m-0>{{ contract.user.name }}</h2>
+                    <!--
+                    <ion-col col-8 class="is__Reputation" p-0>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                      <ion-icon name="star" color="danger"></ion-icon>
+                    </ion-col>
+                    -->
+                    <p class="status status--{{ contract.status }}">
+                      {{ contract.statusText }}
+                    </p>
+                  </ion-col>
+                  <ion-col col-4 text-right class="is__Price">
+                    <p>$ {{ contract.price ? contract.price : '-' }}</p>
+                  </ion-col>
+                </ion-row>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+
+    </div>
 
 
   </ion-grid>

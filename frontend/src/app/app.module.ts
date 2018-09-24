@@ -20,7 +20,7 @@ import { MyApp } from './app.component'
 import { HomePage } from '../pages/home/home'
 import { MapPage } from '../pages/map/map'
 import { UserPreviewPage } from '../pages/user-preview/user-preview'
-import { UserProfilePage } from '../pages/user-profile/user-profile'
+import { WalkerProfilePage } from '../pages/walker-profile/walker-profile'
 import { UserAgreedPage } from '../pages/user-agreed/user-agreed'
 import { UserConfigurationPage } from '../pages/user-configuration/user-configuration'
 import { UserConfigurationEditPage } from '../pages/user-configuration-edit/user-configuration-edit'
@@ -38,6 +38,7 @@ import { PetsListModalPage } from '../pages/pets-list-modal/pets-list-modal'
 import { UserCommentsPage } from '../pages/user-comments/user-comments'
 import { ContractDetailPage } from '../pages/contract-detail/contract-detail'
 import { ChatPage } from '../pages/chat/chat'
+import { UserProfilePage } from '../pages/user-profile/user-profile'
 
 import { GlobalProvider } from '../providers/global/global'
 import { UserProvider } from '../providers/user/user'
@@ -53,7 +54,7 @@ const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', option
     HomePage,
     MapPage,
     UserPreviewPage,
-    UserProfilePage,
+    WalkerProfilePage,
     UserAgreedPage,
     UserConfigurationPage,
     UserConfigurationEditPage,
@@ -70,7 +71,8 @@ const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', option
     PetsListModalPage,
     UserCommentsPage,
     ContractDetailPage,
-    ChatPage
+    ChatPage,
+    UserProfilePage
   ],
   imports: [
     BrowserModule,
@@ -85,7 +87,7 @@ const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', option
     HomePage,
     MapPage,
     UserPreviewPage,
-    UserProfilePage,
+    WalkerProfilePage,
     UserAgreedPage,
     UserConfigurationPage,
     UserConfigurationEditPage,
@@ -102,7 +104,8 @@ const SOCKET_CONFIG: SocketIoConfig = { url: 'http://46.101.73.97:3000/', option
     PetsListModalPage,
     UserCommentsPage,
     ContractDetailPage,
-    ChatPage
+    ChatPage,
+    UserProfilePage
   ],
   providers: [
     StatusBar,
