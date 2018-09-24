@@ -57,6 +57,14 @@
       <p class="exclusive" *ngIf="globalProvider.role == 1 && payload.exclusive == 1">
         Atención: Si aceptas este paseo debes comprometerte a pasear exclusivamente a esta(s) mascota(s) sin compañía de otras.
       </p>
+
+      <div *ngIf="payload.status == 3">
+        <br>
+        <p>¿Ya realizaste el paseo?</p>
+        <button ion-button color="primary" (click)="changeStatus(2)">
+          Marcar como listo
+        </button>
+      </div>
     </div>
 
 

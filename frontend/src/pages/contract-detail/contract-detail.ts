@@ -104,7 +104,6 @@ export class ContractDetailPage {
               payload.price = response.price
               payload.city = response.city
               payload.description = response.description
-              console.log('PL', payload)
 
               self.navCtrl.push(WalkerProfilePage, payload)
             }
@@ -178,6 +177,11 @@ export class ContractDetailPage {
             status: status
           }
 
+    if(status == 2)
+      self.alertCtrl.create({
+        title: '¡Felicitaciones!',
+        message: 'Marcaste el paseo como finalizao ¡gran trabajo!'
+      })
 
     if(status == 4 && !confirm) {
       const alert = this.alertCtrl.create({
