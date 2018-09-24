@@ -21,6 +21,12 @@ module.exports.ctr = (name, req, res, next) => {
 
 			break;
 
+		case  'viewprofiledog':
+
+				require('./profileController').viewprofiledog(req, res, next);
+
+			break;
+
 		case  'getprofile':
 
 

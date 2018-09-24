@@ -58,6 +58,20 @@ module.exports.getprimary = (req, res, next) => {
 
 }
 
+module.exports.viewprofiledog = (req, res, next) => {
+
+
+	let dogs = database.query(req, 'listdog');
+
+	dogs.find({'user': req.body.iduser}, (err, data) => {
+		if(err) return err;
+
+		res.json(data);
+	});
+
+
+}
+
 module.exports.getprofile = (req, res, next) => {
 
 	let user = database.query(req, 'users');

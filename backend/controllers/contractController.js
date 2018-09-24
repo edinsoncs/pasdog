@@ -104,6 +104,7 @@ module.exports.listcontract = (req, res, next) => {
 
 			//Find contracts is Array return array
 			Contract.find({'user_id': ObjectId(req.user._id)}).
+			populate('user_id', 'name email avatar').
 			populate('pas_id', 'name email avatar').
 			exec(function (err, user) {
 				if (err){
@@ -147,7 +148,7 @@ module.exports.opencontract = (req, res, next) => {
 }
 
 
-module.pexorts.contractController = (req ,res, next) => {
+module.exports.updatecontract = (req ,res, next) => {
 
 
 	let contracts = database.query(req, 'contracts');
